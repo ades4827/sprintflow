@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace Ades4827\Sprintflow\Traits;
 
 use Illuminate\Support\Str;
 
