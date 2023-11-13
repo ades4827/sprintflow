@@ -21,10 +21,10 @@ class SprintflowServiceProvider extends ServiceProvider
             static::get("{$name}", "$controller@index")->name("{$name_prefix}{$name}.index");
             static::get("{$name}/datatable", "$controller@datatable")->name("{$name_prefix}{$name}.datatable");
             static::get("{$name}/create", "$controller@create")->name("{$name_prefix}{$name}.create");
-            static::get("{$name}/edit", "$controller@edit")->withTrashed()->name("{$name_prefix}{$name}.edit");
-            static::get("{$name}/restore", "$controller@restore")->withTrashed()->name("{$name_prefix}{$name}.restore");
-            static::get("{$name}/delete", "$controller@delete")->name("{$name_prefix}{$name}.delete");
-            static::post("{$name}/status", "$controller@changeStatus")->name("{$name_prefix}{$name}.changeStatus");
+            static::get("{$name}/{user}/edit", "$controller@edit")->withTrashed()->name("{$name_prefix}{$name}.edit");
+            static::get("{$name}/{user}/restore", "$controller@restore")->withTrashed()->name("{$name_prefix}{$name}.restore");
+            static::get("{$name}/{user}/delete", "$controller@delete")->name("{$name_prefix}{$name}.delete");
+            static::post("{$name}/{user}/status", "$controller@changeStatus")->name("{$name_prefix}{$name}.changeStatus");
         });
 
         /*
