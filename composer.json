@@ -1,0 +1,37 @@
+{
+    "name": "ades4827/sprintflow",
+    "description": "Laravel Package for speed up your project development",
+    "homepage": "https://github.com/ades4827/sprintflow",
+    "license": "GPL-2.0-or-later",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Michele Lucchina",
+            "email": "michele@lucchina.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0",
+        "laravel/framework": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ades4827\\Sprintflow\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ades4827\\Sprintflow\\SprintflowServiceProvider"
+            ],
+            "aliases": {
+                "Sprintflow": "Ades4827\\Sprintflow\\SprintflowFacade"
+            }
+        }
+    }
+}
