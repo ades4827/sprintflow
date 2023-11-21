@@ -14,9 +14,10 @@ class SprintflowServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::macro('crud', function (string $model, string $controller, array $options = []) {
+            $model = new $model();
             // define names
-            $model_slug = $model::classSlug();
-            $section_slug = $model::classSlug(true);
+            $model_slug = $model->getClassSlug();
+            $section_slug = $model->getClassSlug(true);
 
             $name_prefix = '';
             if (isset($options['name_prefix'])) {
