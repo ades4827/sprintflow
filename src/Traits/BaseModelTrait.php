@@ -24,4 +24,13 @@ trait BaseModelTrait
 
         return Str::snake(class_basename($this));
     }
+
+    public static function classSlug($plural = false): string
+    {
+        if ($plural) {
+            return self::getTableName() ?? Str::snake(Str::pluralStudly(class_basename(self::class)));
+        }
+
+        return Str::snake(class_basename(self::class));
+    }
 }

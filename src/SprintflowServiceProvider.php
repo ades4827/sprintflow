@@ -13,18 +13,22 @@ class SprintflowServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::macro('crud', function (string $name, string $controller, array $options = []) {
+        Route::macro('crud', function (string $model, string $controller, array $options = []) {
+            // define names
+            $model_slug = $model::classSlug();
+            $section_slug = $model::classSlug(true);
+
             $name_prefix = '';
             if (isset($options['name_prefix'])) {
                 $name_prefix = $options['name_prefix'];
             }
-            static::get("{$name}", "$controller@index")->name("{$name_prefix}{$name}.index");
-            static::get("{$name}/datatable", "$controller@datatable")->name("{$name_prefix}{$name}.datatable");
-            static::get("{$name}/create", "$controller@create")->name("{$name_prefix}{$name}.create");
-            static::get("{$name}/{user}/edit", "$controller@edit")->withTrashed()->name("{$name_prefix}{$name}.edit");
-            static::get("{$name}/{user}/restore", "$controller@restore")->withTrashed()->name("{$name_prefix}{$name}.restore");
-            static::get("{$name}/{user}/delete", "$controller@delete")->name("{$name_prefix}{$name}.delete");
-            static::post("{$name}/{user}/status", "$controller@changeStatus")->name("{$name_prefix}{$name}.changeStatus");
+            static::get("{$section_slug}", "$controller@index")->name("{$name_prefix}{$section_slug}.index");
+            static::get("{$section_slug}/datatable", "$controller@datatable")->name("{$name_prefix}{$section_slug}.datatable");
+            static::get("{$section_slug}/create", "$controller@create")->name("{$name_prefix}{$section_slug}.create");
+            static::get("{$section_slug}/{".$model_slug."}/edit", "$controller@edit")->withTrashed()->name("{$name_prefix}{$section_slug}.edit");
+            static::get("{$section_slug}/{deleted_".$model_slug."}/restore", "$controller@restore")->withTrashed()->name("{$name_prefix}{$section_slug}.restore");
+            static::get("{$section_slug}/{".$model_slug."}/delete", "$controller@delete")->name("{$name_prefix}{$section_slug}.delete");
+            static::post("{$section_slug}/{".$model_slug."}/status", "$controller@changeStatus")->name("{$name_prefix}{$section_slug}.changeStatus");
         });
 
         /*
