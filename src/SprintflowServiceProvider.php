@@ -36,7 +36,7 @@ class SprintflowServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'sprintflow');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'sprintflow');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'sprintflow');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
@@ -46,9 +46,9 @@ class SprintflowServiceProvider extends ServiceProvider
             ], 'config');
 
             // Publishing the views.
-            /*$this->publishes([
+            $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/sprintflow'),
-            ], 'views');*/
+            ], 'views');
 
             // Publishing assets.
             /*$this->publishes([
