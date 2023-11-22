@@ -61,16 +61,6 @@ class ApiController extends Controller
         return $lists->values()->all();
     }
 
-    public function example_from_array(Request $request)
-    {
-        $all_entries = [
-            0 => 'Programmato',
-            1 => 'Finito',
-        ];
-
-        return $this->getFromArray($request, $all_entries);
-    }
-
     protected function simple(Request $request, $model, $name_field = 'name', $options = [])
     {
         // https://github.com/wireui/docs/blob/main/app/Http/Controllers/Api/Users/Index.php

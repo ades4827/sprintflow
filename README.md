@@ -1,4 +1,4 @@
-# Laravel SprintFlow
+# SprintFlow
 
 Laravel Package for speed up your project development
 
@@ -13,6 +13,15 @@ composer require ades4827/sprintflow
 ### Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Features
+
+- [Model utils](src/Traits/BaseModelTrait.php)
+- Ready to use [Casts](src/Casts)
+- API generator for WireUi select [See usage example](examples/API/README.md)
+- Permission management [See usage example](examples/Permission/README.md)
+- Crud system
+- Datatable extension
 
 ## Contributing
 

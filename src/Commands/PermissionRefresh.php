@@ -19,7 +19,7 @@ class PermissionRefresh extends Command
      *
      * @var string
      */
-    protected $description = 'Populate role/permission from PermissionController array';
+    protected $description = 'Update role/permission';
 
     /**
      * Create a new command instance.

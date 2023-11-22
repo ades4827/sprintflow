@@ -1,6 +1,6 @@
 <?php
 
-namespace Ades4827\Sprintflow\Cast;
+namespace Ades4827\Sprintflow\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
