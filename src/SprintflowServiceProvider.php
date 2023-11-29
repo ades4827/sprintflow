@@ -73,7 +73,7 @@ class SprintflowServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'sprintflow');
+        $this->mergeConfigFrom(__DIR__.'/../config/sprintflow.php', 'sprintflow');
 
         // Register the main class to use with the facade
         $this->app->singleton('sprintflow', function () {
