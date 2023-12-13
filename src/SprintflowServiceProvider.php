@@ -44,22 +44,22 @@ class SprintflowServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/sprintflow.php' => config_path('sprintflow.php'),
-            ], 'config');
+            ], 'sprintflow-config');
 
             // Publishing the views.
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/sprintflow'),
-            ], 'views');
+            ], 'sprintflow-views');
 
             // Publishing assets.
             /*$this->publishes([
                 __DIR__.'/../resources/assets' => public_path('vendor/sprintflow'),
-            ], 'assets');*/
+            ], 'sprintflow-assets');*/
 
             // Publishing the translation files.
             $this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/sprintflow'),
-            ], 'lang');
+                __DIR__.'/../lang' => $this->app->langPath('vendor/sprintflow'),
+            ], 'sprintflow-lang');
 
             // Registering package commands.
             $this->commands([

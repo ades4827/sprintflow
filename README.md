@@ -10,6 +10,14 @@ You can install the package via composer:
 composer require ades4827/sprintflow
 ```
 
+For customization, you can publish with:
+
+```bash
+php artisan vendor:publish --tag=sprintflow-config
+php artisan vendor:publish --tag=sprintflow-views
+php artisan vendor:publish --tag=sprintflow-lang
+```
+
 ### Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
