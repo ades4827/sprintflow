@@ -61,7 +61,7 @@ abstract class CrudController extends Controller
          $entities = self::collection($request)->newQuery();
          return Datatables::make($entities)
          ->addColumn('action', function ($model) {
-            return view('admin.datatable.actions.simple-crud-edit', ['model' => $model]);
+            return view('sprintflow::datatable.actions.simple-crud-edit', ['model' => $model]);
          })
          ->make(true);
      }
