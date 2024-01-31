@@ -35,7 +35,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 - Ready to use [Casts](src/Casts)
 - API generator for WireUi select [See usage example](examples/API/README.md)
 - Permission management [See usage example](examples/Permission/README.md)
-- Crud system
+- Crud system [See usage example](examples/Crud/README.md)
 - Datatable extension
 
 ## Contributing
