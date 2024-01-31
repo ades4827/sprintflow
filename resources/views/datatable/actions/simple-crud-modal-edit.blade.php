@@ -2,7 +2,7 @@
     @if (!$model->trashed())
         @can($model->getPermissionPrefix().'.update')
             <li>
-                <a onclick='Livewire.emit("openModal", "modal-edit", {{ json_encode(["model" => $model->getClassSlug(), "model_id" => $model->id, "modal_title" => 'Modifica Utente']) }}' class="btn btn-primary btn-icon-sm tooltip"
+                <a onclick='Livewire.emit("openModal", "modal-edit", {{ json_encode(["model" => $model->getClassSlug(), "model_id" => $model->id, "modal_title" => 'Modifica Utente']) }})' class="btn btn-primary btn-icon-sm tooltip"
                    data-placement="bottom" title="Modifica">
                     <i class="fa-light fa-pen-to-square"></i></a>
             </li>
