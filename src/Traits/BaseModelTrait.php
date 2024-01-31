@@ -19,7 +19,7 @@ trait BaseModelTrait
     public function getClassSlug($plural = false): string
     {
         if ($plural) {
-            return $this->table ?? Str::snake(Str::pluralStudly(class_basename($this)));
+            return Str::snake(Str::pluralStudly(class_basename($this)));
         }
 
         return Str::snake(class_basename($this));
@@ -28,9 +28,9 @@ trait BaseModelTrait
     public static function classSlug($plural = false): string
     {
         if ($plural) {
-            return self::getTableName() ?? Str::snake(Str::pluralStudly(class_basename(self::class)));
+            return Str::snake(Str::pluralStudly(class_basename(static::class)));
         }
 
-        return Str::snake(class_basename(self::class));
+        return Str::snake(class_basename(static::class));
     }
 }

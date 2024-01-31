@@ -24,7 +24,6 @@ return [
      *      ],
      *  ]
      */
-
     'permissions_seeder' => [
         'admin' => [
             'settings' => [
@@ -33,6 +32,13 @@ return [
                 'testing' => ['admin'],
                 'status' => ['admin'],
                 'permission_list' => ['admin', 'supervisor'],
+            ],
+            'admins' => [
+                'create' => ['admin'],
+                'update' => ['admin'],
+                'delete' => ['admin'],
+                'view' => ['admin'],
+                'restore' => ['admin'],
             ],
             'users' => [
                 'create' => ['admin', 'supervisor'],
@@ -101,8 +107,18 @@ return [
 
     /*
      |--------------------------------------------------------------------------
+     | Crud entity
+     |--------------------------------------------------------------------------
+     */
+    'crud_entity' => [
+        'admin' => App\Models\Admin::class,
+        'user' => \App\Models\User::class,
+    ],
+
+    /*
+     |--------------------------------------------------------------------------
      | Backwards compatibility
      |--------------------------------------------------------------------------
      */
-    'compatibility' => false
+    'compatibility' => false,
 ];
