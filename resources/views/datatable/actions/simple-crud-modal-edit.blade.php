@@ -17,7 +17,7 @@
     @else
         @can($model->getPermissionPrefix().'.restore')
             <li>
-                <a href="{{ route('admin.'.$model->getClassSlug(true).'.restore', [$model->getClassSlug() => $model->id]) }}" class="btn btn-warning btn-icon-sm tooltip"
+                <a href="{{ route('admin.'.$model->getClassSlug(true).'.restore', ['deleted_'.$model->getClassSlug() => $model->id]) }}" class="btn btn-warning btn-icon-sm tooltip"
                    data-placement="bottom" title="Ripristina">
                     <i class="fa-regular fa-trash-undo"></i></a>
             </li>
