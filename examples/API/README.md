@@ -21,8 +21,8 @@ You can filter custom array with 'getFromArray' method like this:
 public function example_from_array(Request $request)
 {
     $all_entries = [
-        0 => 'Programmato',
-        1 => 'Finito',
+        0 => 'Version 1',
+        1 => 'Version 2',
     ];
 
     return $this->getFromArray($request, $all_entries);
