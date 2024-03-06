@@ -10,6 +10,20 @@ use Illuminate\Support\Facades\App;
 
 class ApiController extends Controller
 {
+    /**
+     * Example:
+     */
+    /*
+    public function example_from_array(Request $request)
+    {
+        $all_entries = [
+            0 => 'Version 1',
+            1 => 'Version 2',
+        ];
+
+        return $this->getFromArray($request, $all_entries);
+    }
+     */
     protected function getFromArray(Request $request, array $all_entries)
     {
         $lists = collect();
