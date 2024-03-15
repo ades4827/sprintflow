@@ -37,6 +37,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 - Permission management [See usage example](examples/Permission/README.md)
 - Crud system [See usage example](examples/Crud/README.md)
 - Datatable extension
+- Livewire validation for file upload [See usage example](examples/LivewireFileValidationTrait/README.md)
 
 ## Contributing
 
