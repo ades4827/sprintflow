@@ -44,7 +44,7 @@ trait LivewireUtilsTrait
             if (isset($options['table_to_refresh'])) {
                 $this->dispatchBrowserEvent('eventRefresh-datatable', ['table_selector' => $options['table_to_refresh']]);
             } else {
-                dd('inserisci il valore table_to_refresh');
+                dd('Inserisci il valore table_to_refresh');
             }
 
             return null;
@@ -93,7 +93,7 @@ trait LivewireUtilsTrait
     /**
      * Parse file size
      *
-     * @param $size
+     * @param  $size
      * @return float
      */
     private function parse_size($size)
