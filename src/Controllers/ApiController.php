@@ -104,6 +104,8 @@ class ApiController extends Controller
         // order
         if (isset($options['order_by'])) {
             $query->orderBy($options['order_by']);
+        } elseif (isset($options['order_by_desc'])) {
+            $query->orderBy($options['order_by_desc'], 'desc');
         } else {
             $query->orderBy($name_field);
         }
