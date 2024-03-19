@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use Ades4827\Sprintflow\Controllers\ApiController as SprintApiController;
-use App\Models\Role;
 use App\Models\Page;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class ApiController extends SprintApiController
@@ -17,18 +17,19 @@ class ApiController extends SprintApiController
     {
         $query = $this->simple($request, Role::class, 'readable_name', [
             'field_id_name' => 'id',
-            'order_by' => 'name',
+            'order_by' => 'name', // or order_by_desc
             'search_method' => 'slow', // search every string part separated by space (lower query)
             'additional_search_string' => 'complete_name', // search in other field (must add this field in select)
             'select' => 'id, name, complete_name',
         ]);
         // add specific filter from request
-        if($request->has('guard')) {
+        if ($request->has('guard')) {
             $query->where('guard_name', $request->input('guard'));
         }
         if (! auth('admin')->user()->hasRole(['admin'])) {
             $query = $query->notAdmin();
         }
+
         return $query->get();
     }
 }
