@@ -80,6 +80,9 @@ class ApiController extends Controller
         // https://github.com/wireui/docs/blob/main/app/Http/Controllers/Api/Users/Index.php
 
         $max_result_limit = 100;
+        if (isset($options['max_result_limit'])) {
+            $max_result_limit = $options['max_result_limit'];
+        }
 
         // set field id name
         $field_id_name = 'id';
@@ -102,12 +105,14 @@ class ApiController extends Controller
         }
 
         // order
-        if (isset($options['order_by'])) {
-            $query->orderBy($options['order_by']);
-        } elseif (isset($options['order_by_desc'])) {
-            $query->orderBy($options['order_by_desc'], 'desc');
-        } else {
-            $query->orderBy($name_field);
+        if (! isset($options['disable_order_by'])) {
+            if (isset($options['order_by'])) {
+                $query->orderBy($options['order_by']);
+            } elseif (isset($options['order_by_desc'])) {
+                $query->orderBy($options['order_by_desc'], 'desc');
+            } else {
+                $query->orderBy($name_field);
+            }
         }
 
         // search string --------------------------------------
@@ -120,20 +125,22 @@ class ApiController extends Controller
                 if (isset($options['search_method']) && $options['search_method'] === 'slow') {
                     foreach ($keywords as $keyword) {
                         $query->where($name_field, 'LIKE', "%{$keyword}%");
-                        if (isset($options['additional_search_string']) && is_array($options['additional_search_string'])) {
-                            foreach ($options['additional_search_string'] as $field) {
-                                $query->orWhere($field, 'LIKE', "%{$keyword}%");
-                            }
+                    }
+
+                    if (isset($options['additional_search_fields']) && is_array($options['additional_search_fields']) && count($keywords) == 1) {
+                        foreach ($options['additional_search_fields'] as $search_field) {
+                            $query->orWhere($search_field, $keywords[0]);
                         }
                     }
                 }
                 // search string ordered (fast version)
                 else {
-                    $keywords = implode('%', $keywords);
-                    $query->where($name_field, 'LIKE', "%{$keywords}%");
-                    if (isset($options['additional_search_string']) && is_array($options['additional_search_string'])) {
-                        foreach ($options['additional_search_string'] as $field) {
-                            $query->orWhere($field, 'LIKE', "%{$keywords}%");
+                    $imploded_keywords = implode('%', $keywords);
+                    $query->where($name_field, 'LIKE', "%{$imploded_keywords}%");
+
+                    if (isset($options['additional_search_fields']) && is_array($options['additional_search_fields']) && count($keywords) == 1) {
+                        foreach ($options['additional_search_fields'] as $search_field) {
+                            $query->orWhere($search_field, $keywords[0]);
                         }
                     }
                 }

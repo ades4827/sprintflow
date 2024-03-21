@@ -19,7 +19,7 @@ class ApiController extends SprintApiController
             'field_id_name' => 'id',
             'order_by' => 'name', // or order_by_desc
             'search_method' => 'slow', // search every string part separated by space (lower query)
-            'additional_search_string' => 'complete_name', // search in other field (must add this field in select)
+            'additional_search_fields' => 'complete_name', // search in other field (must add this field in select)
             'select' => 'id, name, complete_name',
         ]);
         // add specific filter from request
