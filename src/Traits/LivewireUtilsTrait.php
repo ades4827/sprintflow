@@ -8,8 +8,7 @@ trait LivewireUtilsTrait
 {
     public function confirm($callback, ...$argv)
     {
-        $component_id = $this->id;
-        $this->emit('confirm', compact('component_id', 'callback', 'argv'));
+        $this->dispatch('confirm', component_id: $this->getId(), callback: $callback, argv: $argv);
     }
 
     protected function checkPermission($permission)
