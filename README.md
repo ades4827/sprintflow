@@ -4,10 +4,11 @@ Laravel Package for speed up your project development
 
 ## Version Compatibility
 
- Laravel    | Livewire | SprintFlow
-:-----------|:---------|:---------
-10.x        | 2.x      | 1.x
-10.x        | 3.x      | 2.x
+| Laravel | Livewire | SprintFlow |
+|:--------|:---------|:-----------|
+| 10.x    | 2.x      | 1.x        |
+| 10.x    | 3.x      | 2.x        |
+| 11.x    | 3.x      | 3.x        |
 
 ## Installation
 
