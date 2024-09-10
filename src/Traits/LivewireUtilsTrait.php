@@ -2,7 +2,8 @@
 
 namespace Ades4827\Sprintflow\Traits;
 
-use Exception;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 trait LivewireUtilsTrait
 {
@@ -11,10 +12,21 @@ trait LivewireUtilsTrait
         $this->dispatch('confirm', component_id: $this->getId(), callback: $callback, argv: $argv);
     }
 
-    protected function checkPermission($permission)
-    {
-        if (! auth()->user() || ! auth()->user()->can($permission)) {
-            throw new Exception('User without '.$permission.' permission');
+    protected function checkPermission($roleOrPermission, $guard = null) {
+        if($guard == null) {
+            $guard = config('auth.defaults.guard');
+        }
+
+        if (Auth::guard($guard)->guest()) {
+            throw UnauthorizedException::notLoggedIn();
+        }
+
+        $rolesOrPermissions = is_array($roleOrPermission)
+            ? $roleOrPermission
+            : explode('|', $roleOrPermission);
+
+        if (! Auth::guard($guard)->user()->hasAnyRole($rolesOrPermissions) && ! Auth::guard($guard)->user()->hasAnyPermission($rolesOrPermissions)) {
+            throw UnauthorizedException::forRolesOrPermissions($rolesOrPermissions);
         }
     }
 
