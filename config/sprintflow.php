@@ -111,7 +111,7 @@ return [
      |--------------------------------------------------------------------------
      */
     'crud_entity' => [
-        'admin' => App\Models\Admin::class,
+        'admin' => \App\Models\Admin::class,
         'user' => \App\Models\User::class,
     ],
 
