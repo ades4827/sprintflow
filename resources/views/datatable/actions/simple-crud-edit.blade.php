@@ -3,14 +3,14 @@
         @can($model->getPermissionPrefix().'.update')
             <li>
                 <a href="{{ route('admin.'.$model->getClassSlug(true).'.edit', [$model->getClassSlug() => $model->id]) }}" class="btn btn-primary btn-icon-sm tooltip"
-                   data-toggle="tooltip" data-placement="bottom" title="Modifica">
+                   data-toggle="tooltip" data-placement="bottom" title="{{ __('sprintflow::datatable.edit') }}">
                     <i class="fa-light fa-pen-to-square"></i></a>
             </li>
         @endcan
         @can($model->getPermissionPrefix().'.delete')
             <li>
                 <a href="{{ route('admin.'.$model->getClassSlug(true).'.delete', [$model->getClassSlug() => $model->id]) }}" class="btn btn-danger btn-icon-sm with-confirm tooltip"
-                   data-placement="bottom" title="Rimuovi">
+                   data-placement="bottom" title="{{ __('sprintflow::datatable.delete') }}">
                     <i class="fa-light fa-trash"></i></a>
             </li>
         @endcan
@@ -18,7 +18,7 @@
         @can($model->getPermissionPrefix().'.restore')
             <li>
                 <a href="{{ route('admin.'.$model->getClassSlug(true).'.restore', ['deleted_'.$model->getClassSlug() => $model->id]) }}" class="btn btn-warning btn-icon-sm tooltip"
-                   data-placement="bottom" title="Ripristina">
+                   data-placement="bottom" title="{{ __('sprintflow::datatable.restore') }}">
                     <i class="fa-regular fa-trash-undo"></i></a>
             </li>
         @endcan
