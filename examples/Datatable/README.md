@@ -2,7 +2,7 @@
 
 Extend datatable with custom columns
 
-## Usage
+## Installation
 
 Add Model in datatables config:
 ```
@@ -11,6 +11,8 @@ Add Model in datatables config:
 ],
 ```
 
+## Usage
+### Crud
 In datatable function you can add a crud col:
 ```
 return Datatables::make($entities)
@@ -18,17 +20,36 @@ return Datatables::make($entities)
             ->make();
 ```
 
-Or add a name formatted as: name_formatted
+### Name formatted
+Add a name formatted named: name_formatted.
 ```
 return Datatables::make($entities)
             ->addFormattedName()
             ->make();
 ```
 
-Or add a field only when model is setted
+Optionally you can use a relation in dot notation to show a name for this relation
+
+```
+return Datatables::make($entities)
+            ->addFormattedName('post.creator')
+            ->make();
+```
+
+### Field formatted
+Add a custom field named: "field_name"_formatted
 ```
 return Datatables::make($entities)
             ->addFormattedField('email')
             ->make();
 ```
-in frontend this field is named: email_formatted
+
+Optionally you can use a relation in dot notation to show a custom field formatted
+
+This column return a "-" when the model not exist
+```
+return Datatables::make($entities)
+            ->addFormattedField('email', 'post.creator')
+            ->make();
+```
+in frontend this field is named: post_creator_email_formatted
