@@ -13,4 +13,16 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
             return view('sprintflow::datatable.actions.simple-crud-edit', ['model' => $model]);
         });
     }
+
+    public function addFormattedName()
+    {
+        return $this->addFormattedField();
+    }
+
+    public function addFormattedField(string $model_field = 'name')
+    {
+        return $this->addColumn($model_field.'_formatted', function ($model) use ($model_field) {
+            return view('sprintflow::datatable.fields.simple-entity-field', ['entity' => $model, 'field' => $model_field]);
+        });
+    }
 }
