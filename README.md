@@ -33,6 +33,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 ## Features
 
 - [Model utils](src/Traits/BaseModelTrait.php)
+- Blade utils [See usage example](examples/Blade/README.md)
 - Ready to use [Casts](src/Casts)
 - API generator for WireUi select [See usage example](examples/API/README.md)
 - Permission management [See usage example](examples/Permission/README.md)
