@@ -6,6 +6,7 @@ use Ades4827\Sprintflow\Commands\CacheTest;
 use Ades4827\Sprintflow\Commands\PermissionRefresh;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class SprintflowServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,8 @@ class SprintflowServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'sprintflow');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
+
+        Blade::componentNamespace('Ades4827\\Sprintflow\\Views\\Components', 'sf');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
