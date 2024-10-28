@@ -16,7 +16,12 @@ Add Model in sprintflow config:
 This new value is needed in "RouteServiceProvider" on "boot" to register a model binder for a wildcard like this:
 ```
 foreach (config('sprintflow.crud_entity') as $model => $controller) {
-    Route::model($model::classSlug(), $model);
+    // always with trashed
+    //Route::model($model::classSlug(), $model);
+   
+    Route::bind($model::classSlug(), function ($id) use ($model) {
+        return $model::findOrFail($id);
+    });
     Route::bind('deleted_'.$model::classSlug(), function ($id) use ($model) {
         return $model::withTrashed()->where('id', $id)->firstOrFail();
     });
