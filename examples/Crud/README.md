@@ -31,7 +31,7 @@ foreach (config('sprintflow.crud_entity') as $model => $controller) {
 ```
 NB: put this code under auth middleware
 
-In crud system all controller are similar. For this you can implement the CrudController like this:
+In crud system all controller are similar. For this you can implement the CrudController or CrudEntityController like this:
 ```
 <?php
 
