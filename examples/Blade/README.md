@@ -60,3 +60,24 @@ The body section for the accordionItem component is a slot or you can use a body
     </x-sf::accordionItem>
 </x-sf::accordion>
 ```
+
+To purge the classes used by the package, add the following lines to your purge array in tailwind.config.js:
+```
+module.exports = {
+  purge: {
+    content: [
+      './vendor/ades4827/sprintflow/resources/views/**/*.php',
+      './storage/framework/views/*.php',
+      './resources/views/**/*.blade.php',
+    ],
+  },
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
