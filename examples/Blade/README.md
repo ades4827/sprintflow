@@ -32,3 +32,31 @@ There are some option:
 <x-sf::money number="20000.65254" precision="4" /> Output: 20.000,6526 €
 <x-sf::money number="0" replace-zero="-" /> Output: -
 ```
+
+## Accordion
+Simple accordion with alpinejs
+
+In the accordion component you can use a selected-item-name attribute for select first open element
+
+Every accordionItem need a custom name as required attribute
+
+The body section for the accordionItem component is a slot or you can use a body slot to override a class
+```
+<x-sf::accordion selected-item-name="one" class="overrided">
+    <x-sf::accordionItem name="one">
+        <x-slot:title class="overrided">
+            <div>1</div>
+            What browsers are supported?
+        </x-slot>
+        <x-slot:body class="overrided p-6">
+            Our website is optimized for the latest versions of Chrome, Firefox, Safari, and Edge. Check our <a href="#" class="underline underline-offset-2 text-black dark:text-white">documentation</a> for additional information.
+        </x-slot>
+    </x-sf::accordionItem>
+    <x-sf::accordionItem name="two">
+        <x-slot:title>
+            How can I contact customer support?
+        </x-slot>
+        Reach out to our dedicated support team via email at <a href="#" class="underline underline-offset-2 text-black dark:text-white">support@example.com</a> or call our toll-free number at 1-800-123-4567 during business hours.
+    </x-sf::accordionItem>
+</x-sf::accordion>
+```
