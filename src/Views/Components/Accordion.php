@@ -10,9 +10,11 @@ use Illuminate\View\Component;
 class Accordion extends Component
 {
     public string $uuid;
+    public bool $multiopen;
 
-    public function __construct(public ?string $selectedItemName)
+    public function __construct(public ?string $multiOpen, public ?string $openedItemName)
     {
+        $this->multiopen = $multiOpen == 'true' ? true : false;
         $this->uuid = (string) Str::uuid();
     }
 
