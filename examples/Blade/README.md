@@ -36,13 +36,15 @@ There are some option:
 ## Accordion
 Simple accordion with alpinejs
 
-In the accordion component you can use a selected-item-name attribute for select first open element
+In the accordion component you can use a opened-item-name attribute for select first open element
+
+multi-open attribute to false switch from item to another
 
 Every accordionItem need a custom name as required attribute
 
 The body section for the accordionItem component is a slot or you can use a body slot to override a class
 ```
-<x-sf::accordion selected-item-name="one" class="overrided">
+<x-sf::accordion multi-open="true" opened-item-name="two" class="overrided">
     <x-sf::accordionItem name="one">
         <x-slot:title class="overrided">
             <div>1</div>
