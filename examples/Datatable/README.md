@@ -12,15 +12,15 @@ Add Model in datatables config:
 ```
 
 ## Usage
-### Crud
-In datatable function you can add a crud col:
+### 1. Crud
+In datatable function you can add a crud col. You can use the 2 OPTIONAL parameters: name of the column you are adding and if the change is done in modal
 ```
 return Datatables::make($entities)
-            ->addCrud()
+            ->addCrud('col_name', true)
             ->make();
 ```
 
-### Name formatted
+### 2. Name formatted
 Add a name formatted named: name_formatted.
 ```
 return Datatables::make($entities)
@@ -36,7 +36,7 @@ return Datatables::make($entities)
             ->make();
 ```
 
-### Field formatted
+### 3. Field formatted
 Add a custom field named: "field_name"_formatted
 ```
 return Datatables::make($entities)
@@ -53,3 +53,11 @@ return Datatables::make($entities)
             ->make();
 ```
 in frontend this field is named: post_creator_email_formatted
+
+### 4. Date formatted
+Add a date field formatted: created_at_date_formatted. This column return a "-" when field is empty
+```
+return Datatables::make($entities)
+            ->addDate('created_at', 'd-m-Y')
+            ->make();
+```

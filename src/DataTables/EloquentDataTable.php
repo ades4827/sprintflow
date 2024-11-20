@@ -19,6 +19,13 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
         return $this->addFormattedField('name', $relation);
     }
 
+    public function addDate(string $model_field, string $format = 'Y-m-d')
+    {
+        return $this->addColumn($model_field.'_date_formatted', function ($model) use ($model_field, $format) {
+            return view('sprintflow::datatable.fields.date_formatted', ['field' => $model->{$model_field}, 'format' => $format]);
+        });
+    }
+
     public function addFormattedField(string $model_field = 'name', string $relation = null)
     {
         $column_name = [];
