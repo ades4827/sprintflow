@@ -61,3 +61,11 @@ return Datatables::make($entities)
             ->addDate('created_at', 'd-m-Y')
             ->make();
 ```
+
+### 5. Period formatted
+Add a period field formatted: created_at_deleted_at_period_formatted. This column return a "-" when field is empty
+```
+return Datatables::make($entities)
+            ->addPeriod('created_at', 'deleted_at', 'd-m-Y', '/', 'field_name')
+            ->make();
+```

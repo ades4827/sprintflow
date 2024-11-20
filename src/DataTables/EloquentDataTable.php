@@ -26,6 +26,22 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
         });
     }
 
+    public function addPeriod(string $from_field, string $to_field, string $format = 'Y-m-d', string $separator = ' / ', string $col_name = null)
+    {
+        if($col_name == null) {
+            $col_name = $from_field.'_'.$to_field.'_period_formatted';
+        }
+
+        return $this->addColumn($col_name, function ($model) use ($from_field, $to_field, $format, $separator) {
+            return view('sprintflow::datatable.fields.period_formatted', [
+                'from_field' => $model->{$from_field},
+                'to_field' => $model->{$to_field},
+                'format' => $format,
+                'separator' => $separator,
+            ]);
+        });
+    }
+
     public function addFormattedField(string $model_field = 'name', string $relation = null)
     {
         $column_name = [];

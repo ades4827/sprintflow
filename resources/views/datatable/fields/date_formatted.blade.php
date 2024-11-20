@@ -1,5 +1,5 @@
-@isset( $field )
-    {{ Carbon\Carbon::parse($field)->format($format) }}
+@if( isset($field) && $field )
+    {{ \Carbon\Carbon::parse($field)->format($format) }}
 @else
     -
-@endisset
+@endif
