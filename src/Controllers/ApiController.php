@@ -129,7 +129,13 @@ class ApiController extends Controller
 
                     if (isset($options['additional_search_fields']) && is_array($options['additional_search_fields']) && count($keywords) == 1) {
                         foreach ($options['additional_search_fields'] as $search_field) {
-                            $query->orWhere($search_field, $keywords[0]);
+                            if (isset($options['additional_search_method']) && $options['additional_search_method'] == 'like') {
+                                foreach ($keywords as $keyword) {
+                                    $query->orWhere($search_field, 'LIKE', "%{$keyword}%");
+                                }
+                            } else {
+                                $query->orWhere($search_field, $keywords[0]);
+                            }
                         }
                     }
                 }
@@ -140,7 +146,11 @@ class ApiController extends Controller
 
                     if (isset($options['additional_search_fields']) && is_array($options['additional_search_fields']) && count($keywords) == 1) {
                         foreach ($options['additional_search_fields'] as $search_field) {
-                            $query->orWhere($search_field, $keywords[0]);
+                            if (isset($options['additional_search_method']) && $options['additional_search_method'] == 'like') {
+                                $query->orWhere($search_field, 'LIKE', "%{$imploded_keywords}%");
+                            } else {
+                                $query->orWhere($search_field, $keywords[0]);
+                            }
                         }
                     }
                 }
