@@ -19,6 +19,13 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
         return $this->addFormattedField('name', $relation);
     }
 
+    public function addBoolean(string $model_field, string $false_fallback = null)
+    {
+        return $this->addColumn($model_field.'_formatted', function ($model) use ($model_field, $false_fallback) {
+            return view('sprintflow::datatable.fields.generic-boolean', ['value' => $model->{$model_field}, 'false_fallback' => $false_fallback]);
+        });
+    }
+
     public function addDate(string $model_field, string $format = 'Y-m-d')
     {
         return $this->addColumn($model_field.'_date_formatted', function ($model) use ($model_field, $format) {

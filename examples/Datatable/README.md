@@ -69,3 +69,11 @@ return Datatables::make($entities)
             ->addPeriod('created_at', 'deleted_at', 'd-m-Y', '/', 'field_name')
             ->make();
 ```
+
+### 6. Boolean formatted
+Add a boolean field formatted: is_default_formatted. This column return a "-" when field is false
+```
+return Datatables::make($entities)
+            ->addBoolean('is_default', 'false_fallback')
+            ->make();
+```
