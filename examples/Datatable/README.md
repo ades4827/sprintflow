@@ -77,3 +77,11 @@ return Datatables::make($entities)
             ->addBoolean('is_default', 'false_fallback')
             ->make();
 ```
+
+### 6. Money formatted
+Add a money field formatted: amount_formatted. This column return a "-" when field is 0
+```
+return Datatables::make($entities)
+            ->addMoney('amount')
+            ->make();
+```

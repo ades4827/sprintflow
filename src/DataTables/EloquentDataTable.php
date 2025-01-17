@@ -26,6 +26,13 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
         });
     }
 
+    public function addMoney(string $model_field)
+    {
+        return $this->addColumn($model_field.'_formatted', function ($model) use ($model_field) {
+            return view('sprintflow::datatable.fields.generic-money', ['amount' => $model->{$model_field}]);
+        });
+    }
+
     public function addDate(string $model_field, string $format = 'Y-m-d')
     {
         return $this->addColumn($model_field.'_date_formatted', function ($model) use ($model_field, $format) {

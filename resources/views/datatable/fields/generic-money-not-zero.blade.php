@@ -1,5 +1,7 @@
 @if($amount != 0)
-    <span class="whitespace-nowrap">@money($amount)</span>
+    <x-sf::money class="whitespace-nowrap">
+        {{ $amount }}
+    </x-sf::money>
 @else
     -
 @endif
