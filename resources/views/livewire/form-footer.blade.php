@@ -11,24 +11,25 @@
         <div>
             @if(method_exists($this, 'removeItem') && $entity)
                 <a wire:click="confirm('removeItem')" wire:loading.attr="disabled" class="btn btn-danger mr-1">
-                    <i class="fa-solid fa-trash"></i><span class="hidden sm:block">{{ __('sprintflow::view.delete') }}</span>
+                    <i class="fa-solid fa-trash sm:mr-1"></i>
+                    <span class="hidden sm:block">{{ __('sprintflow::view.delete') }}</span>
                 </a>
             @endif
         </div>
         <div class="col-span-2 text-right">
             @if(isset($this->is_modal) && $this->is_modal)
                 <a wire:click="$dispatch('closeModal')" wire:loading.attr="disabled" class="btn btn-outline-secondary mr-1">
-                    <i class="fa-solid fa-rotate-left"></i>
+                    <i class="fa-solid fa-rotate-left sm:mr-1"></i>
                     <span class="hidden sm:block">{{ __('sprintflow::view.cancel') }}</span>
                 </a>
             @elseif( isset($form_cancel_route) )
                 <a href="{{ route($form_cancel_route) }}" wire:loading.attr="disabled" class="btn btn-outline-secondary mr-1">
-                    <i class="fa-solid fa-rotate-left"></i>
+                    <i class="fa-solid fa-rotate-left sm:mr-1"></i>
                     <span class="hidden sm:block">{{ __('sprintflow::view.cancel') }}</span>
                 </a>
             @elseif( isset($form_cancel_url) )
                 <a href="{{ $form_cancel_url }}" wire:loading.attr="disabled" class="btn btn-outline-secondary mr-1">
-                    <i class="fa-solid fa-rotate-left"></i>
+                    <i class="fa-solid fa-rotate-left sm:mr-1"></i>
                     <span class="hidden sm:block">{{ __('sprintflow::view.cancel') }}</span>
                 </a>
             @endif
