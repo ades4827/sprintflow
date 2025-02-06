@@ -9,5 +9,7 @@ return [
             'error' => 'Errore durante la cancellazione',
         ],
         'restore' => 'Ripristinato correttamente!',
+        'enabled' => 'Attivato correttamente!',
+        'disabled' => 'Disattivato correttamente!',
     ],
 ];

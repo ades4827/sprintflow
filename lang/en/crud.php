@@ -9,5 +9,7 @@ return [
             'error' => 'Error while deleting',
         ],
         'restore' => 'Restored successfully!',
+        'enabled' => 'Enabled successfully!',
+        'disabled' => 'Disabled successfully!',
     ],
 ];
