@@ -1,5 +1,5 @@
 <ul class="datatable_actions">
-    @if (!$model->trashed())
+    @if (!method_exists($model, 'trashed') || !$model->trashed())
         @can($model->getPermissionPrefix().'.update')
             <li>
                 <a onclick='Livewire.dispatch("openModal", { component: "modal-edit", arguments: {"model": "{{ $model->getClassSlug() }}", "model_id": {{$model->id}} }} )' class="btn btn-primary btn-icon-sm tooltip"
