@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 return [
+    'view' => 'Visualizza',
     'search' => 'Cerca',
     'export' => 'Export',
     'edit' => 'Modifica',
