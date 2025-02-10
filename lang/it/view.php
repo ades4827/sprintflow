@@ -9,6 +9,7 @@ return [
     'edit' => 'Modifica',
     'delete' => 'Rimuovi',
     'restore' => 'Ripristina',
+    'impersonate' => 'Impersona',
     'reset_filter' => 'Resetta tutti i filtri',
     'attention' => 'Attenzione',
     'save' => 'Salva',
