@@ -4,6 +4,13 @@ namespace Ades4827\Sprintflow\DataTables;
 
 class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
 {
+    /*
+     * Shortcode for:
+     *
+        ->addColumn('action', function ($model) {
+            return view('admin.datatable.actions.ENTITY-edit', ['model' => $model]);
+        })
+     */
     public function addCrud(string $name = 'action', bool $edit_in_modal = false)
     {
         return $this->addColumn($name, function ($model) use ($edit_in_modal) {
