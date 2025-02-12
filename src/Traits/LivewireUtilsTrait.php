@@ -3,18 +3,32 @@
 namespace Ades4827\Sprintflow\Traits;
 
 use Exception;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 trait LivewireUtilsTrait
 {
+    use AuthorizesRequests;
+
     public function confirm($callback, ...$argv)
     {
         $this->dispatch('confirm', component_id: $this->getId(), callback: $callback, argv: $argv);
     }
 
-    protected function checkPermission($permission)
+    /**
+     * @throws Exception
+     */
+    protected function checkPermission($permission, $guard = null)
     {
-        if (! auth()->user() || ! auth()->user()->can($permission)) {
-            throw new Exception('User without '.$permission.' permission');
+        /*if($guard==null) {
+            $available_guards = array_keys(config('auth.guards'));
+            if(in_array('admin', $available_guards)) {
+                $guard = 'admin';
+            }
+        }*/
+
+        $user = auth()->guard($guard)->user();
+        if (!$user || !$user->can($permission)) {
+            abort(403, 'User without "'.$permission.'" permission');
         }
     }
 
