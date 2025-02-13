@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Ades4827\Sprintflow\Controllers\ApiController as SprintApiController;
 use App\Models\Page;
 use App\Models\Role;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class ApiController extends SprintApiController
@@ -13,6 +14,14 @@ class ApiController extends SprintApiController
     {
         return $this->simple($request, Page::class)->get();
     }
+
+    public function locations(Request $request)
+    {
+        return $this->translated($request, Location::class, 'name', [
+            'search_method' => 'slow'
+        ])->get();
+    }
+
     public function complex_roles(Request $request)
     {
         $query = $this->simple($request, Role::class, 'readable_name', [

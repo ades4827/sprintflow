@@ -7,6 +7,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
@@ -141,6 +142,110 @@ class ApiController extends Controller
                     if (isset($options['additional_search_fields']) && is_array($options['additional_search_fields']) && count($keywords) == 1) {
                         foreach ($options['additional_search_fields'] as $search_field) {
                             $query->orWhere($search_field, $keywords[0]);
+                        }
+                    }
+                }
+            }),
+            fn (Builder $query) => $query->limit($max_result_limit)
+        );
+
+        /* auto select prev value --- */
+        // check if model have softdelete
+        if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model), true)) {
+            $query = $query->when(
+                $request->exists('selected'),
+                fn (Builder $query) => $query->whereIn($field_id_name, $request->input('selected', []))->withTrashed(),
+                fn (Builder $query) => $query->limit($max_result_limit)
+            );
+        } else {
+            $query = $query->when(
+                $request->exists('selected'),
+                fn (Builder $query) => $query->whereIn($field_id_name, $request->input('selected', [])),
+                fn (Builder $query) => $query->limit($max_result_limit)
+            );
+        }
+
+        return $query;
+    }
+
+    protected function translated(Request $request, $model, $name_field = 'name', $options = [])
+    {
+        // https://github.com/wireui/docs/blob/main/app/Http/Controllers/Api/Users/Index.php
+
+        $language = app()->getLocale();
+
+        $max_result_limit = 100;
+        if (isset($options['max_result_limit'])) {
+            $max_result_limit = $options['max_result_limit'];
+        }
+
+        // set field id name
+        $field_id_name = 'id';
+        if (isset($options['field_id_name'])) {
+            $field_id_name = $options['field_id_name'];
+        }
+
+        $query = App::make($model)::query();
+
+        // field to select
+        if (isset($options['select'])) {
+            $query->selectRaw($options['select']);
+        } else {
+            $query->select([$field_id_name, DB::raw("JSON_UNQUOTE(JSON_EXTRACT(".$name_field.", '$.\"$language\"')) as ".$name_field."_translated")]);
+        }
+
+        // exclude ids
+        if ($request->has('exclude') && is_array($request->get('exclude'))) {
+            $query->whereNotIn($field_id_name, $request->get('exclude'));
+        }
+
+        // order
+        if (! isset($options['disable_order_by'])) {
+            if (isset($options['order_by'])) {
+                $query->orderBy($options['order_by']);
+            } elseif (isset($options['order_by_desc'])) {
+                $query->orderBy($options['order_by_desc'], 'desc');
+            } else {
+                $query->orderBy($name_field);
+            }
+        }
+
+        // search string --------------------------------------
+        // split every word for better search
+        $keywords = explode(' ', strtolower(trim($request->search)));
+        $query = $query->when(
+            $request->search,
+            fn (Builder $query) => $query->where(function ($query) use ($keywords, $name_field, $options, $language) {
+                // search single token (slow version on many token)
+                if (isset($options['search_method']) && $options['search_method'] === 'slow') {
+                    foreach ($keywords as $keyword) {
+                        $query->whereJsonContainsLocale($name_field, $language, "%{$keyword}%", 'LIKE');
+                    }
+
+                    if (isset($options['additional_search_fields']) && is_array($options['additional_search_fields']) && count($keywords) == 1) {
+                        foreach ($options['additional_search_fields'] as $search_field) {
+                            if (isset($options['additional_search_method']) && $options['additional_search_method'] == 'like') {
+                                foreach ($keywords as $keyword) {
+                                    $query->orWhereJsonContainsLocale($search_field, $language, "%{$keyword}%", 'LIKE');
+                                }
+                            } else {
+                                $query->orWhereJsonContainsLocale($search_field, $language, $keywords[0]);
+                            }
+                        }
+                    }
+                }
+                // search string ordered (fast version)
+                else {
+                    $imploded_keywords = implode('%', $keywords);
+                    $query->where($name_field, 'LIKE', "%{$imploded_keywords}%");
+
+                    if (isset($options['additional_search_fields']) && is_array($options['additional_search_fields']) && count($keywords) == 1) {
+                        foreach ($options['additional_search_fields'] as $search_field) {
+                            if (isset($options['additional_search_method']) && $options['additional_search_method'] == 'like') {
+                                $query->orWhere($search_field, 'LIKE', "%{$imploded_keywords}%");
+                            } else {
+                                $query->orWhere($search_field, $keywords[0]);
+                            }
                         }
                     }
                 }

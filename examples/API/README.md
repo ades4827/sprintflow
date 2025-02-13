@@ -10,6 +10,15 @@ Using 'simple' method you can add eloquent query or filter to optimize your API.
 - Extend ApiController [like this](ApiController.php)
 - Usage [like this](usage.php)
 
+## Eloquent advanced usage with translated field
+
+Using 'simple' method you can add eloquent query or filter to optimize your API.
+- Add custom route [like this](api.php)
+- Extend ApiController [like this](ApiController.php)
+- Usage [like this](usage.php)
+
+NB: returned label have "_translated" suffix
+
 ## Collection version
 
 You can filter Laravel Collection with 'getFromCollection'
