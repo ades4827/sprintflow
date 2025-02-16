@@ -33,10 +33,10 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
         });
     }
 
-    public function addMoney(string $model_field)
+    public function addMoney(string $model_field, string $currency = 'EUR')
     {
-        return $this->addColumn($model_field.'_formatted', function ($model) use ($model_field) {
-            return view('sprintflow::datatable.fields.generic-money', ['amount' => $model->{$model_field}]);
+        return $this->addColumn($model_field.'_formatted', function ($model) use ($model_field, $currency) {
+            return view('sprintflow::datatable.fields.generic-money', ['amount' => $model->{$model_field}, 'currency' => $currency]);
         });
     }
 

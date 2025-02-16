@@ -82,6 +82,6 @@ return Datatables::make($entities)
 Add a money field formatted: amount_formatted. This column return a "-" when field is 0
 ```
 return Datatables::make($entities)
-            ->addMoney('amount')
+            ->addMoney('amount', 'currency')
             ->make();
 ```
