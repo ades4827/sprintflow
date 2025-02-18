@@ -18,6 +18,15 @@ You can install the package via composer:
 composer require ades4827/sprintflow
 ```
 
+when used in tailwind is required to add this in config to load correct css class
+```
+module.exports = {
+    content: [
+        "./vendor/ades4827/sprintflow/resources/**/*.php",
+    ],
+}
+```
+
 For customization, you can publish with:
 
 ```bash
