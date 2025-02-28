@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class ApiController extends Controller
 {
@@ -280,5 +281,12 @@ class ApiController extends Controller
         }
 
         return $query;
+    }
+
+    protected function checkPermissions($permissions, $guard = '')
+    {
+        if (! auth()->guard($guard)->user() || ! auth()->guard($guard)->user()->canAny($permissions)) {
+            throw new Exception('User without '.implode(', ', $permissions).' permission');
+        }
     }
 }
