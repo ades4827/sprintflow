@@ -3,6 +3,7 @@
 namespace Ades4827\Sprintflow\Traits;
 
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 trait LivewireMediaTrait
@@ -34,6 +35,8 @@ trait LivewireMediaTrait
     public function removeMediaItem(int $id, int $model_id, string $collection_name = null)
     {
         try {
+            Log::info('Remove media id: '. $id.' model id: '.$model_id.' model collection name: '.$collection_name.' from user id:'.auth()->user()->id);
+
             $media = Media::where('id', $id)->where('model_id', $model_id);
             if($collection_name) {
                 $media->where('collection_name', $collection_name);
