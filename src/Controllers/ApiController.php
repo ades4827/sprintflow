@@ -285,8 +285,14 @@ class ApiController extends Controller
 
     protected function checkPermissions($permissions, $guard = '')
     {
-        if (! auth()->guard($guard)->user() || ! auth()->guard($guard)->user()->canAny($permissions)) {
-            throw new Exception('User without '.implode(', ', $permissions).' permission');
+        if (! auth()->guard($guard)->user() ) {
+            throw new Exception('User not logged in', 401);
+        } elseif (! auth()->guard($guard)->user()->canAny($permissions)) {
+            if(is_array($permissions)) {
+                throw new Exception('User without '.implode(', ', $permissions).' permissions');
+            } else {
+                throw new Exception('User without '.$permissions.' permission');
+            }
         }
     }
 }
