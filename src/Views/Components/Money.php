@@ -21,6 +21,7 @@ class Money extends Component
         public ?string $locale = null,
         public ?int $precision = null,
         public ?string $replaceZero = null,
+        public ?bool $inline = false,
     ) {
         if(is_null($locale)) {
             $this->locale = app()->getLocale();
@@ -41,7 +42,10 @@ class Money extends Component
 
             // Replace zero
             if(!is_null($this->replaceZero) && ($this->number === 0 || $this->number === '0' || $data['slot']->__toString() === 0 || $data['slot']->__toString() === '0')) {
-              return '<div {{ $attributes }}>{{ $replaceZero }}</div>';
+                if($this->inline) {
+                    return '<span {{ $attributes }}>{{ $replaceZero }}</span>';
+                }
+                return '<div {{ $attributes }}>{{ $replaceZero }}</div>';
             }
 
             // Set number
@@ -54,6 +58,9 @@ class Money extends Component
                 $money = BrickMoney::of($this->number, $this->in, new CustomContext(scale: $this->precision), roundingMode: RoundingMode::UP)->formatTo($this->locale);
             }
 
+            if($this->inline) {
+                return '<span {{ $attributes }}>'.$money.'</span>';
+            }
             return '<div {{ $attributes }}>'.$money.'</div>';
         };
     }
