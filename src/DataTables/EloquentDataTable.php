@@ -11,13 +11,13 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
             return view('admin.datatable.actions.ENTITY-edit', ['model' => $model]);
         })
      */
-    public function addCrud(string $name = 'action', bool $edit_in_modal = false)
+    public function addCrud(string $name = 'action', bool $edit_in_modal = false, string $fa_base = 'fa-light')
     {
-        return $this->addColumn($name, function ($model) use ($edit_in_modal) {
+        return $this->addColumn($name, function ($model) use ($edit_in_modal, $fa_base) {
             if ($edit_in_modal) {
-                return view('sprintflow::datatable.actions.simple-crud-modal-edit', ['model' => $model]);
+                return view('sprintflow::datatable.actions.simple-crud-modal-edit', ['model' => $model, 'fa-base' => $fa_base]);
             }
-            return view('sprintflow::datatable.actions.simple-crud-edit', ['model' => $model]);
+            return view('sprintflow::datatable.actions.simple-crud-edit', ['model' => $model, 'fa-base' => $fa_base]);
         });
     }
 

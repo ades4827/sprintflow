@@ -13,10 +13,14 @@ Add Model in datatables config:
 
 ## Usage
 ### 1. Crud
-In datatable function you can add a crud col. You can use the 2 OPTIONAL parameters: name of the column you are adding and if the change is done in modal
+In datatable function you can add a crud col. 
+You can use the 3 OPTIONAL parameters: 
+- name of the column you are adding
+- if the change is done in modal
+- set of font-awesome icon: 'fa-solid', 'fa-light'
 ```
 return Datatables::make($entities)
-            ->addCrud('col_name', true)
+            ->addCrud('col_name', true, 'fa-solid')
             ->make();
 ```
 
