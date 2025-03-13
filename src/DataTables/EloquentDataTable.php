@@ -15,9 +15,9 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
     {
         return $this->addColumn($name, function ($model) use ($edit_in_modal, $fa_base) {
             if ($edit_in_modal) {
-                return view('sprintflow::datatable.actions.simple-crud-modal-edit', ['model' => $model, 'fa-base' => $fa_base]);
+                return view('sprintflow::datatable.actions.simple-crud-modal-edit', ['model' => $model, 'fa_base' => $fa_base]);
             }
-            return view('sprintflow::datatable.actions.simple-crud-edit', ['model' => $model, 'fa-base' => $fa_base]);
+            return view('sprintflow::datatable.actions.simple-crud-edit', ['model' => $model, 'fa_basee' => $fa_base]);
         });
     }
 
