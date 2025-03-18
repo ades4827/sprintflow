@@ -8,7 +8,10 @@ return [
             'confirm' => 'Cancellato correttamente',
             'error' => 'Errore durante la cancellazione',
         ],
-        'cloned' => 'Duplicato correttamente!',
+        'cloned' => [
+            'confirm' => 'Duplicato correttamente',
+            'error' => 'Errore durante la clonazione',
+        ],
         'restored' => 'Ripristinato correttamente!',
         'enabled' => 'Attivato correttamente!',
         'disabled' => 'Disattivato correttamente!',

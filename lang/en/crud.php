@@ -8,7 +8,10 @@ return [
             'confirm' => 'Deleted successfully',
             'error' => 'Error while deleting',
         ],
-        'cloned' => 'Cloned successfully!',
+        'cloned' => [
+            'confirm' => 'Cloned successfully',
+            'error' => 'Error while cloning',
+        ],
         'restores' => 'Restored successfully!',
         'enabled' => 'Enabled successfully!',
         'disabled' => 'Disabled successfully!',
