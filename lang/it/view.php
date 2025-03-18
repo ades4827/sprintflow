@@ -8,6 +8,7 @@ return [
     'export' => 'Export',
     'edit' => 'Modifica',
     'delete' => 'Rimuovi',
+    'clone' => 'Duplica',
     'restore' => 'Ripristina',
     'impersonate' => 'Impersona',
     'reset_filter' => 'Resetta tutti i filtri',
