@@ -8,8 +8,11 @@ return [
             'confirm' => 'Cancellato correttamente',
             'error' => 'Errore durante la cancellazione',
         ],
-        'restore' => 'Ripristinato correttamente!',
+        'cloned' => 'Duplicato correttamente!',
+        'restored' => 'Ripristinato correttamente!',
         'enabled' => 'Attivato correttamente!',
         'disabled' => 'Disattivato correttamente!',
+
+        'restore' => 'Ripristinato correttamente!', // deprecated
     ],
 ];

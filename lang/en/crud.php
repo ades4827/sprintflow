@@ -8,8 +8,11 @@ return [
             'confirm' => 'Deleted successfully',
             'error' => 'Error while deleting',
         ],
-        'restore' => 'Restored successfully!',
+        'cloned' => 'Cloned successfully!',
+        'restores' => 'Restored successfully!',
         'enabled' => 'Enabled successfully!',
         'disabled' => 'Disabled successfully!',
+
+        'restore' => 'Restored successfully!', // deprecated
     ],
 ];
