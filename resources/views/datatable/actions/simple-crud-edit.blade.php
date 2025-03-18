@@ -9,7 +9,7 @@
         @endcan
         @can($model->getPermissionPrefix().'.delete')
             <li>
-                <a href="{{ route('admin.'.$model->getClassSlug(true).'.delete', [$model->getClassSlug() => $model->id]) }}" class="btn btn-danger btn-icon-sm with-confirm tooltip"
+                <a href="{{ route('admin.'.$model->getClassSlug(true).'.delete', [$model->getClassSlug() => $model->id]) }}" class="btn btn-danger btn-icon-sm remove with-confirm tooltip"
                    data-placement="bottom" title="{{ __('sprintflow::view.delete') }}">
                     <i class="{{ isset($fa_base) ? $fa_base : 'fa-light' }} fa-trash"></i></a>
             </li>
