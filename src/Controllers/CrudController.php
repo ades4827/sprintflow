@@ -96,7 +96,7 @@ abstract class CrudController extends Controller
             $entity->delete();
             DB::commit();
 
-            return redirect()->route('admin.'.$this->section_slug.'.index')->with('status', __('sprintflow::crud.states.delete.confirm'));
+            return redirect()->back()->with('status', __('sprintflow::crud.states.delete.confirm'));
         } catch (Exception $e) {
             report($e);
             DB::rollBack();
