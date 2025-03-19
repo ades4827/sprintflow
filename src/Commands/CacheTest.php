@@ -28,7 +28,7 @@ class CacheTest extends Command
      *
      * @var string
      */
-    protected $description = 'Run speed tests for the given cache driver. Timings given in microseconds.';
+    protected $description = 'Run speed tests for the given cache driver. Timings given in microseconds. Lower results is better';
 
     /**
      * @var string
