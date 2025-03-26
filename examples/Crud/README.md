@@ -77,7 +77,7 @@ class BaseModelController extends CrudController
     {
         $entities = self::collection($request)->newQuery();
 
-        return Datatables::make($entities)
+        return DataTables::make($entities)
             ->addColumn('action', function ($model) {
                 return view('sprintflow::datatable.actions.simple-crud-modal-edit', ['model' => $model]);
             })
