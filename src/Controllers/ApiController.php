@@ -161,21 +161,26 @@ class ApiController extends Controller
             fn (Builder $query) => $query->limit($max_result_limit)
         );
 
-        /* auto select prev value --- */
-        // check if model have softdelete
-        if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model), true)) {
-            $query = $query->when(
-                $request->exists('selected'),
-                fn (Builder $query) => $query->whereIn($field_id_name, $request->input('selected', []))->withTrashed(),
-                fn (Builder $query) => $query->limit($max_result_limit)
-            );
-        } else {
-            $query = $query->when(
-                $request->exists('selected'),
-                fn (Builder $query) => $query->whereIn($field_id_name, $request->input('selected', [])),
-                fn (Builder $query) => $query->limit($max_result_limit)
-            );
+        // parse selected to accept json_encoded
+        if($request->exists('selected') && !is_array($request->input('selected'))) {
+            $decoded = json_decode($request->input('selected', '[]'), true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $request->merge([
+                    'selected' => $decoded,
+                ]);
+            }
         }
+
+        // check if model have softdelete
+        $withTrashed = in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model), true);
+
+        // limit to selected value
+        $query = $query->when(
+            $request->exists('selected'),
+            fn (Builder $query) => $query->whereIn($field_id_name, $request->input('selected', []))
+                ->when($withTrashed, fn (Builder $query) => $query->withTrashed()),
+            fn (Builder $query) => $query->limit($max_result_limit)
+        );
 
         return $query;
     }
@@ -266,21 +271,26 @@ class ApiController extends Controller
             fn (Builder $query) => $query->limit($max_result_limit)
         );
 
-        /* auto select prev value --- */
-        // check if model have softdelete
-        if (in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model), true)) {
-            $query = $query->when(
-                $request->exists('selected'),
-                fn (Builder $query) => $query->whereIn($field_id_name, $request->input('selected', []))->withTrashed(),
-                fn (Builder $query) => $query->limit($max_result_limit)
-            );
-        } else {
-            $query = $query->when(
-                $request->exists('selected'),
-                fn (Builder $query) => $query->whereIn($field_id_name, $request->input('selected', [])),
-                fn (Builder $query) => $query->limit($max_result_limit)
-            );
+        // parse selected to accept json_encoded
+        if($request->exists('selected') && !is_array($request->input('selected'))) {
+            $decoded = json_decode($request->input('selected', '[]'), true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $request->merge([
+                    'selected' => $decoded,
+                ]);
+            }
         }
+
+        // check if model have softdelete
+        $withTrashed = in_array('Illuminate\Database\Eloquent\SoftDeletes', class_uses($model), true);
+
+        // limit to selected value
+        $query = $query->when(
+            $request->exists('selected'),
+            fn (Builder $query) => $query->whereIn($field_id_name, $request->input('selected', []))
+                ->when($withTrashed, fn (Builder $query) => $query->withTrashed()),
+            fn (Builder $query) => $query->limit($max_result_limit)
+        );
 
         return $query;
     }
