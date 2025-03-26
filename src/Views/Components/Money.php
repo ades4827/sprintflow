@@ -12,6 +12,7 @@ use Brick\Money\Money as BrickMoney;
 
 class Money extends Component
 {
+    private bool $autoScale;
     /**
      * Create a new component instance.
      */
