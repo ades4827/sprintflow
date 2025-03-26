@@ -66,6 +66,9 @@ abstract class CrudController extends Controller
          ->make(true);
      }
      */
+    /**
+     * @throws \Exception
+     */
     abstract public function datatable(Request $request);
 
     public function index(Request $request): View
