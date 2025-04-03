@@ -7,6 +7,7 @@ use Ades4827\Sprintflow\Commands\PermissionRefresh;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Livewire\Livewire;
 
 class SprintflowServiceProvider extends ServiceProvider
 {
@@ -43,6 +44,8 @@ class SprintflowServiceProvider extends ServiceProvider
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         Blade::componentNamespace('Ades4827\\Sprintflow\\Views\\Components', 'sf');
+
+        Livewire::component('sf.settings', \Ades4827\Sprintflow\Livewire\Settings::class);
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
