@@ -50,6 +50,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 - Crud system [See usage example](examples/Crud/README.md)
 - Datatable extension [See usage example](examples/Datatable/README.md)
 - Livewire validation for file upload [See usage example](examples/LivewireFileValidationTrait/README.md)
+- Settings component [See usage example](examples/LivewireFileValidationTrait/README.md)
 
 
 ## Contributing
