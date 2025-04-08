@@ -122,7 +122,10 @@ class ApiController extends Controller
             $request->has('search') && $request->get('search'),
             fn (Builder $query) => $query->where(function ($query) use ($request, $name_field, $options) {
                 // split every word for better search
-                $keywords = explode(' ', strtolower(trim($request->input('search'))));
+                $keywords = explode(' ', strtolower($request->input('search')));
+                if (isset($options['case_sensitive'])) {
+                    $keywords = explode(' ', $request->input('search'));
+                }
 
                 // search single token (slow version on many token)
                 if (isset($options['search_method']) && $options['search_method'] === 'slow') {
@@ -230,9 +233,12 @@ class ApiController extends Controller
         // search string --------------------------------------
         $query = $query->when(
             $request->has('search') && $request->get('search'),
-            fn (Builder $query) => $query->where(function ($query) use ($keywords, $name_field, $options, $language) {
+            fn (Builder $query) => $query->where(function ($query) use ($request, $name_field, $options, $language) {
                 // split every word for better search
-                $keywords = explode(' ', strtolower(trim($request->input('search'))));
+                $keywords = explode(' ', strtolower($request->input('search')));
+                if (isset($options['case_sensitive'])) {
+                    $keywords = explode(' ', $request->input('search'));
+                }
 
                 // search single token (slow version on many token)
                 if (isset($options['search_method']) && $options['search_method'] === 'slow') {
