@@ -117,7 +117,10 @@ class ApiController extends Controller
 
         // search string --------------------------------------
         // split every word for better search
-        $keywords = explode(' ', strtolower(trim($request->search)));
+        $keywords = explode(' ', strtolower($request->search));
+        if (isset($options['case_sensitive'])) {
+            $keywords = explode(' ', $request->search);
+        }
         $query = $query->when(
             $request->search,
             fn (Builder $query) => $query->where(function ($query) use ($keywords, $name_field, $options) {
