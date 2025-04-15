@@ -116,7 +116,7 @@ class PermissionController extends Controller
                 // delete permission
                 $permission = config('permission.models.permission')::where('name', $permission_name)->first();
                 $permission->syncRoles([]);
-                $permission->delete();
+                $permission->deleteQuietly();
                 unset($current_permissions[$permission_name]);
             }
 
@@ -193,7 +193,7 @@ class PermissionController extends Controller
                 ];
                 // delete permission
                 $role = config('permission.models.role')::where('name', $role_name)->where('guard_name', $guard_name)->first();
-                $role->delete();
+                $role->deleteQuietly();
                 unset($current_roles[$role_name]);
             }
 
