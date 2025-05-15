@@ -13,6 +13,9 @@ class TrimCast implements CastsAttributes
 
     public function set($model, string $key, $value, array $attributes)
     {
+        if($value == null) {
+            return null;
+        }
         return trim($value);
     }
 }
