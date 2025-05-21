@@ -72,4 +72,15 @@ trait LivewireUtilsTrait
 
         return redirect()->route($route_name, $route_parameters);
     }
+
+    private function model_to_options(string $model) {
+        $options = [];
+        foreach ($model::pluck('name', 'id') as $id => $name) {
+            $options[] = [
+                'id' => $id,
+                'name' => $name,
+            ];
+        }
+        return $options;
+    }
 }
