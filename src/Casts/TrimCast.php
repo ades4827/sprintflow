@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class TrimCast implements CastsAttributes
 {
+    protected bool $keepEmptyString;
+
+    public function __construct(string $option = null)
+    {
+        // Se viene passato "empty", mantieni le stringhe vuote
+        $this->keepEmptyString = $option === 'empty';
+    }
+
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
         return $value;
@@ -18,10 +26,12 @@ class TrimCast implements CastsAttributes
             return $value;
         }
 
-        if ($value = trim((string) $value)) {
-            return $value;
+        $trimmed = trim((string) $value);
+
+        if ($this->keepEmptyString) {
+            return $trimmed;
         }
 
-        return null;
+        return $trimmed !== '' ? $trimmed : null;
     }
 }
