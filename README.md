@@ -9,7 +9,7 @@ Laravel Package for speed up your project development
 | 10.x    | 2.x      | 1.x        |
 | 10.x    | 3.x      | 2.x        |
 | 11.x    | 3.x      | 3.x        |
-| 12.x    | 3.x      | 3.x        |
+| 12.x    | 3.x      | 4.x        |
 
 ## Installation
 
