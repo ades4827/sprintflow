@@ -14,6 +14,31 @@ trait LivewireUtilsTrait
         $this->dispatch('confirm', component_id: $this->getId(), callback: $callback, argv: $argv);
     }
 
+    public function confirmCallback($callback, $options, ...$argv)
+    {
+        if(!is_array($options)) {
+            throw new Exception('Options must be an array');
+        }
+        $swal_params = null;
+        $title = null;
+        $text = null;
+        $icon = null;
+        if (isset($options['swal_params'])) {
+            $swal_params = $options['swal_params'];
+        }
+        if (isset($options['title'])) {
+            $title = $options['title'];
+        }
+        if (isset($options['text'])) {
+            $text = $options['text'];
+        }
+        if (isset($options['icon'])) {
+            $icon = $options['icon'];
+        }
+        $this->dispatch('confirm', component_id: $this->getId(), callback: $callback, argv: $argv,
+            swal_params: $swal_params, title: $title, text: $text, icon: $icon);
+    }
+
     /**
      * @throws Exception
      */
