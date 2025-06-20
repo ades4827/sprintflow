@@ -96,6 +96,9 @@ class ApiController extends Controller
 
         // field to select
         if (isset($options['select'])) {
+            if (is_array($options['select'])) {
+                $options['select'] = implode(',', $options['select']);
+            }
             $query->selectRaw($options['select']);
         } else {
             $query->select([$field_id_name, $name_field]);
