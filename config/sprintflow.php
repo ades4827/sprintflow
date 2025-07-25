@@ -111,8 +111,8 @@ return [
      |--------------------------------------------------------------------------
      */
     'crud_entity' => [
-        \App\Models\Admin::class => \App\Http\Controllers\Admin\AdminController::class,
-        \App\Models\User::class => \App\Http\Controllers\Admin\UserController::class,
+        \Ades4827\Sprintflow\Models\Admin::class => \App\Http\Controllers\Admin\AdminController::class,
+        \Ades4827\Sprintflow\Models\User::class => \App\Http\Controllers\Admin\UserController::class,
     ],
 
     /*
