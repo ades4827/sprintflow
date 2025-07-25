@@ -46,6 +46,9 @@ class SprintflowServiceProvider extends ServiceProvider
         Blade::componentNamespace('Ades4827\\Sprintflow\\Views\\Components', 'sf');
 
         Livewire::component('sf.settings', \Ades4827\Sprintflow\Livewire\Settings::class);
+        Livewire::component('sf.admin-form', \Ades4827\Sprintflow\Livewire\AdminForm::class);
+        Livewire::component('sf.user-edit-password', \Ades4827\Sprintflow\Livewire\UserEditPassword::class);
+        Livewire::component('sf.user-form', \Ades4827\Sprintflow\Livewire\UserForm::class);
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
