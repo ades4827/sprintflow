@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 #[ObservedBy([AdminObserver::class])]
 class Admin extends User
 {
-    protected $table = 'admxins';
-
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPassword($token));
