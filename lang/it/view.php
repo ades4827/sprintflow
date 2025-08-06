@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'view' => 'Visualizza',
+    'search' => 'Cerca',
+    'export' => 'Export',
+    'edit' => 'Modifica',
+    'delete' => 'Rimuovi',
+    'clone' => 'Duplica',
+    'restore' => 'Ripristina',
+    'impersonate' => 'Impersona',
+    'reset_filter' => 'Resetta tutti i filtri',
+    'attention' => 'Attenzione',
+    'save' => 'Salva',
+    'wait' => 'Attendi',
+    'save_and_edit' => 'Salva e Modifica',
+    'cancel' => 'Annulla',
+];
