@@ -18,7 +18,7 @@
         </div>
         <div class="col-span-2 text-right">
             @if(isset($this->is_modal) && $this->is_modal)
-                <a wire:click="$dispatch('closeModal')" wire:loading.attr="disabled" class="btn btn-outline-secondary mr-1">
+                <a wire:click="$emit('closeModal')" wire:loading.attr="disabled" class="btn btn-outline-secondary mr-1">
                     <i class="fa-solid fa-rotate-left sm:mr-1"></i>
                     <span class="hidden sm:block">{{ __('sprintflow::view.cancel') }}</span>
                 </a>
