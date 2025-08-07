@@ -51,16 +51,6 @@ trait BaseModelTrait
     }
     */
 
-    /**
-     * Scope a query to filter only element enabled
-     *
-     * use: Model::enabled()->get();
-     */
-    /*public function scopeEnabled($query)
-    {
-        return $query->where('is_enabled', true);
-    }*/
-
     protected $class_plural = null;
 
     public static function getTableName(): string
