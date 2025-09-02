@@ -53,6 +53,55 @@ trait LivewireMediaTrait
     }
 
     /**
+     * Get medias from Entity by collection
+     *
+     * @param $entity
+     * @param $options = [
+     *  'collections' => ['header', 'gallery'], // collection to fetch, default from $this->media_collections
+     *  'with_no_conversion' => false, // get path and url from original media (no conversion)
+     *  'conversion' => ['thumb'], // conversion list for get path and url
+     * ]
+     * @return void
+     */
+    public function getMedia($entity, array $options = [])
+    {
+        // load default collection to get
+        if (isset($this->media_collections)) {
+            $collections = $this->media_collections;
+        }
+        if (isset($options['collections'])) {
+            $collections = $options['collections'];
+        }
+        $conversions = ['thumb'];
+        if (isset($options['conversion'])) {
+            $conversions = $options['conversion'];
+        }
+
+        foreach ($collections as $collection) {
+            $this->medias['collections'][$entity->id][$collection] = [];
+            $medias = $entity->getMedia($collection);
+            foreach ($medias as $media) {
+                $this->medias['collections'][$entity->id][$collection][$media->id] = [
+                    'id' => $media->id,
+                    'name' => $media->getCustomProperty('name'),
+                    'created_at' => $media->created_at->format('d-m-Y'),
+                ];
+                /*if (isset($options['with_no_conversion']) && $options['with_no_conversion'] === true)*/
+                $this->medias['collections'][$entity->id][$collection][$media->id]['original']['path'] = $media->getPath();
+                $this->medias['collections'][$entity->id][$collection][$media->id]['original']['url'] = $media->getUrl();
+
+                foreach ($conversions as $conversion) {
+                    if ($media->hasGeneratedConversion($conversion)) {
+                        $this->medias['collections'][$entity->id][$collection][$media->id]['conversions'][$conversion]['path'] = $media->getPath($conversion);
+                        $this->medias['collections'][$entity->id][$collection][$media->id]['conversions'][$conversion]['url'] = $media->getUrl($conversion);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * DEPRECATED
      * Get only first media from Entity by collection
      *
      * @param $entity
@@ -75,6 +124,7 @@ trait LivewireMediaTrait
     }
 
     /**
+     * DEPRECATED
      * Get all media from Entity by collection
      *
      * @param $entity
