@@ -112,6 +112,6 @@ nel template del componente:
 ```
 <div>
     <label class="block text-sm font-medium text-gray-700 dark:text-gray-400">Allegato</label>
-    @include('livewire.layout.partials.media', ['medias' => $this->medias, 'collection' => \App\Models\Model::COLLECTION_ATTACHMENT, 'key' => $model_id, 'multiple' => false, 'can_delete_all' => true, 'disabled' => false])
+    @include('sprintflow::livewire.medias.media', ['medias' => $this->medias, 'collection' => \App\Models\Model::COLLECTION_ATTACHMENT, 'key' => $model_id, 'multiple' => false, 'can_delete_all' => true, 'disabled' => false])
 </div>
 ```
