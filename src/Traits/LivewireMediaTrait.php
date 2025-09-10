@@ -4,10 +4,25 @@ namespace Ades4827\Sprintflow\Traits;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Livewire\WithFileUploads;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 trait LivewireMediaTrait
 {
+    use WithFileUploads;
+
+    public function initMedia($collections = null)
+    {
+        if (isset($this->media_collections)) {
+            $collections = $this->media_collections;
+        }
+
+        $this->medias = [];
+        foreach ($collections as $collection) {
+            $this->medias['uploads'][$collection] = [];
+        }
+    }
+
     /**
      * Remove Media or set error
      *
@@ -19,16 +34,11 @@ trait LivewireMediaTrait
     /*
      * Use Example
      *
-    public function removeMedia($id, $collection_name = null)
+    public function removeMedia($media_id, $collection_name)
     {
-        $this->checkPermission('MODEL.update');
-        $id = $this->removeMediaItem($id, $this->model_id, $collection_name);
-        if ($id && $collection_name) {
-            unset($this->medias[$collection_name][$id]);
-            return;
-        }
-        if ($id) {
-            unset($this->medias[$id]);
+        $this->checkPermission('articles.update');
+        if($id = $this->removeMediaItem($media_id, $this->model_id, $collection_name)) {
+            unset($this->medias['collections'][$this->model_id][$collection_name][$id]);
         }
     }
     */
@@ -81,10 +91,18 @@ trait LivewireMediaTrait
             $this->medias['collections'][$entity->id][$collection] = [];
             $medias = $entity->getMedia($collection);
             foreach ($medias as $media) {
+
+                $is_image = false;
+                if (str_starts_with($media->mime_type, 'image/')) {
+                    $is_image = true;
+                }
+
                 $this->medias['collections'][$entity->id][$collection][$media->id] = [
                     'id' => $media->id,
                     'name' => $media->getCustomProperty('name'),
                     'created_at' => $media->created_at->format('d-m-Y'),
+                    'mime_type' => $media->mime_type,
+                    'is_image' => $is_image,
                 ];
                 /*if (isset($options['with_no_conversion']) && $options['with_no_conversion'] === true)*/
                 $this->medias['collections'][$entity->id][$collection][$media->id]['original']['path'] = $media->getPath();

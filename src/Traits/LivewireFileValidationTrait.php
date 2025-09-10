@@ -3,12 +3,32 @@
 namespace Ades4827\Sprintflow\Traits;
 
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 trait LivewireFileValidationTrait
 {
+    public function validateMediaCollections(Model $model, string $collection_name)
+    {
+        $media_collections = $model->getRegisteredMediaCollections();
+        $media_collection = $media_collections->firstWhere('name', $collection_name);
+        if ($media_collection === null) {
+            throw new Exception('Media Collection not found');
+        }
+
+        foreach ($this->medias['uploads'] as $upload_collection_name => $positions) {
+            if($upload_collection_name === $collection_name) {
+                foreach ($positions as $uploads) {
+                    foreach ($uploads as $upload) {
+                        $this->validateByMimeType($upload, ['mime_types' => $media_collection->acceptsMimeTypes]);
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Simple validation for image
      *
