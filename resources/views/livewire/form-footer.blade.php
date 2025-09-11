@@ -1,13 +1,13 @@
-<div class="mt-5">
+<div class="@if(isset($class)) {{ $class }} @else mt-5 @endif">
     @if($errors->any())
-        <div>
+        <div class="pb-5">
             <strong class="block text-danger">{{ __('sprintflow::view.attention') }}:</strong>
             @foreach ($errors->all() as $error)
                 <small class="block text-danger">{{ $error }}</small>
             @endforeach
         </div>
     @endif
-    <div class="grid grid-cols-3 gap-x-4 gap-y-2 pt-5">
+    <div class="grid grid-cols-3 gap-x-4 gap-y-2">
         <div>
             @if(method_exists($this, 'removeItem') && $entity)
                 <a wire:click="confirm('removeItem')" wire:loading.attr="disabled" class="btn btn-danger mr-1">
