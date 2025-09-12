@@ -114,11 +114,4 @@ return [
         \App\Models\Admin::class => \App\Http\Controllers\Admin\AdminController::class,
         \App\Models\User::class => \App\Http\Controllers\Admin\UserController::class,
     ],
-
-    /*
-     |--------------------------------------------------------------------------
-     | Backwards compatibility
-     |--------------------------------------------------------------------------
-     */
-    'compatibility' => false,
 ];
