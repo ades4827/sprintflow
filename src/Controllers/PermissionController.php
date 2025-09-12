@@ -18,9 +18,6 @@ class PermissionController extends Controller
         $this->permission_readable_names = config('sprintflow.permission_readable_names');
         $this->roles_seeder = config('sprintflow.roles_seeder');
         $this->role_readable_names = config('sprintflow.role_readable_names');
-        if(config('sprintflow.compatibility')) {
-            $this->importOldPermission();
-        }
     }
 
     private function getRoleReadableName($role_name)
@@ -219,38 +216,5 @@ class PermissionController extends Controller
             }
         }
         return $role_report;
-    }
-
-    private function importOldPermission()
-    {
-        $crud = [
-            'create',
-            'update',
-            'delete',
-            'view',
-        ];
-
-        /**
-         * array first level: first permission token
-         * array second level: permission role
-         * array third level: second permission token
-         *
-         * Ex: $all_crud_permission['settings']['admin'] = 'menu';
-         * is access for role "admin" to "settings.menu"
-         */
-        $all_crud_permission = [];
-
-        foreach ($all_crud_permission as $permission_group_name => $permission_groups) {
-            foreach ($permission_groups as $role => $permissions) {
-                foreach ($permissions as $permission_name) {
-                    if (! isset($this->permissions_seeder[$permission_group_name][$permission_name]) ||
-                        (isset($this->permissions_seeder[$permission_group_name][$permission_name]) &&
-                            ! in_array($role, $this->permissions_seeder[$permission_group_name][$permission_name]))) {
-
-                        $this->permissions_seeder['admin'][$permission_group_name][$permission_name][] = $role;
-                    }
-                }
-            }
-        }
     }
 }

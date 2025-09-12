@@ -114,11 +114,4 @@ return [
         \Ades4827\Sprintflow\Models\Admin::class => \App\Http\Controllers\Admin\AdminController::class,
         \Ades4827\Sprintflow\Models\User::class => \App\Http\Controllers\Admin\UserController::class,
     ],
-
-    /*
-     |--------------------------------------------------------------------------
-     | Backwards compatibility
-     |--------------------------------------------------------------------------
-     */
-    'compatibility' => false,
 ];
