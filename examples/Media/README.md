@@ -25,7 +25,7 @@ namespace App\Http\Controllers;
 
 class FileAccessController extends \Ades4827\Sprintflow\Controllers\FileAccessController
 {
-    public function verifyPermission() {
+    public function verifyPermission(string $method, Media $media) {
         // custom additional permission
         if (!auth('admin')->user()) {
             abort('403');
