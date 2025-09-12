@@ -114,4 +114,16 @@ return [
         \Ades4827\Sprintflow\Models\Admin::class => \App\Http\Controllers\Admin\AdminController::class,
         \Ades4827\Sprintflow\Models\User::class => \App\Http\Controllers\Admin\UserController::class,
     ],
+
+    /*
+     |--------------------------------------------------------------------------
+     | Media utils (to be used with Spatie laravel-medialibrary)
+     |--------------------------------------------------------------------------
+     */
+    'medias' => [
+        'inject_route' => false,
+        'file_access_controller' => \Ades4827\Sprintflow\Controllers\FileAccessController::class,
+        'find_method' => 'uuid', // id or uuid
+    ]
+
 ];

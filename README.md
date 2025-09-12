@@ -52,6 +52,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 - Livewire validation for file upload [See usage example](examples/LivewireFileValidationTrait/README.md)
 - Settings component [See usage example](examples/LivewireFileValidationTrait/README.md)
 - Livewire components [See usage example](examples/LivewireComponents/README.md)
+- Media serve routing [See usage example](examples/Media/README.md)
 - Livewire Media upload [See usage example](examples/LivewireUpload/README.md)
 
 
