@@ -16,7 +16,7 @@
                             <img class="rounded-md" alt="" src="{{ $single_media['original']['url'] }}">
                         @else
                             <div class="text-lg tooltip" data-placement="bottom" title="{{ $single_media['mime_type'] }}">
-                                <i class="fa-solid fa-file"></i>
+                                <i class="fa-solid fa-file text-primary"></i>
                             </div>
                         @endif
                     </a>
