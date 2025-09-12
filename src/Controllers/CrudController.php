@@ -4,6 +4,7 @@ namespace Ades4827\Sprintflow\Controllers;
 
 use App\Http\Controllers\Controller;
 use Exception;
+use RuntimeException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
@@ -66,9 +67,6 @@ abstract class CrudController extends Controller
          ->make(true);
      }
      */
-    /**
-     * @throws \Exception
-     */
     abstract public function datatable(Request $request);
 
     public function index(Request $request): View
@@ -100,6 +98,10 @@ abstract class CrudController extends Controller
             DB::commit();
 
             return redirect()->back()->with('status', __('sprintflow::crud.states.delete.confirm'));
+        } catch (RuntimeException $e) {
+            report($e);
+            DB::rollBack();
+            return redirect()->route('admin.'.$this->section_slug.'.index')->with('error', $e->getMessage());
         } catch (Exception $e) {
             report($e);
             DB::rollBack();
