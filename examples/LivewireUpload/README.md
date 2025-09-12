@@ -67,6 +67,19 @@ class ModelForm extends Component
     
     public array $medias;
     
+    protected function rules()
+    {
+        $rules = [
+            'state.name' => 'required|max:100',
+        ];
+
+        if(!$this->model_id) {
+            $rules['medias.uploads.'.Model::COLLECTION_ATTACHMENT] = 'required|min:1';
+        }
+
+        return $rules;
+    }
+    
     public function mount()
     {
         $this->initMedia([
@@ -112,6 +125,13 @@ nel template del componente:
 ```
 <div>
     <label class="block text-sm font-medium text-gray-700 dark:text-gray-400">Allegato</label>
-    @include('sprintflow::livewire.medias.media', ['medias' => $this->medias, 'collection' => \App\Models\Model::COLLECTION_ATTACHMENT, 'key' => $model_id, 'multiple' => false, 'can_delete_all' => true, 'disabled' => false])
+    @include('sprintflow::livewire.medias.media', [
+        'medias' => $this->medias, 
+        'collection' => \App\Models\Model::COLLECTION_ATTACHMENT, 
+        'key' => $model_id,
+        'multiple' => false,
+        'can_delete_all' => true,
+        'disabled' => false
+    ])
 </div>
 ```
