@@ -42,12 +42,12 @@
             @if( !isset($hide_submit) )
                 <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
                     <div class="block sm:hidden">
-                        <span wire:loading.remove><i class="fa-solid fa-floppy-disk"></i> {{ __('sprintflow::view.save') }}</span>
+                        <span wire:loading.remove><i class="fa-solid fa-floppy-disk"></i> {{ isset($submit_label) ? $submit_label : __('sprintflow::view.save') }}</span>
                         <i wire:loading class="fa-solid fa-spinner fa-spin-pulse"></i>
                     </div>
                     <div class="hidden sm:block">
                         <i class="fa-solid fa-floppy-disk mr-1"></i>
-                        <span wire:loading.remove>{{ __('sprintflow::view.save') }}</span>
+                        <span wire:loading.remove>{{ isset($submit_label) ? $submit_label : __('sprintflow::view.save') }}</span>
                         <span wire:loading>{{ __('sprintflow::view.wait') }}...</span>
                     </div>
                 </button>
