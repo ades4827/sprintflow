@@ -4,6 +4,8 @@
 			<li>
 				<a onclick='Livewire.dispatch("openModal", {
                         component: "modal-edit", arguments: {
+                            "load_entity": true,
+                            "model_class": {{ json_encode(get_class($model)) }},
                             "model": "{{ $model->getClassSlug() }}",
                             "model_id": {{ $model->id }},
                             "modal_title": "{{ isset($modal_title) ? $modal_title : '' }}",
