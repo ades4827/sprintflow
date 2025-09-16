@@ -12,10 +12,12 @@ return [
             'confirm' => 'Cloned successfully',
             'error' => 'Error while cloning',
         ],
-        'restores' => 'Restored successfully!',
-        'enabled' => 'Enabled successfully!',
-        'disabled' => 'Disabled successfully!',
-
-        'restore' => 'Restored successfully!', // deprecated
+        'restore' => [
+            'confirm' => 'Restored successfully',
+            'error' => 'Error while restoring',
+        ],
+        'restores' => 'Restored successfully',
+        'enabled' => 'Enabled successfully',
+        'disabled' => 'Disabled successfully',
     ],
 ];
