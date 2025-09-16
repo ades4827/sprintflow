@@ -81,8 +81,21 @@ abstract class CrudEntityController extends Controller
 
     public function restore(Request $request, Model $entity): RedirectResponse
     {
-        $entity->restore();
-        return redirect()->route('admin.'.$this->section_slug.'.index')->with('status', __('sprintflow::crud.states.restored'));
+        DB::beginTransaction();
+        try {
+            $entity->restore();
+            DB::commit();
+
+            return redirect()->route('admin.'.$this->section_slug.'.index')->with('status', __('sprintflow::crud.states.restore.confirm'));
+        } catch (RuntimeException $e) {
+            report($e);
+            DB::rollBack();
+            return redirect()->route('admin.'.$this->section_slug.'.index')->with('error', $e->getMessage());
+        } catch (Exception $e) {
+            report($e);
+            DB::rollBack();
+        }
+        return redirect()->route('admin.'.$this->section_slug.'.index')->with('error', __('sprintflow::crud.states.restore.error'));
     }
 
     public function edit(Request $request, Model $entity): View
