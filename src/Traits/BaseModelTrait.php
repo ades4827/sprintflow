@@ -40,6 +40,9 @@ trait BaseModelTrait
             $builder->where('is_valid', true);
         });
         parent::boot();
+    }
+    protected static function booted()
+    {
         static::creating(static function ($model) {
             if (empty($model->slug)) {
                 $slug = \Illuminate\Support\Str::slug($model->name);
@@ -53,16 +56,6 @@ trait BaseModelTrait
 
     protected $class_plural = null;
 
-    public static function getTableName(): string
-    {
-        return with(new static)->getTable();
-    }
-
-    public function getPermissionPrefix(): string
-    {
-        return $this->getClassSlug(true);
-    }
-
     public function getClassPlural(): string
     {
         if(!empty($this->class_plural)) {
@@ -73,19 +66,40 @@ trait BaseModelTrait
 
     public function getClassSlug($plural = false): string
     {
+        $class_basename = class_basename($this);
         if ($plural) {
-            return Str::snake($this->getClassPlural());
+            $class_basename = $this->getClassPlural();
         }
 
-        return Str::snake(class_basename($this));
+        return Str::snake($class_basename);
     }
 
+    public function getPermissionPrefix(): string
+    {
+        return $this->getClassSlug(true);
+    }
+
+    /**
+     * Static method to get class slug
+     * $entity::classSlug()
+     */
     public static function classSlug($plural = false): string
     {
+        $class_basename = class_basename(static::class);
         if ($plural) {
-            return Str::snake(Str::pluralStudly(class_basename(static::class)));
+            $class_basename = Str::pluralStudly($class_basename);
         }
+        return Str::snake($class_basename);
+    }
 
-        return Str::snake(class_basename(static::class));
+    /**
+     * DEPRECATED
+     *
+     * Static method to get table name
+     * $entity::getTableName()
+     */
+    public static function getTableName(): string
+    {
+        return with(new static)->getTable();
     }
 }
