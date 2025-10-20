@@ -41,7 +41,6 @@
 			@endif
 			@if( !isset($hide_submit) )
 				<x-sprintflow::action-btn
-						action="create"
 						:label="isset($submit_label) ? $submit_label : __('sprintflow::view.save')"
 						:icon="isset($submit_label) ? '' : 'fa-solid fa-floppy-disk'"
 				/>
