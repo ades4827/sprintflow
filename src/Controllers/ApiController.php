@@ -26,7 +26,7 @@ class ApiController extends Controller
         return $this->getFromArray($request, $all_entries);
     }
      */
-    protected function getFromArray(Request $request, array $all_entries)
+    protected function getFromArray(Request $request, array $all_entries): array
     {
         $lists = collect();
         foreach ($all_entries as $entry_id => $entry) {
@@ -75,6 +75,23 @@ class ApiController extends Controller
         }
 
         return $lists->values()->all();
+    }
+
+    // enum from archtechx/enums
+    protected function getFromEnums(Request $request, string $enum, ?string $metadata_label = null)
+    {
+        $all_entries = collect($enum::cases());
+        if($metadata_label) {
+            $all_entries = $all_entries->mapWithKeys(function ($case) use ($metadata_label) {
+                return [$case->value => $case->{$metadata_label}()];
+            });
+        } else {
+            $all_entries = $all_entries->mapWithKeys(function ($case) {
+                return [$case->value => $case->name];
+            });
+        }
+
+        return $this->getFromArray($request, $all_entries->toArray());
     }
 
     protected function simple(Request $request, $model, $name_field = 'name', $options = [])
