@@ -58,12 +58,13 @@ Nel componente Livewire inserire i Trait: LivewireMediaTrait e LivewireFileValid
 
 namespace App\Livewire;
 
+use Ades4827\Sprintflow\Traits\LivewireFileValidationTrait;
 use Ades4827\Sprintflow\Traits\LivewireMediaTrait;
 use Livewire\Component;
 
 class ModelForm extends Component
 {
-    use LivewireMediaTrait;
+    use LivewireFileValidationTrait, LivewireMediaTrait;
     
     public array $medias;
     
