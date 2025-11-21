@@ -26,7 +26,7 @@
 			@endif
 		@endif
 		@if($label)
-			<div class="ml-1">
+			<div class="inline-block ml-1">
 				<span wire:loading.remove>{{ $label }}</span>
 				<span wire:loading>{{ __('sprintflow::view.wait') }}...</span>
 			</div>
