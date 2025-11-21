@@ -19,8 +19,17 @@
         @endif
     </div>
     <div class="hidden sm:block">
-		@if($icon)<i class="{{ $icon }} @if($label)mr-1 @endif"></i>@endif
-        <span wire:loading.remove>{{ $label }}</span>
-        <span wire:loading>{{ __('sprintflow::view.wait') }}...</span>
+		@if($icon)
+			<i wire:loading.remove class="{{ $icon }}"></i>
+			@if($icon_loading)
+				<i wire:loading class="{{ $icon_loading }}"></i>
+			@endif
+		@endif
+		@if($label)
+			<div class="ml-1">
+				<span wire:loading.remove>{{ $label }}</span>
+				<span wire:loading>{{ __('sprintflow::view.wait') }}...</span>
+			</div>
+		@endif
     </div>
 </button>
