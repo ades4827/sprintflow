@@ -49,6 +49,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 - Permission management [See usage example](examples/Permission/README.md)
 - Crud system [See usage example](examples/Crud/README.md)
 - Datatable extension [See usage example](examples/Datatable/README.md)
+- Log Monthly rotate [See usage example](examples/LogRotate/README.md)
 
 ## Livewire Features
 
