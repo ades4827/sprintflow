@@ -32,7 +32,7 @@ There are some option:
 <x-sf::money number="20000.0000" /> Output: 20.000 €
 <x-sf::money number="20000.65254" precision="4" /> Output: 20.000,6526 €
 <x-sf::money number="0" replace-zero="-" /> Output: -
-<x-sf::money number="120" inline="true" />
+<x-sf::money number="120" :inline="true" />
 ```
 
 ## Accordion
