@@ -17,6 +17,6 @@ class AccordionItem extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('sprintflow::components.accordion.item');
+        return view('sprintflow::components.accordion.accordion-item');
     }
 }
