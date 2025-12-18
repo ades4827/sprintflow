@@ -32,7 +32,55 @@ There are some option:
 <x-sf::money number="20000.0000" /> Output: 20.000 €
 <x-sf::money number="20000.65254" precision="4" /> Output: 20.000,6526 €
 <x-sf::money number="0" replace-zero="-" /> Output: -
-<x-sf::money number="120" :inline="true" />
+<x-sf::money number="120" inline="true" />
+```
+
+## Tabs
+Simple tabs with alpinejs
+
+Use the active attribute to open default tab
+
+```
+<x-sf::tabs active="profile">
+    <x-slot name="headers">
+        <x-sf::tab-header index="profile">Profilo</x-sf::tab-header>
+        <x-sf::tab-header index="setting">Impostazioni</x-sf::tab-header>
+    </x-slot>
+    <x-sf::tab index="profile">
+        <h3 class="text-lg font-semibold mb-2">Informazioni Profilo</h3>
+        <p class="text-gray-600">Contenuto della tab Profilo qui...</p>
+    </x-sf::tab>
+    <x-sf::tab index="setting">
+        <h3 class="text-lg font-semibold mb-2">Impostazioni Account</h3>
+        <p class="text-gray-600">Contenuto della tab Impostazioni qui...</p>
+    </x-sf::tab>
+</x-sf::tabs>
+```
+
+Initially, tabs are unstyled to allow for complete configuration. Take the following style as an example.
+```
+.sf-tabs {
+    .sf-tabs-header {
+        @apply border-b border-gray-200 overflow-x-auto overflow-y-hidden;
+        nav {
+            @apply flex min-w-max sm:min-w-0;
+        }
+        button {
+            @apply whitespace-nowrap py-3 px-4 sm:py-3 sm:px-5 border-b font-medium text-sm sm:text-base transition-colors duration-200 rounded-t-md;
+            &.selected {
+                @apply bg-white border-blue-500 text-blue-600;
+            }
+            &.not-selected {
+                @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300;
+            }
+        }
+    }
+    .sf-tabs-tabs {
+        &>div {
+            @apply p-4 bg-white rounded-b-md;
+        }
+    }
+}
 ```
 
 ## Accordion
