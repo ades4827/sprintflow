@@ -4,10 +4,10 @@
 			<li>
 				<a onclick='Livewire.dispatch("openModal", {
                         component: "modal-edit", arguments: {
-                            "model": "{{ $model->getClassSlug() }}",
-                            "model_id": {{ $model->id }},
-                            "modal_title": "{{ isset($modal_title) ? $modal_title : '' }}",
-                            "component_folder": "{{ isset($component_folder) ? $component_folder : '' }}",
+                            model: "{{ $model->getClassSlug() }}",
+                            model_id: {{ $model->id }},
+                            modal_title: "{{ isset($modal_title) ? $modal_title : '' }}",
+                            component_folder: "{{ isset($component_folder) ? $component_folder : null }}",
                         }
                     })' class="btn btn-primary btn-icon-sm tooltip"
 				   data-placement="bottom" title="{{ __('sprintflow::view.edit') }}">
