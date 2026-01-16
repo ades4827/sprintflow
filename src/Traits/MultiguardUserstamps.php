@@ -13,5 +13,6 @@ trait MultiguardUserstamps
                 return config('auth.providers.'.$guard['provider'].'.model', config('auth.providers.users.model'));
             }
         }
+        return config('auth.providers.users.model');
     }
 }
