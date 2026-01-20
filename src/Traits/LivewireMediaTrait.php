@@ -159,6 +159,7 @@ trait LivewireMediaTrait
                 'url' => route('file.download', ['media' => $mediaItem->id]),
                 'original_name' => $mediaItem->custom_properties["original_name"],
                 'mime_type' => $mediaItem->mime_type,
+                'type' => $mediaItem->type,
             ];
         }
     }
