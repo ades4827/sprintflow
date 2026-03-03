@@ -53,8 +53,12 @@ class ApiController extends Controller
         return $lists->values()->all();
     }
 
-    protected function getFromCollection(Request $request, Collection $all_entries, $search_disabled = false)
+    protected function getFromCollection(Request $request, array|Collection $all_entries, $search_disabled = false)
     {
+        if(is_array($all_entries)) {
+            $all_entries = collect($all_entries);
+        }
+
         $lists = collect();
         foreach ($all_entries as $entry) {
             if (
