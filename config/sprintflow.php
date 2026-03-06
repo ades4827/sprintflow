@@ -27,11 +27,11 @@ return [
     'permissions_seeder' => [
         'admin' => [
             'settings' => [
-                'settings' => ['admin'],
                 'menu' => ['admin', 'supervisor'],
+                'permission_list' => ['admin', 'supervisor'],
+                'settings' => ['admin'],
                 'testing' => ['admin'],
                 'status' => ['admin'],
-                'permission_list' => ['admin', 'supervisor'],
             ],
             'admins' => [
                 'create' => ['admin'],
@@ -111,8 +111,8 @@ return [
      |--------------------------------------------------------------------------
      */
     'crud_entity' => [
-        \Ades4827\Sprintflow\Models\Admin::class => \App\Http\Controllers\Admin\AdminController::class,
-        \Ades4827\Sprintflow\Models\User::class => \App\Http\Controllers\Admin\UserController::class,
+        // \Ades4827\Sprintflow\Models\Admin::class => \App\Http\Controllers\Admin\AdminController::class,
+        // \Ades4827\Sprintflow\Models\User::class => \App\Http\Controllers\Admin\UserController::class,
     ],
 
     /*
