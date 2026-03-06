@@ -33,7 +33,7 @@
                         </div>
                     @elseif($setting['type'] === 'wireUiNativeSelect')
                         <div class="form-group my-2">
-                            <x-native-select label="{{ $setting['name'] }}" description="{{ $setting['description'] }}"
+                            <x-select label="{{ $setting['name'] }}" description="{{ $setting['description'] }}"
                                              wire:model.live.debounce.500ms="settings.{{ $group_name }}.{{ $setting_name }}.value"
                                              :options="$setting['wireUiNativeSelectOptions']"
                                              option-label="name"
