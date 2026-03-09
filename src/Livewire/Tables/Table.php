@@ -11,13 +11,13 @@ abstract class Table extends Component
 
     use WithPagination;
 
-    public $perPage = 10;
+    public int $perPage = 10;
 
-    public $page = 1;
+    public int $page = 1;
 
-    public $sortBy = '';
+    public string $sortBy = '';
 
-    public $sortDirection = 'asc';
+    public string $sortDirection = 'asc';
 
     public array $filters = [
         'search' => null,
@@ -27,6 +27,7 @@ abstract class Table extends Component
 
     abstract public function columns(): array;
 
+    #[\Livewire\Attributes\Computed]
     public function data()
     {
         return $this
