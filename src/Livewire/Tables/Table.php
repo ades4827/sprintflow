@@ -52,6 +52,10 @@ abstract class Table extends Component
         $this->sortDirection = 'asc';
     }
 
+    public function updatingFilters() {
+        $this->resetPage();
+    }
+
     public function render()
     {
         return view('sprintflow::livewire.table.table');
