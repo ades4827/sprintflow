@@ -4,6 +4,8 @@ namespace Ades4827\Sprintflow\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
+use Ades4827\Sprintflow\Events\RefreshPermissionsUpdating;
+use Ades4827\Sprintflow\Events\RefreshPermissionsUpdated;
 
 class PermissionController extends Controller
 {
@@ -40,11 +42,15 @@ class PermissionController extends Controller
 
     public function refreshDatabase()
     {
+        event(new RefreshPermissionsUpdating());
+
         $report['roles'] = $this->syncRoles();
         $report['permissions'] = $this->syncPermissions();
         //app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
         $this->syncRolePermissions();
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+        event(new RefreshPermissionsUpdated());
         return $report;
     }
 
