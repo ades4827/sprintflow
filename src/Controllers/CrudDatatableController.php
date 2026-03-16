@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-abstract class CrudEntityController extends Controller
+abstract class CrudDatatableController extends Controller
 {
     public string $model;
-    public string $model_slug;
+    public string $model_id_slug;
     public string $section_slug;
 
     public function __construct()
@@ -26,7 +26,7 @@ abstract class CrudEntityController extends Controller
         }
         $model = new $this->model();
         // define names
-        $this->model_slug = $model->getClassSlug();
+        $this->model_id_slug = $model->getClassSlug().'_id';
         $this->section_slug = $model->getClassSlug(true);
 
         $this->middleware(['role_or_permission:'.$this->section_slug.'.view']);
@@ -76,7 +76,7 @@ abstract class CrudEntityController extends Controller
 
     public function create(Request $request): View
     {
-        return view('admin.'.$this->section_slug.'.form', [$this->model_slug => null]);
+        return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => null]);
     }
 
     public function restore(Request $request, Model $entity): RedirectResponse
@@ -100,7 +100,7 @@ abstract class CrudEntityController extends Controller
 
     public function edit(Request $request, Model $entity): View
     {
-        return view('admin.'.$this->section_slug.'.form', [$this->model_slug => $entity]);
+        return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => $entity->id]);
     }
 
     public function delete(Request $request, Model $entity): RedirectResponse
