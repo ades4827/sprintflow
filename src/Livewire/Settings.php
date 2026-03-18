@@ -37,26 +37,32 @@ class Settings extends Component
             $setting = new $settings_group;
             $setting_properties = $settings_repository->getPropertiesInGroup($setting->group());
             if (count($setting_properties) > 0) {
+
+                $this->settings[$setting->group()]['cols'] = 1;
+                if(method_exists($settings_group, 'cols')) {
+                    $this->settings[$setting->group()]['cols'] = (int) $settings_group::cols();
+                }
+
                 // reformat setting for extract type
                 foreach ($setting_properties as $property_name => $property_value) {
                     $rp = new ReflectionProperty($settings_group, $property_name);
-                    $this->settings[$setting->group()][$property_name] = [
+                    $this->settings[$setting->group()]['properties'][$property_name] = [
                         'name' => $this->getDocsField($rp, 'label'),
                         'description' => $this->getDocsField($rp, 'description'),
                         'type' => $rp->getType()->getName(),
                         'value' => $property_value,
                     ];
                     if ($this->getDocsField($rp, 'formType')) {
-                        $this->settings[$setting->group()][$property_name]['type'] = $this->getDocsField($rp, 'formType');
+                        $this->settings[$setting->group()]['properties'][$property_name]['type'] = $this->getDocsField($rp, 'formType');
                     }
-                    if ($this->settings[$setting->group()][$property_name]['type'] == 'wireUiSelect') {
-                        $this->settings[$setting->group()][$property_name]['wireUiSelectRoute'] = $this->getDocsField($rp, 'wireUiSelectRoute');
+                    if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiSelect') {
+                        $this->settings[$setting->group()]['properties'][$property_name]['wireUiSelectRoute'] = $this->getDocsField($rp, 'wireUiSelectRoute');
                     }
-                    if ($this->settings[$setting->group()][$property_name]['type'] == 'wireUiNativeSelect') {
-                        $this->settings[$setting->group()][$property_name]['wireUiNativeSelectOptions'] = json_decode($this->getDocsField($rp, 'wireUiNativeSelectOptions'), true);
+                    if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiNativeSelect') {
+                        $this->settings[$setting->group()]['properties'][$property_name]['wireUiNativeSelectOptions'] = json_decode($this->getDocsField($rp, 'wireUiNativeSelectOptions'), true);
                     }
                     if ($this->getDocsField($rp, 'visibility')) {
-                        $this->settings[$setting->group()][$property_name]['visibility'] = json_decode($this->getDocsField($rp, 'visibility'), true);
+                        $this->settings[$setting->group()]['properties'][$property_name]['visibility'] = json_decode($this->getDocsField($rp, 'visibility'), true);
                     }
                 }
             }
@@ -66,11 +72,11 @@ class Settings extends Component
     }
 
     public function fieldIsVisible($group, $property_name) {
-        if(!isset($this->settings[$group][$property_name]['visibility'])) {
+        if(!isset($this->settings[$group]['properties'][$property_name]['visibility'])) {
             return true;
         }
-        foreach ($this->settings[$group][$property_name]['visibility'] as $visibility) {
-            if($this->settings[$group][$visibility['field']]['value'] != $visibility['value']) {
+        foreach ($this->settings[$group]['properties'][$property_name]['visibility'] as $visibility) {
+            if($this->settings[$group]['properties'][$visibility['field']]['value'] != $visibility['value']) {
                 return false;
             }
         }
@@ -124,16 +130,16 @@ class Settings extends Component
         $exploded_name = explode('.', $name);
 
         // Manual cast value
-        if ($this->settings[$exploded_name[1]][$exploded_name[2]]['type'] === 'int') {
+        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['type'] === 'int') {
             $value = (int) $value;
         }
-        if ($this->settings[$exploded_name[1]][$exploded_name[2]]['type'] === 'float') {
+        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['type'] === 'float') {
             $value = (float) $value;
         }
-        if ($this->settings[$exploded_name[1]][$exploded_name[2]]['type'] === 'url') {
-            $this->validate([$name => 'url'], null, [$name => $this->settings[$exploded_name[1]][$exploded_name[2]]['name']]);
+        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['type'] === 'url') {
+            $this->validate([$name => 'url'], null, [$name => $this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['name']]);
         }
-        if ($this->settings[$exploded_name[1]][$exploded_name[2]]['type'] === 'wireUiSelect') {
+        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['type'] === 'wireUiSelect') {
             $value = (int) $value;
         }
 
