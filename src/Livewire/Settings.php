@@ -130,21 +130,21 @@ class Settings extends Component
         $exploded_name = explode('.', $name);
 
         // Manual cast value
-        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['type'] === 'int') {
+        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['type'] === 'int') {
             $value = (int) $value;
         }
-        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['type'] === 'float') {
+        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['type'] === 'float') {
             $value = (float) $value;
         }
-        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['type'] === 'url') {
-            $this->validate([$name => 'url'], null, [$name => $this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['name']]);
+        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['type'] === 'url') {
+            $this->validate([$name => 'url'], null, [$name => $this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['name']]);
         }
-        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[2]]['type'] === 'wireUiSelect') {
+        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['type'] === 'wireUiSelect') {
             $value = (int) $value;
         }
 
         $settings_repository = app()->make(SettingsRepository::class);
-        $settings_repository->updatePropertiesPayload($exploded_name[1], [$exploded_name[2] => $value]);
+        $settings_repository->updatePropertiesPayload($exploded_name[1], [$exploded_name[3] => $value]);
 
         $this->dispatch('livewire-alert', type: 'success', title: '', message: 'Salvato');
     }
