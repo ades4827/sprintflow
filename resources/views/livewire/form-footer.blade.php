@@ -35,8 +35,8 @@
 			@endif
 			@if( isset($save_and_edit) )
 				<a wire:click="submit('edit')" class="btn btn-primary hidden sm:inline-flex" wire:loading.attr="disabled">
-					<span wire:loading.remove>{{ __('sprintflow::view.save_and_edit') }}</span>
-					<span wire:loading>{{ __('sprintflow::view.wait') }}...</span>
+					<span wire:loading.delay.remove>{{ __('sprintflow::view.save_and_edit') }}</span>
+					<span wire:loading.delay>{{ __('sprintflow::view.wait') }}...</span>
 				</a>
 			@endif
 			@if( !isset($hide_submit) )
