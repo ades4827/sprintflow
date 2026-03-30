@@ -36,34 +36,40 @@ class Settings extends Component
         foreach ($settings_groups as $settings_group) {
             $setting = new $settings_group;
             $setting_properties = $settings_repository->getPropertiesInGroup($setting->group());
-            if (count($setting_properties) > 0) {
 
-                $this->settings[$setting->group()]['cols'] = 1;
-                if(method_exists($settings_group, 'cols')) {
-                    $this->settings[$setting->group()]['cols'] = (int) $settings_group::cols();
+            if (count($setting_properties) <= 0 ) {
+                continue;
+            }
+
+            if (method_exists($settings_group, 'manual_edit') && $settings_group::manual_edit() ) {
+                continue;
+            }
+
+            $this->settings[$setting->group()]['cols'] = 1;
+            if(method_exists($settings_group, 'cols')) {
+                $this->settings[$setting->group()]['cols'] = (int) $settings_group::cols();
+            }
+
+            // reformat setting for extract type
+            foreach ($setting_properties as $property_name => $property_value) {
+                $rp = new ReflectionProperty($settings_group, $property_name);
+                $this->settings[$setting->group()]['properties'][$property_name] = [
+                    'name' => $this->getDocsField($rp, 'label'),
+                    'description' => $this->getDocsField($rp, 'description'),
+                    'type' => $rp->getType()->getName(),
+                    'value' => $property_value,
+                ];
+                if ($this->getDocsField($rp, 'formType')) {
+                    $this->settings[$setting->group()]['properties'][$property_name]['type'] = $this->getDocsField($rp, 'formType');
                 }
-
-                // reformat setting for extract type
-                foreach ($setting_properties as $property_name => $property_value) {
-                    $rp = new ReflectionProperty($settings_group, $property_name);
-                    $this->settings[$setting->group()]['properties'][$property_name] = [
-                        'name' => $this->getDocsField($rp, 'label'),
-                        'description' => $this->getDocsField($rp, 'description'),
-                        'type' => $rp->getType()->getName(),
-                        'value' => $property_value,
-                    ];
-                    if ($this->getDocsField($rp, 'formType')) {
-                        $this->settings[$setting->group()]['properties'][$property_name]['type'] = $this->getDocsField($rp, 'formType');
-                    }
-                    if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiSelect') {
-                        $this->settings[$setting->group()]['properties'][$property_name]['wireUiSelectRoute'] = $this->getDocsField($rp, 'wireUiSelectRoute');
-                    }
-                    if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiNativeSelect') {
-                        $this->settings[$setting->group()]['properties'][$property_name]['wireUiNativeSelectOptions'] = json_decode($this->getDocsField($rp, 'wireUiNativeSelectOptions'), true);
-                    }
-                    if ($this->getDocsField($rp, 'visibility')) {
-                        $this->settings[$setting->group()]['properties'][$property_name]['visibility'] = json_decode($this->getDocsField($rp, 'visibility'), true);
-                    }
+                if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiSelect') {
+                    $this->settings[$setting->group()]['properties'][$property_name]['wireUiSelectRoute'] = $this->getDocsField($rp, 'wireUiSelectRoute');
+                }
+                if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiNativeSelect') {
+                    $this->settings[$setting->group()]['properties'][$property_name]['wireUiNativeSelectOptions'] = json_decode($this->getDocsField($rp, 'wireUiNativeSelectOptions'), true);
+                }
+                if ($this->getDocsField($rp, 'visibility')) {
+                    $this->settings[$setting->group()]['properties'][$property_name]['visibility'] = json_decode($this->getDocsField($rp, 'visibility'), true);
                 }
             }
         }
