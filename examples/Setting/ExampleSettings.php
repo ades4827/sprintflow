@@ -61,4 +61,16 @@ class ExampleSettings extends Settings
     {
         return 'general';
     }
+
+    // Show in 2 columns on the settings page
+    public static function cols(): int
+    {
+        return 2;
+    }
+
+    // To exclude from the settings page
+    public static function manual_edit(): bool
+    {
+        return true;
+    }
 }
