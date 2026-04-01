@@ -19,6 +19,7 @@ class NumberFormatter extends Component
         public ?int $precision = 2,
         public ?string $locale = null,
         public ?string $replaceZero = null,
+        public ?string $uom = null,
         public ?bool $inline = false,
     ) {
         if(is_null($locale)) {
@@ -48,10 +49,16 @@ class NumberFormatter extends Component
             // Format
             $number = Number::format($this->number, precision: $this->precision, locale: $this->locale);
 
-            if($this->inline) {
-                return '<span {{ $attributes }}>'.$number.'</span>';
+            // Append UOM
+            if($this->uom) {
+                $number .= ' ' . $this->uom;
             }
-            return '<div {{ $attributes }}>'.$number.'</div>';
+            $output = $number;
+
+            if($this->inline) {
+                return '<span {{ $attributes }}>'.$output.'</span>';
+            }
+            return '<div {{ $attributes }}>'.$output.'</div>';
         };
     }
 }
