@@ -2,6 +2,29 @@
 
 Component for speed up your blade experience
 
+## Number formatter
+
+You can format your number in money simply like this:
+```
+<x-sf::number-formatter number="120" />
+<x-sf::number-formatter>120</x-sf::money>
+<x-sf::number-formatter>
+    {{ 123+$shippingCost }}
+</x-sf::number-formatter>
+```
+
+There are some options:
+- locale: locale code 2 char for country convention like dot and coma position (default from app locale)
+- precision: number of decimal places (when setted auto-scale is set to false)
+- replace-zero: char to replace zero value
+- inline: boolean value to switch from div to span
+```
+<x-sf::number-formatter number="20000.0000" /> Output: 20.000,00
+<x-sf::number-formatter number="20000.65254" precision="4" /> Output: 20.000,6525
+<x-sf::number-formatter number="0" replace-zero="-" /> Output: -
+<x-sf::number-formatter number="120" inline="true" />
+```
+
 ## Money
 
 You can format your number in money simply like this:
@@ -13,12 +36,12 @@ You can format your number in money simply like this:
 </x-sf::money>
 ```
 
-By default use `EUR` with app locale and accept custom attributes:
+By default, use `EUR` with app locale and accept custom attributes:
 ```
 <x-sf::money number="120" class="bg-red" />
 ```
 
-There are some option:
+There are some options:
 - in: currency code 3 char
 - locale: locale code 2 char for country convention like dot and coma position
 - auto-scale: (implicit setted to true) when true automatically set the precision to the number like 10,00 to 10
