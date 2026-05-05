@@ -6,11 +6,12 @@ trait MultiguardUserstamps
 {
     use \Mattiverse\Userstamps\Traits\Userstamps;
 
-    protected function getUserClass(?string $by_guard_name): string
+    protected function getUserClass(): string
     {
-        if($by_guard_name) {
+        // put this var in your model to access in cron
+        if($this->userstamp_guard) {
             foreach (config('auth.guards') as $guard_name => $guard) {
-                if ($guard_name === $by_guard_name) {
+                if ($guard_name === $this->userstamp_guard) {
                     return config('auth.providers.'.$guard['provider'].'.model', config('auth.providers.users.model'));
                 }
             }
