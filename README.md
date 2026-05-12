@@ -11,6 +11,7 @@ Laravel Package for speed up your project development
 | 11.x    | 3.x      | 3.x        |
 | 12.x    | 3.x      | 4.x        |
 | 12.x    | 4.x      | 5.x        |
+| 13.x    | 4.x      | 5.x        |
 
 ## Installation
 
