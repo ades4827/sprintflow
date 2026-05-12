@@ -52,6 +52,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 - Crud system [See usage example](examples/Crud/README.md)
 - Datatable extension [See usage example](examples/Datatable/README.md)
 - Log Monthly rotate [See usage example](examples/LogRotate/README.md)
+- Make PDF from blade [See usage example](examples/ToPDF/README.md)
 
 ## Livewire Features
 
