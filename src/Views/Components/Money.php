@@ -54,9 +54,9 @@ class Money extends Component
 
             // Format
             if($this->autoScale) {
-                $money = BrickMoney::of($this->number, $this->in, new AutoContext())->formatTo($this->locale);
+                $money = BrickMoney::of($this->number, $this->in, new AutoContext())->formatToLocale($this->locale);
             } else {
-                $money = BrickMoney::of($this->number, $this->in, new CustomContext(scale: $this->precision), roundingMode: RoundingMode::UP)->formatTo($this->locale);
+                $money = BrickMoney::of($this->number, $this->in, new CustomContext(scale: $this->precision), roundingMode: RoundingMode::UP)->formatToLocale($this->locale);
             }
 
             if($this->inline) {
