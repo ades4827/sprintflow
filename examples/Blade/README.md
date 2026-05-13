@@ -82,30 +82,12 @@ Use the active attribute to open default tab
 </x-sf::tabs>
 ```
 
-Initially, tabs are unstyled to allow for complete configuration. Take the following style as an example.
+Initially, tabs are unstyled to allow for complete configuration. 
+Take the following [style as an example](../../resources/css/sf-tabs.css).
+
+Use the following import in your css file or copy the content of the file in your css file
 ```
-.sf-tabs {
-    .sf-tabs-header {
-        @apply border-b border-gray-200 overflow-x-auto overflow-y-hidden;
-        nav {
-            @apply flex min-w-max sm:min-w-0;
-        }
-        button {
-            @apply whitespace-nowrap py-3 px-4 sm:py-3 sm:px-5 border-b font-medium text-sm sm:text-base transition-colors duration-200 rounded-t-md;
-            &.selected {
-                @apply bg-white border-blue-500 text-blue-600;
-            }
-            &.not-selected {
-                @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300;
-            }
-        }
-    }
-    .sf-tabs-tabs {
-        &>div {
-            @apply p-4 bg-white rounded-b-md;
-        }
-    }
-}
+@import "./../../vendor/ades4827/sprintflow/resources/css/sf-tabs.css";
 ```
 
 ## Accordion
