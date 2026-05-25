@@ -17,6 +17,7 @@ class NumberFormatter extends Component
     public function __construct(
         public ?string $number = null,
         public ?int $precision = 2,
+        public ?int $maxPrecision = null,
         public ?string $locale = null,
         public ?string $replaceZero = null,
         public ?string $uom = null,
@@ -47,7 +48,7 @@ class NumberFormatter extends Component
             $this->number = $this->number ?? $data['slot']->__toString();
 
             // Format
-            $number = Number::format($this->number, precision: $this->precision, locale: $this->locale);
+            $number = Number::format($this->number, precision: $this->precision, maxPrecision: $this->maxPrecision, locale: $this->locale);
 
             // Append UOM
             if($this->uom) {

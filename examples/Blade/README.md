@@ -15,13 +15,16 @@ You can format your number in money simply like this:
 
 There are some options:
 - locale: locale code 2 char for country convention like dot and coma position (default from app locale)
-- precision: number of decimal places (when setted auto-scale is set to false)
+- precision: force number of decimal places
+- max-precision: number of decimal places (collapse zero decimal like 10,00 to 10)
 - replace-zero: char to replace zero value
 - uom: unit of measure as a string (default is empty)
 - inline: boolean value to switch from div to span
 ```
 <x-sf::number-formatter number="20000.0000" /> Output: 20.000,00
 <x-sf::number-formatter number="20000.65254" precision="4" /> Output: 20.000,6525
+<x-sf::number-formatter number="20000.65254" max-precision="4" /> Output: 20.000,6525
+<x-sf::number-formatter number="20000.00000" max-precision="4" /> Output: 20.000
 <x-sf::number-formatter number="0" replace-zero="-" /> Output: -
 <x-sf::number-formatter number="120" uom="LT" /> Output: 120,00 LT
 <x-sf::number-formatter number="120" inline="true" />
