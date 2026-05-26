@@ -2,10 +2,11 @@
 
 namespace Ades4827\Sprintflow\Views\Components;
 
+use Ades4827\Sprintflow\Helpers\NumberHelper;
 use Closure;
+use Illuminate\Support\Number;
 use Illuminate\View\Component;
 use RuntimeException;
-use Illuminate\Support\Number;
 
 class NumberFormatter extends Component
 {
@@ -37,7 +38,7 @@ class NumberFormatter extends Component
             }
 
             // Replace zero
-            if(!is_null($this->replaceZero) && ($this->number === 0 || $this->number === '0' || $data['slot']->__toString() === 0 || $data['slot']->__toString() === '0')) {
+            if(!is_null($this->replaceZero) && ( NumberHelper::isEffectivelyZero($this->number) || NumberHelper::isEffectivelyZero($data['slot']->__toString()) )) {
                 if($this->inline) {
                     return '<span {{ $attributes }}>{{ $replaceZero }}</span>';
                 }
