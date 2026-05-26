@@ -22,6 +22,7 @@ class NumberFormatter extends Component
         public ?string $locale = null,
         public ?string $replaceZero = null,
         public ?string $uom = null,
+        public string $uomPrefix = ' ',
         public ?bool $inline = false,
     ) {
         if(is_null($locale)) {
@@ -58,7 +59,7 @@ class NumberFormatter extends Component
 
             // Append UOM
             if($this->uom) {
-                $number .= ' ' . $this->uom;
+                $number .= $this->uomPrefix . $this->uom;
             }
             $output = $number;
 

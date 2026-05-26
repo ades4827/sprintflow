@@ -27,6 +27,7 @@ There are some options:
 <x-sf::number-formatter number="20000.00000" max-precision="4" /> Output: 20.000
 <x-sf::number-formatter number="0" replace-zero="-" /> Output: -
 <x-sf::number-formatter number="120" uom="LT" /> Output: 120,00 LT
+<x-sf::number-formatter number="120" uom="LT" uom-prefix="" /> Output: 120,00LT
 <x-sf::number-formatter number="120" inline="true" />
 ```
 
