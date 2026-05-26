@@ -38,7 +38,11 @@ class NumberFormatter extends Component
             }
 
             // Replace zero
-            if(!is_null($this->replaceZero) && ( NumberHelper::isEffectivelyZero($this->number) || NumberHelper::isEffectivelyZero($data['slot']->__toString()) )) {
+            if( !is_null($this->replaceZero) &&
+                (
+                    $this->number !== null && NumberHelper::isEffectivelyZero($this->number) ) ||
+                    $this->number === null && NumberHelper::isEffectivelyZero($data['slot']->__toString())
+                ) {
                 if($this->inline) {
                     return '<span {{ $attributes }}>{{ $replaceZero }}</span>';
                 }
