@@ -83,4 +83,39 @@ class NumberHelper
 
         return abs((float) $value) <= $epsilon;
     }
+
+    /**
+     * Verifica se un numero è multiplo di un altro.
+     *
+     * Supporta sia interi che numeri decimali (float).
+     * Per i float viene usata una tolleranza basata su PHP_FLOAT_EPSILON
+     * per evitare errori di precisione nella rappresentazione binaria.
+     *
+     * @param int|float $numero Il numero da verificare.
+     * @param int|float $divisore Il divisore rispetto al quale verificare il multiplo.
+     * @param float $epsilon Tolleranza per il confronto float (default: PHP_FLOAT_EPSILON).
+     *
+     * @return bool  True se $numero è multiplo di $divisore, false altrimenti.
+     *
+     * @throws \InvalidArgumentException  Se $divisore è zero.
+     *
+     * @example
+     *   isMultiple(10, 5);        // true
+     *   isMultiple(10, 3);        // false
+     *   isMultiple(7.5, 2.5);     // true
+     *   isMultiple(0.3, 0.1);     // true  (gestito con epsilon)
+     *   isMultiple(10, 0);        // throws InvalidArgumentException
+     */
+    public static function isMultiple(int|float $numero, int|float $divisore, float $epsilon = PHP_FLOAT_EPSILON): bool
+    {
+        if ($divisore == 0) {
+            throw new \InvalidArgumentException('Il divisore non può essere zero.');
+        }
+
+        if (is_int($numero) && is_int($divisore)) {
+            return $numero % $divisore === 0;
+        }
+
+        return fmod((float)$numero, (float)$divisore) < $epsilon;
+    }
 }
