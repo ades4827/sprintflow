@@ -41,7 +41,7 @@ class NumberFormatter extends Component
             // Replace zero
             if( !is_null($this->replaceZero) &&
                 (
-                    ($this->number !== null && \App\Helpers\NumberHelper::isEffectivelyZero($this->number)) ||
+                    ($this->number !== null && NumberHelper::isEffectivelyZero($this->number)) ||
                     ($this->number === null && NumberHelper::isEffectivelyZero($data['slot']->__toString()))
                 )
             ) {
