@@ -80,7 +80,7 @@ class ColorHelper
     /**
      * Check if hex color is dark or light
      *
-     * Usage: Helper::colorIsDarker($bg_color) ? '#ffffff' : '#000000'
+     * Usage: ColorHelper::colorIsDarker($bg_color) ? '#ffffff' : '#000000'
      *
      * @param string $htmlCode Hex color code
      * @return bool True if color is dark, false if light
@@ -236,7 +236,7 @@ class ColorHelper
     /**
      * Create a color from percentage value (0-100)
      *
-     * Usage: Helper::percent2Color(34)
+     * Usage: ColorHelper::percent2Color(34)
      *
      * @param int $value Percentage value (0-100)
      * @return string Hex color code

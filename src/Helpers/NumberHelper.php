@@ -7,7 +7,7 @@ class NumberHelper
     /**
      * Get percentage of partial value from total
      *
-     * Usage: Helper::getPercentage(1100, 123)
+     * Usage: NumberHelper::getPercentage(1100, 123)
      *
      * @param float $total Total value
      * @param float $partial Partial value
@@ -31,7 +31,7 @@ class NumberHelper
      * Get effective discount amount on partial value
      * Note: discount is only positive
      *
-     * Usage: Helper::getDiscountOf(110, 10) returns 11
+     * Usage: NumberHelper::getDiscountOf(110, 10) returns 11
      *
      * @param float $partial Value to calculate discount on
      * @param float $discount Discount percentage
@@ -50,7 +50,7 @@ class NumberHelper
      * Apply percentage discount to partial value
      * Note: discount is only positive
      *
-     * Usage: Helper::applyDiscountPercentage(100, 20) returns 80
+     * Usage: NumberHelper::applyDiscountPercentage(100, 20) returns 80
      *
      * @param float $partial Original value
      * @param float $discount Discount percentage
@@ -100,11 +100,11 @@ class NumberHelper
      * @throws \InvalidArgumentException  Se $divisore è zero.
      *
      * @example
-     *   isMultiple(10, 5);        // true
-     *   isMultiple(10, 3);        // false
-     *   isMultiple(7.5, 2.5);     // true
-     *   isMultiple(0.3, 0.1);     // true  (gestito con epsilon)
-     *   isMultiple(10, 0);        // throws InvalidArgumentException
+     *   NumberHelper::isMultiple(10, 5);        // true
+     *   NumberHelper::isMultiple(10, 3);        // false
+     *   NumberHelper::isMultiple(7.5, 2.5);     // true
+     *   NumberHelper::isMultiple(0.3, 0.1);     // true  (gestito con epsilon)
+     *   NumberHelper::isMultiple(10, 0);        // throws InvalidArgumentException
      */
     public static function isMultiple(int|float $numero, int|float $divisore, float $epsilon = PHP_FLOAT_EPSILON): bool
     {
