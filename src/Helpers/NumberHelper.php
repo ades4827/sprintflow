@@ -103,6 +103,7 @@ class NumberHelper
      *   NumberHelper::isMultiple(10, 5);        // true
      *   NumberHelper::isMultiple(10, 3);        // false
      *   NumberHelper::isMultiple(7.5, 2.5);     // true
+     *   NumberHelper::isMultiple(25.2, 4.2);     // true
      *   NumberHelper::isMultiple(0.3, 0.1);     // true  (gestito con epsilon)
      *   NumberHelper::isMultiple(10, 0);        // throws InvalidArgumentException
      */
@@ -116,6 +117,16 @@ class NumberHelper
             return $numero % $divisore === 0;
         }
 
-        return fmod((float)$numero, (float)$divisore) < $epsilon;
+        $resto = fmod((float)$numero, (float)$divisore);
+
+        // fmod può restituire un valore prossimo a $divisore invece di 0
+        // quindi normalizziamo il resto nel range [0, |divisore|)
+        $restNorm = abs($resto);
+        $divAbs   = abs((float)$divisore);
+
+        // Scala epsilon rispetto alla grandezza dei numeri in gioco
+        $tolerance = $epsilon * max(abs((float)$numero), $divAbs);
+
+        return $restNorm < $tolerance || abs($restNorm - $divAbs) < $tolerance;
     }
 }
