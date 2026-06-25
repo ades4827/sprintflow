@@ -23,6 +23,8 @@ trait LivewireUtilsTrait
         $title = null;
         $text = null;
         $icon = null;
+        $btnconfirm = null;
+        $btncancel = null;
         if (isset($options['swal_params'])) {
             $swal_params = $options['swal_params'];
         }
@@ -35,8 +37,14 @@ trait LivewireUtilsTrait
         if (isset($options['icon'])) {
             $icon = $options['icon'];
         }
+        if (isset($options['btnconfirm'])) {
+            $btnconfirm = $options['btnconfirm'];
+        }
+        if (isset($options['btncancel'])) {
+            $btncancel = $options['btncancel'];
+        }
         $this->dispatch('confirm', component_id: $this->getId(), callback: $callback, argv: $argv,
-            swal_params: $swal_params, title: $title, text: $text, icon: $icon);
+            swal_params: $swal_params, title: $title, text: $text, icon: $icon, btnconfirm: $btnconfirm, btncancel: $btncancel);
     }
 
     /**
