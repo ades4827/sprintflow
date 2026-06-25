@@ -3,6 +3,7 @@
 namespace Ades4827\Sprintflow\Livewire;
 
 use Ades4827\Sprintflow\Traits\LivewireUtilsTrait;
+use Flux\Flux;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Livewire\Component;
 use PHPStan\PhpDocParser\Lexer\Lexer;
@@ -22,6 +23,8 @@ class Settings extends Component
 
     public $settings = [];
 
+    public string $livewire_component_library = 'wireui';
+
     /**
      * @throws \ReflectionException
      * @throws BindingResolutionException
@@ -29,6 +32,10 @@ class Settings extends Component
     public function mount()
     {
         $this->checkPermission('settings.settings');
+
+        if(\Composer\InstalledVersions::isInstalled('livewire/flux')) {
+            $this->livewire_component_library = 'fluxui';
+        }
 
         $settings_repository = app()->make(SettingsRepository::class);
         $settings_groups = config('settings.settings');
@@ -62,11 +69,13 @@ class Settings extends Component
                 if ($this->getDocsField($rp, 'formType')) {
                     $this->settings[$setting->group()]['properties'][$property_name]['type'] = $this->getDocsField($rp, 'formType');
                 }
-                if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiSelect') {
-                    $this->settings[$setting->group()]['properties'][$property_name]['wireUiSelectRoute'] = $this->getDocsField($rp, 'wireUiSelectRoute');
-                }
-                if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiNativeSelect') {
-                    $this->settings[$setting->group()]['properties'][$property_name]['wireUiNativeSelectOptions'] = json_decode($this->getDocsField($rp, 'wireUiNativeSelectOptions'), true);
+                if($this->livewire_component_library == 'wireui') {
+                    if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiSelect') {
+                        $this->settings[$setting->group()]['properties'][$property_name]['wireUiSelectRoute'] = $this->getDocsField($rp, 'wireUiSelectRoute');
+                    }
+                    if ($this->settings[$setting->group()]['properties'][$property_name]['type'] == 'wireUiNativeSelect') {
+                        $this->settings[$setting->group()]['properties'][$property_name]['wireUiNativeSelectOptions'] = json_decode($this->getDocsField($rp, 'wireUiNativeSelectOptions'), true);
+                    }
                 }
                 if ($this->getDocsField($rp, 'visibility')) {
                     $this->settings[$setting->group()]['properties'][$property_name]['visibility'] = json_decode($this->getDocsField($rp, 'visibility'), true);
@@ -145,14 +154,20 @@ class Settings extends Component
         if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['type'] === 'url') {
             $this->validate([$name => 'url'], null, [$name => $this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['name']]);
         }
-        if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['type'] === 'wireUiSelect') {
-            $value = (int) $value;
+        if($this->livewire_component_library == 'wireui') {
+            if ($this->settings[$exploded_name[1]]['properties'][$exploded_name[3]]['type'] === 'wireUiSelect') {
+                $value = (int) $value;
+            }
         }
 
         $settings_repository = app()->make(SettingsRepository::class);
         $settings_repository->updatePropertiesPayload($exploded_name[1], [$exploded_name[3] => $value]);
 
-        $this->dispatch('livewire-alert', type: 'success', title: '', message: 'Salvato');
+        if($this->livewire_component_library == 'fluxui') {
+            Flux::toast(text: 'Salvato correttamente', heading: '', variant: 'success');
+        } else {
+            $this->dispatch('livewire-alert', type: 'success', title: '', message: 'Salvato');
+        }
     }
 
     public function render()
