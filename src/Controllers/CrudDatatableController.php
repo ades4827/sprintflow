@@ -33,7 +33,7 @@ abstract class CrudDatatableController extends Controller
         $this->middleware('permission:'.$this->section_slug.'.create')->only(['create']);
         $this->middleware('permission:'.$this->section_slug.'.update')->only(['edit', 'changeStatus']);
         $this->middleware('permission:'.$this->section_slug.'.restore')->only(['restore']);
-        $this->middleware('permission:'.$this->section_slug.'.delete')->only(['delete']);
+        $this->middleware('permission:'.$this->section_slug.'.delete')->only(['destroy']);
     }
 
     /**
@@ -98,7 +98,7 @@ abstract class CrudDatatableController extends Controller
         return redirect()->route('admin.'.$this->section_slug.'.index')->with('error', __('sprintflow::crud.states.restore.error'));
     }
 
-    public function view(Request $request, Model $entity): View
+    public function show(Request $request, Model $entity): View
     {
         return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => $entity->id, 'method' => __FUNCTION__]);
     }
@@ -108,7 +108,7 @@ abstract class CrudDatatableController extends Controller
         return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => $entity->id, 'method' => __FUNCTION__]);
     }
 
-    public function delete(Request $request, Model $entity): RedirectResponse
+    public function destroy(Request $request, Model $entity): RedirectResponse
     {
         DB::beginTransaction();
         try {
@@ -141,5 +141,15 @@ abstract class CrudDatatableController extends Controller
         return response()->json([
             'status' => $status,
         ]);
+    }
+
+    /**
+     * DEPRECATED
+     *
+     * use destroy
+     */
+    public function delete(Request $request, Model $entity): RedirectResponse
+    {
+        return $this->destroy($request, $entity);
     }
 }

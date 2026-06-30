@@ -112,7 +112,7 @@ return [
      */
     'crud' => [
         'method' => 'livewire', // or 'datatable'
-        'has_view' => false
+        'has_show' => false
     ],
 
     /*

@@ -33,7 +33,7 @@ abstract class CrudLivewireEntityController extends Controller
         $this->middleware('permission:'.$this->section_slug.'.create')->only(['create']);
         $this->middleware('permission:'.$this->section_slug.'.update')->only(['edit', 'changeStatus']);
         $this->middleware('permission:'.$this->section_slug.'.restore')->only(['restore']);
-        $this->middleware('permission:'.$this->section_slug.'.delete')->only(['delete']);
+        $this->middleware('permission:'.$this->section_slug.'.delete')->only(['destroy']);
     }
 
     public function index(Request $request): View
@@ -67,7 +67,7 @@ abstract class CrudLivewireEntityController extends Controller
         return redirect()->route('admin.'.$this->section_slug.'.index')->with('error', __('sprintflow::crud.states.restore.error'));
     }
 
-    public function view(Request $request, Model $entity): View
+    public function show(Request $request, Model $entity): View
     {
         return view('admin.'.$this->section_slug.'.form', [$this->model_slug => $entity, 'method' => __FUNCTION__]);
     }
@@ -77,7 +77,7 @@ abstract class CrudLivewireEntityController extends Controller
         return view('admin.'.$this->section_slug.'.form', [$this->model_slug => $entity, 'method' => __FUNCTION__]);
     }
 
-    public function delete(Request $request, Model $entity): RedirectResponse
+    public function destroy(Request $request, Model $entity): RedirectResponse
     {
         DB::beginTransaction();
         try {
@@ -96,5 +96,15 @@ abstract class CrudLivewireEntityController extends Controller
         }
 
         return redirect()->route('admin.'.$this->section_slug.'.index')->with('error', __('sprintflow::crud.states.delete.error'));
+    }
+
+    /**
+     * DEPRECATED
+     *
+     * use destroy
+     */
+    public function delete(Request $request, Model $entity): RedirectResponse
+    {
+        return $this->destroy($request, $entity);
     }
 }
