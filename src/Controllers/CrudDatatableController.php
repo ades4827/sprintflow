@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 abstract class CrudDatatableController extends Controller
@@ -34,6 +35,10 @@ abstract class CrudDatatableController extends Controller
         $this->middleware('permission:'.$this->section_slug.'.update')->only(['edit', 'changeStatus']);
         $this->middleware('permission:'.$this->section_slug.'.restore')->only(['restore']);
         $this->middleware('permission:'.$this->section_slug.'.delete')->only(['destroy']);
+
+        if (config('sprintflow.crud.verify_gates', false) && Gate::getPolicyFor($this->model)) {
+            $this->authorizeResource($this->model, $this->model_slug);
+        }
     }
 
     /**
