@@ -53,6 +53,10 @@ abstract class CrudLivewireEntityController extends Controller
 
     public function restore(Request $request, Model $entity): RedirectResponse
     {
+        if (config('sprintflow.crud.verify_gates', false) && Gate::getPolicyFor($this->model)) {
+            Gate::authorize('restore', $entity);
+        }
+
         DB::beginTransaction();
         try {
             $entity->restore();
