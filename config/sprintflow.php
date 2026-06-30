@@ -111,7 +111,8 @@ return [
      |--------------------------------------------------------------------------
      */
     'crud' => [
-        'method' => 'livewire' // or 'datatable'
+        'method' => 'livewire', // or 'datatable'
+        'has_view' => false
     ],
 
     /*

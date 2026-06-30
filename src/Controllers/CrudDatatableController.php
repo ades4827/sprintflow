@@ -76,7 +76,7 @@ abstract class CrudDatatableController extends Controller
 
     public function create(Request $request): View
     {
-        return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => null]);
+        return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => null, 'method' => __FUNCTION__]);
     }
 
     public function restore(Request $request, Model $entity): RedirectResponse
@@ -98,9 +98,14 @@ abstract class CrudDatatableController extends Controller
         return redirect()->route('admin.'.$this->section_slug.'.index')->with('error', __('sprintflow::crud.states.restore.error'));
     }
 
+    public function view(Request $request, Model $entity): View
+    {
+        return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => $entity->id, 'method' => __FUNCTION__]);
+    }
+
     public function edit(Request $request, Model $entity): View
     {
-        return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => $entity->id]);
+        return view('admin.'.$this->section_slug.'.form', [$this->model_id_slug => $entity->id, 'method' => __FUNCTION__]);
     }
 
     public function delete(Request $request, Model $entity): RedirectResponse

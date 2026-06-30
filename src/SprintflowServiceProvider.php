@@ -33,6 +33,9 @@ class SprintflowServiceProvider extends ServiceProvider
             static::get($section_slug_url."/{deleted_".$model_slug."}/restore", "$controller@restore")->withTrashed()->name("{$name_prefix}{$section_slug}.restore");
             static::get($section_slug_url."/{".$model_slug."}/delete", "$controller@delete")->name("{$name_prefix}{$section_slug}.delete");
 
+            if(config('sprintflow.crud.has_view', false)) {
+                static::get($section_slug_url."/{".$model_slug."}/view", "$controller@view")->withTrashed()->name("{$name_prefix}{$section_slug}.view");
+            }
             if(config('sprintflow.crud.method', 'livewire') === 'datatable') {
                 static::get($section_slug_url."/datatable", "$controller@datatable")->name("{$name_prefix}{$section_slug}.datatable");
                 static::post($section_slug_url."/{".$model_slug."}/status", "$controller@changeStatus")->name("{$name_prefix}{$section_slug}.changeStatus");
