@@ -11,7 +11,7 @@
     :disabled="$disabled"
 >
     <div class="block sm:hidden">
-        <span wire:loading.remove>@if($icon)<flux:icon :name="$icon" />@endif{{ $label }}</span>
+        <span wire:loading.remove>@if($icon)<flux:icon :name="$icon" class="inline-block -mt-1" variant="micro" />@endif <div class="inline-block ml-1">{{ $label }}</div></span>
         <flux:icon.loading wire:loading />
     </div>
     <div class="hidden sm:block">
