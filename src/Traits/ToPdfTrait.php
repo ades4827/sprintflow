@@ -46,22 +46,19 @@ trait ToPdfTrait
 
         ini_set('memory_limit', '300M');
 
-        $filename = null;
-        if (isset($configuration['filename'])) {
-            $filename = $configuration['filename'];
-        }
-        $directory = '';
-        if (isset($configuration['directory'])) {
-            $directory = $configuration['directory'];
-        }
-        $disk_name = null;
-        if (isset($configuration['disk_name'])) {
-            $disk_name = $configuration['disk_name'];
-        }
-        $orientation = 'portrait'; //'landscape'
-        if (isset($configuration['orientation'])) {
-            $orientation = $configuration['orientation'];
-        }
+        // mode configuration
+        $filename = $configuration['filename'] ?? null;
+        $directory = $configuration['directory'] ?? '';
+        $disk_name = $configuration['disk_name'] ?? null;
+        // pdf configuration
+        $format = $configuration['format'] ?? 'A4'; // [80, 40]
+        $orientation = $configuration['orientation'] ?? 'portrait'; //'landscape'
+        $margin_left = $configuration['margin_left'] ?? config('pdf.margin_left', 10);
+        $margin_right = $configuration['margin_right'] ?? config('pdf.margin_right', 10);
+        $margin_top = $configuration['margin_top'] ?? config('pdf.margin_top', 10);
+        $margin_bottom = $configuration['margin_bottom'] ?? config('pdf.margin_bottom', 10);
+        $margin_header = $configuration['margin_header'] ?? config('pdf.margin_header', 0);
+        $margin_footer = $configuration['margin_footer'] ?? config('pdf.margin_footer', 0);
 
         if ($mode === self::BLADE_VIEW) {
             return view($view, $datas);
@@ -72,6 +69,13 @@ trait ToPdfTrait
             view()->share($key, $value);
         }
         $pdf = PDF::loadView($view, [], [], [
+            'format' => $format,
+            'margin_left' => $margin_left,
+            'margin_right' => $margin_right,
+            'margin_top' => $margin_top,
+            'margin_bottom' => $margin_bottom,
+            'margin_header' => $margin_header,
+            'margin_footer' => $margin_footer,
             'setAutoTopMargin' => 'pad',
             'setAutoBottomMargin' => 'pad',
             'orientation' => $orientation,
