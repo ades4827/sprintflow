@@ -41,12 +41,12 @@ abstract class CrudLivewireEntityController extends Controller
         }
     }
 
-    public function index(Request $request): View
+    public function index(Request $request): View|RedirectResponse
     {
         return view('admin.'.$this->section_slug.'.index');
     }
 
-    public function create(Request $request): View
+    public function create(Request $request): View|RedirectResponse
     {
         return view('admin.'.$this->section_slug.'.form', [$this->model_slug => null, 'method' => __FUNCTION__]);
     }
@@ -76,12 +76,12 @@ abstract class CrudLivewireEntityController extends Controller
         return redirect()->route('admin.'.$this->section_slug.'.index')->with('error', __('sprintflow::crud.states.restore.error'));
     }
 
-    public function show(Request $request, Model $entity): View
+    public function show(Request $request, Model $entity): View|RedirectResponse
     {
         return view('admin.'.$this->section_slug.'.form', [$this->model_slug => $entity, 'method' => __FUNCTION__]);
     }
 
-    public function edit(Request $request, Model $entity): View
+    public function edit(Request $request, Model $entity): View|RedirectResponse
     {
         return view('admin.'.$this->section_slug.'.form', [$this->model_slug => $entity, 'method' => __FUNCTION__]);
     }
