@@ -3,7 +3,6 @@
 namespace Ades4827\Sprintflow\Livewire;
 
 use Ades4827\Sprintflow\Traits\LivewireUtilsTrait;
-use Flux\Flux;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Livewire\Component;
 use PHPStan\PhpDocParser\Lexer\Lexer;
@@ -164,7 +163,7 @@ class Settings extends Component
         $settings_repository->updatePropertiesPayload($exploded_name[1], [$exploded_name[3] => $value]);
 
         if($this->livewire_component_library == 'fluxui') {
-            Flux::toast(text: 'Salvato correttamente', heading: '', variant: 'success');
+            \Flux\Flux::toast(text: 'Salvato correttamente', heading: '', variant: 'success');
         } else {
             $this->dispatch('livewire-alert', type: 'success', title: '', message: 'Salvato');
         }
