@@ -64,6 +64,19 @@ trait ToPdfTrait
             return view($view, $datas);
         }
 
+        // load built css file from public folder manifest.json
+        if (isset($configuration['inject_css']) && $configuration['inject_css'] === true) {
+            if (!isset($configuration['css_path'])) {
+                $configuration['css_path'] = 'resources/css/pdf.css';
+            }
+            $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true, 512, JSON_THROW_ON_ERROR);
+            $css = file_get_contents(public_path('build/' . $manifest[$configuration['css_path']]['file']));
+
+            $datas = array_merge($datas, [
+                'css' => $css
+            ]);
+        }
+
         // share data to view
         foreach ($datas as $key => $value) {
             view()->share($key, $value);
