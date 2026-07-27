@@ -23,6 +23,10 @@ composer require ades4827/sprintflow
 
 when used in tailwind is required to add this in config to load correct css class
 ```
+// version 4
+@source '../../vendor/ades4827/sprintflow/resources/**/*.php';
+
+// version 3
 module.exports = {
     content: [
         "./vendor/ades4827/sprintflow/resources/**/*.php",
