@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Ades4827\Sprintflow\Events\RefreshPermissionsUpdating;
 use Ades4827\Sprintflow\Events\RefreshPermissionsUpdated;
+use Spatie\Permission\PermissionRegistrar;
 
 class PermissionController extends Controller
 {
@@ -46,9 +47,9 @@ class PermissionController extends Controller
 
         $report['roles'] = $this->syncRoles();
         $report['permissions'] = $this->syncPermissions();
-        //app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+        app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
         $this->syncRolePermissions();
-        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+        app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
 
         event(new RefreshPermissionsUpdated());
         return $report;
