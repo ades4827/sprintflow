@@ -3,6 +3,7 @@
 namespace Ades4827\Sprintflow\Traits;
 
 use Exception;
+use Flux\Flux;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 trait LivewireUtilsTrait
@@ -65,10 +66,63 @@ trait LivewireUtilsTrait
         }
     }
 
+    public function feedbackAndClose(string $message = '', ?bool $is_modal = false, array $options = [])
+    {
+        return $this->returnFlux(true, $message, $is_modal, $options);
+    }
+
+    public function feedbackAndContinue(string $message = '', ?bool $is_modal = false, array $options = [])
+    {
+        return $this->returnFlux(false, $message, $is_modal, $options);
+    }
+
+    /*
+     * $options: ['notCloseModal', 'route_parameters' => ['param_name' => $val] ]
+     */
+    private function returnFlux(bool $close, string $message = '', ?bool $is_modal = false, array $options = [])
+    {
+        // feedback type
+        $type = 'success';
+        if (isset($options['type'])) {
+            $type = $options['type'];
+        }
+
+        // if is modal
+        if ($is_modal) {
+            Flux::toast(text: $message, heading: '', variant: $type);
+
+            if ($close) {
+                $this->dispatch('closeModal');
+            }
+            $this->dispatch('modelSaved');
+            return null;
+        }
+
+        if($close) {
+            if (isset($options['route_name'])) {
+                $route_name = $options['route_name'];
+            } else {
+                throw new \RuntimeException('Route name is required');
+            }
+
+            // route_parameters
+            $route_parameters = [];
+            if (isset($options['route_parameters'])) {
+                $route_parameters = $options['route_parameters'];
+            }
+
+            // redirect to page
+            return redirect()->route($route_name, $route_parameters)->with('status', $message);
+        }
+
+        Flux::toast(text: $message, heading: '', variant: $type);
+    }
+
     /*
      *
      * $options: ['notCloseModal', 'table_to_refresh' => '#id_table', 'route_parameters' => ['param_name' => $val] ]
      */
+    #[\Deprecated('use feedbackAndClose or feedbackAndContinue with Flux')]
     public function return($message, $route_name = null, array $options = [])
     {
         // if is modal
