@@ -34,7 +34,7 @@ $this->state['mobile_phone'] = $this->implodePhoneNumber(phone: $this->phones['m
     <flux:input.group>
         <flux:select wire:model="phones.mobile_phone.country_code" class="max-w-fit">
             @foreach($this->phone_prefixes as $prefix)
-                <flux:select.option :value="$prefix['region']">{{ $prefix['name'] }} <small>+{{ $prefix['code'] }}</small></flux:select.option>
+                <flux:select.option :value="$prefix['region']"><small>{{ $prefix['name'] }}</small> <small>+{{ $prefix['code'] }}</small></flux:select.option>
             @endforeach
         </flux:select>
         <flux:input wire:model="phones.mobile_phone.number" />
