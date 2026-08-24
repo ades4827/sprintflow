@@ -37,12 +37,26 @@ class FileAccessController extends \Ades4827\Sprintflow\Controllers\FileAccessCo
 
 ## Integrazione con il pacchetto media
 
-Invece di utilizzare le url dei file generate dal pacchetto media (che vengono generate sulla base di un path pubblico) è possibile sovrascrivere l'url_generator nelle configurazioni media-library
+Invece di utilizzare le url dei file generate dal pacchetto media (che vengono generate sulla base di un path pubblico) 
+è possibile sovrascrivere l'url_generator nelle configurazioni media-library
 
 ```
+/*
+ * The fully qualified class name of the media model.
+ */
+'media_model' => \Ades4827\Sprintflow\Models\Media::class,
+
 /*
  * When urls to files get generated, this class will be called. Use the default
  * if your files are stored locally above the site root or on s3.
  */
 'url_generator' => Ades4827\Sprintflow\Support\CustomUrlGenerator::class,
+```
+
+in questo modo si può generare l'url direttamente dalla model Media
+
+```
+$model->getFirstMedia()->getUrl() // visualizza il documento
+$model->getFirstMedia()->getDownloadUrl() // scarica il documento con il nome originale dell'upload
+$model->getFirstMedia()->getDownloadUrlAs('pippo.pdf') // scarica il documento sovrascrivendo il nome utilizzato durante l'upload
 ```

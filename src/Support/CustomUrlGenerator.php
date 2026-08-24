@@ -12,4 +12,18 @@ class CustomUrlGenerator extends DefaultUrlGenerator
 
         return $this->versionUrl($url);
     }
+
+    public function getDownloadUrl(): string
+    {
+        $url = route('media.getter', ['method' => 'download', 'media' => $this->media->uuid, 'conversion' => $this->conversion]);
+
+        return $this->versionUrl($url);
+    }
+
+    public function getDownloadUrlAs(string $filename): string
+    {
+        $url = route('media.downloader', ['method' => 'download', 'filename' => $filename, 'media' => $this->media->uuid, 'conversion' => $this->conversion]);
+
+        return $this->versionUrl($url);
+    }
 }

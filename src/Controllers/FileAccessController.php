@@ -11,7 +11,7 @@ class FileAccessController extends Controller
     public const string METHOD_DOWNLOAD = 'download';
     public const string METHOD_SERVE = 'serve';
 
-    public function media(string $method, string $media, ?string $conversion = null)
+    public function media(string $method, string $media, ?string $filename = null, ?string $conversion = null)
     {
         if (!in_array($method, [self::METHOD_DOWNLOAD, self::METHOD_SERVE], true)) {
             throw new InvalidArgumentException("Invalid method: $method");
@@ -29,10 +29,10 @@ class FileAccessController extends Controller
             abort('404', "Media not found");
         }
 
-        return $this->$method($media, $conversion);
+        return $this->$method(media: $media, filename: $filename, conversion: $conversion);
     }
 
-    public function download(Media $media, ?string $conversion = null)
+    public function download(Media $media, ?string $filename = null, ?string $conversion = null)
     {
         if (method_exists($this, 'verifyPermission')) {
             $this->verifyPermission(__FUNCTION__, $media);
@@ -42,10 +42,14 @@ class FileAccessController extends Controller
             }
         }
 
-        return response()->download($media->getPath(), $media->file_name, ['Cache-Control' => 'no-cache, must-revalidate']);
+        if($filename === null) {
+            $filename = $media->file_name;
+        }
+
+        return response()->download($media->getPath(), $filename, ['Cache-Control' => 'no-cache, must-revalidate']);
     }
 
-    public function serve(Media $media, ?string $conversion = null)
+    public function serve(Media $media, ?string $filename = null, ?string $conversion = null)
     {
         if (method_exists($this, 'verifyPermission')) {
             $this->verifyPermission(__FUNCTION__, $media);
@@ -55,13 +59,18 @@ class FileAccessController extends Controller
             }
         }
 
+        $path = $media->getPath();
         if ($conversion) {
             if (!$media->hasGeneratedConversion($conversion)) {
                 abort('404', 'Conversion: '.$conversion.' not found');
             }
-            return response()->file($media->getPath($conversion), ['Cache-Control' => 'no-cache, must-revalidate']);
+
+            $path = $media->getPath($conversion);
         }
 
-        return response()->file($media->getPath(), ['Cache-Control' => 'no-cache, must-revalidate']);
+        return response()->file($path, [
+            'Cache-Control' => 'no-cache, must-revalidate',
+            'Content-Disposition' => 'inline; filename="' . $media->file_name . '"',
+        ]);
     }
 }
