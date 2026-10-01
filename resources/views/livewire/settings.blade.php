@@ -8,9 +8,9 @@
                     @if( $this->fieldIsVisible($group_name, $setting_name) )
                         <div>
                             @if($this->livewire_component_library == 'wireui')
-                                @include('sprintflow::livewire.settings-fields-wireui')
+                                @include('sprintflow_wireui::livewire.settings-fields-wireui')
                             @elseif($this->livewire_component_library == 'fluxui')
-                                @include('sprintflow::livewire.settings-fields-fluxui')
+                                @include('sprintflow_fluxui::livewire.settings-fields-fluxui')
                             @endif
                         </div>
                     @endif

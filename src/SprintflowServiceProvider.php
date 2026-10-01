@@ -47,6 +47,14 @@ class SprintflowServiceProvider extends ServiceProvider
          */
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'sprintflow');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'sprintflow');
+
+        if(\Composer\InstalledVersions::isInstalled('livewire/flux')) {
+            $this->loadViewsFrom(__DIR__.'/../resources/views_fluxui', 'sprintflow_fluxui');
+        }
+        if(\Composer\InstalledVersions::isInstalled('wireui/wireui')) {
+            $this->loadViewsFrom(__DIR__.'/../resources/views_wireui', 'sprintflow_wireui');
+        }
+
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         if(config('sprintflow.medias.inject_route', false)) {
             $this->loadRoutesFrom(__DIR__.'/routes.php');
