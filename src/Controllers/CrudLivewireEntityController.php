@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use RuntimeException;
 
@@ -63,7 +64,7 @@ abstract class CrudLivewireEntityController extends Controller
             DB::commit();
 
             return redirect()->route('admin.'.$this->section_slug.'.index')->with('status', __('sprintflow::crud.states.restore.confirm'));
-        } catch (RuntimeException $e) {
+        } catch (RuntimeException|ValidationException $e) {
             report($e);
             DB::rollBack();
 
@@ -94,7 +95,7 @@ abstract class CrudLivewireEntityController extends Controller
             DB::commit();
 
             return redirect()->route('admin.'.$this->section_slug.'.index')->with('status', __('sprintflow::crud.states.delete.confirm'));
-        } catch (RuntimeException $e) {
+        } catch (RuntimeException|ValidationException $e) {
             report($e);
             DB::rollBack();
 
