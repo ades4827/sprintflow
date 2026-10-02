@@ -7,10 +7,10 @@
                 @foreach($group_settings['properties'] as $setting_name => $setting)
                     @if( $this->fieldIsVisible($group_name, $setting_name) )
                         <div>
-                            @if($this->livewire_component_library == 'wireui')
-                                @include('sprintflow_wireui::livewire.settings-fields-wireui')
-                            @elseif($this->livewire_component_library == 'fluxui')
-                                @include('sprintflow_fluxui::livewire.settings-fields-fluxui')
+                            @if($this->livewire_component_library === 'wireui')
+                                @include('sprintflow_wireui::livewire.settings-fields')
+                            @elseif($this->livewire_component_library === 'fluxui')
+                                @include('sprintflow_fluxui::livewire.settings-fields')
                             @endif
                         </div>
                     @endif

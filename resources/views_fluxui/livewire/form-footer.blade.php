@@ -29,7 +29,7 @@
 				</flux:button>
 			@endif
 			@if( !isset($hide_submit) )
-				<x-sprintflow::flux.action-btn
+				<x-sprintflow::action-btn
 						:label="isset($submit_label) ? $submit_label : __('sprintflow::view.save')"
 						:icon="isset($submit_label) ? '' : 'save'"
 				/>
