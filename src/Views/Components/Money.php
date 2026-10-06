@@ -21,6 +21,7 @@ class Money extends Component
         public string $in = 'EUR',
         public ?string $locale = null,
         public ?int $precision = null,
+        public ?RoundingMode $roundingMode = RoundingMode::HalfUp,
         public ?string $replaceZero = null,
         public ?bool $inline = false,
     ) {
@@ -56,7 +57,7 @@ class Money extends Component
             if($this->autoScale) {
                 $money = BrickMoney::of($this->number, $this->in, new AutoContext())->formatToLocale($this->locale);
             } else {
-                $money = BrickMoney::of($this->number, $this->in, new CustomContext(scale: $this->precision), roundingMode: RoundingMode::Up)->formatToLocale($this->locale);
+                $money = BrickMoney::of($this->number, $this->in, new CustomContext(scale: $this->precision), roundingMode: $this->roundingMode)->formatToLocale($this->locale);
             }
 
             if($this->inline) {
