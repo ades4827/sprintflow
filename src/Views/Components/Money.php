@@ -9,9 +9,14 @@ use Closure;
 use Illuminate\View\Component;
 use RuntimeException;
 use Brick\Money\Money as BrickMoney;
+use Composer\InstalledVersions;
+use Composer\Semver\VersionParser;
 
 class Money extends Component
 {
+    private const PACKAGE = 'brick/money';
+    private const CONSTRAINT = '^0.10.0';
+
     /**
      * Create a new component instance.
      */
@@ -22,6 +27,21 @@ class Money extends Component
         public ?int $precision = null,
         public ?string $replaceZero = null,
     ) {
+        if (! InstalledVersions::isInstalled(self::PACKAGE)) {
+            throw new RuntimeException(sprintf(
+                'Il pacchetto %s non è installato. Esegui: composer require "%s:%s"',
+                self::PACKAGE, self::PACKAGE, self::CONSTRAINT
+            ));
+        }
+
+        if (! InstalledVersions::satisfies(new VersionParser(), self::PACKAGE, self::CONSTRAINT)) {
+            throw new RuntimeException(sprintf(
+                'Il pacchetto %s richiede la versione %s, installata: %s',
+                self::PACKAGE, self::CONSTRAINT,
+                InstalledVersions::getPrettyVersion(self::PACKAGE)
+            ));
+        }
+
         if(is_null($locale)) {
             $this->locale = app()->getLocale();
         }
