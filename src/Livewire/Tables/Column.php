@@ -11,7 +11,8 @@ class Column
 
     public string $key;
     public string $label;
-    public ?string $class = '';
+    public ?string $col_class = '';
+    public string $component_classes = '';
 
     public ?string $sortBy = null;
 
@@ -19,6 +20,8 @@ class Column
     public ?string $livewire_component;
 
     public ?Closure $formatter = null;
+    public ?string $skin = null;
+    public ?Closure $skinVariant = null;
 
     public function __construct(string $key, string $label, $component = 'columns.column', $livewire_component = null)
     {
@@ -40,9 +43,18 @@ class Column
 
     public function class(string $class, bool $append = true): static
     {
-        $this->class .= ' '.$class;
+        $this->col_class .= ' '.$class;
         if (! $append) {
-            $this->class = $class;
+            $this->col_class = $class;
+        }
+
+        return $this;
+    }
+
+    public function set_component_classes(string $class, bool $append = true): static {
+        $this->component_classes .= ' '.$class;
+        if (! $append) {
+            $this->component_classes = $class;
         }
 
         return $this;
@@ -73,6 +85,14 @@ class Column
         return $this;
     }
 
+    public function skin(string $name, Closure $skinVariant): static
+    {
+        $this->skin = $name;
+        $this->skinVariant = $skinVariant;
+
+        return $this;
+    }
+
     public function livewireComponent(string $component): static
     {
         $this->livewire_component = $component;
@@ -85,12 +105,37 @@ class Column
         return $this->sortBy;
     }
 
-    public function value(Model $model): string
+    // getter from blade
+    public function value(Model $model): ?string
     {
         if ($this->formatter) {
             return $this->formatter->__invoke($model);
         }
 
         return data_get($model, $this->key);
+    }
+
+    // getter from blade
+    public function classes(Model $model): ?string
+    {
+        if ($this->skin && $this->skinVariant) {
+            if($this->skin === 'badge') {
+                $variant = $this->skinVariant->__invoke($model);
+                if($variant === 'success') {
+                    $this->component_classes = 'rounded-full px-3 bg-green-200 text-green-700';
+                }
+                if($variant === 'info') {
+                    $this->component_classes = 'rounded-full px-3 bg-cyan-100 text-cyan-800';
+                }
+                if($variant === 'warning') {
+                    $this->component_classes = 'rounded-full px-3 bg-orange-200 text-orange-600';
+                }
+                if($variant === 'danger') {
+                    $this->component_classes = 'rounded-full px-3 bg-red-200 text-red-600';
+                }
+            }
+        }
+
+        return $this->component_classes;
     }
 }

@@ -3,8 +3,8 @@
         <thead class="text-gray-700 uppercase bg-gray-50">
             <tr>
             @foreach($this->columns() as $column)
-                <th @if($column->orderable) wire:click="sort('{{ $column->sortKey() }}')" class="cursor-pointer" @endif>
-                    <div class="py-3 px-6 flex items-center">
+                <th @if($column->orderable) wire:click="sort('{{ $column->sortKey() }}')" class="cursor-pointer" @endif wire:key="t-header-{{ $column->key }}">
+                    <div class="py-3 px-6 flex items-center {{ $column->col_class }}">
                         @if($column->livewire_component)
                             @if($column->livewire_component === 'checkbox' && $this->data()->count()>0 )
                                 <x-checkbox label="" wire:model.live="checkboxes.all" wire:key="all" />
@@ -30,9 +30,9 @@
         </thead>
         <tbody>
         @forelse($this->data() as $row)
-            <tr class="border-b hover:bg-gray-50">
+            <tr class="border-b hover:bg-gray-50" wire:key="t-row-{{ $row->id }}">
                 @foreach($this->columns() as $column)
-                    <td wire:key="{{ $row->id }}">
+                    <td wire:key="t-col-{{ $row->id }}-{{ $column->key }}" class="{{ $column->col_class }}">
                         <div class="py-3 px-6 flex items-center">
                             @if($column->livewire_component)
                                 @if($column->livewire_component === 'checkbox')
@@ -44,6 +44,7 @@
                                 <x-dynamic-component
                                     :component="$column->component"
                                     :value="$column->value($row)"
+                                    :class="$column->classes($row)"
                                 />
                             @endif
                         </div>
