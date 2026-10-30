@@ -28,6 +28,37 @@ class NumberHelper
     }
 
     /**
+     * Applica o scorpora l'IVA.
+     *
+     * Usage: NumberHelper::applyVat(1100, 22)
+     *
+     * @param float $value     Importo di partenza
+     * @param int   $vat       Aliquota in percentuale (es. 22 = 22%)
+     * @param bool  $reverse   true = scorpora l'IVA dal valore lordo
+     * @param int   $precision Decimali per l'arrotondamento
+     */
+    public static function applyVat(float $value, int $vat, bool $reverse = false, int $precision = 2): float
+    {
+        if ($vat < 0 || $vat > 100) {
+            throw new \InvalidArgumentException(
+                "Aliquota IVA non valida: {$vat}. Deve essere compresa tra 0 e 100."
+            );
+        }
+
+        if ($vat === 0) {
+            return round($value, $precision);
+        }
+
+        $multiplier = 1 + ($vat / 100);
+
+        $result = $reverse
+            ? $value / $multiplier
+            : $value * $multiplier;
+
+        return round($result, $precision);
+    }
+
+    /**
      * Get effective discount amount on partial value
      * Note: discount is only positive
      *
