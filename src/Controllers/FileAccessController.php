@@ -42,11 +42,13 @@ class FileAccessController extends Controller
             }
         }
 
-        if($filename === null) {
-            $filename = $media->file_name;
+        $path = $this->resolvePath($media, $conversion);
+
+        if ($filename === null) {
+            $filename = $this->defaultFilename($media, $path, $conversion);
         }
 
-        return response()->download($media->getPath(), $filename, ['Cache-Control' => 'no-cache, must-revalidate']);
+        return response()->download($path, $filename, ['Cache-Control' => 'no-cache, must-revalidate']);
     }
 
     public function serve(Media $media, ?string $filename = null, ?string $conversion = null)
@@ -59,18 +61,35 @@ class FileAccessController extends Controller
             }
         }
 
-        $path = $media->getPath();
-        if ($conversion) {
-            if (!$media->hasGeneratedConversion($conversion)) {
-                abort('404', 'Conversion: '.$conversion.' not found');
-            }
-
-            $path = $media->getPath($conversion);
-        }
+        $path = $this->resolvePath($media, $conversion);
 
         return response()->file($path, [
             'Cache-Control' => 'no-cache, must-revalidate',
-            'Content-Disposition' => 'inline; filename="' . $media->file_name . '"',
+            'Content-Disposition' => 'inline; filename="' . $this->defaultFilename($media, $path, $conversion) . '"',
         ]);
+    }
+
+    /**
+     * Path of the original file, or of the given conversion (404 if not generated).
+     */
+    protected function resolvePath(Media $media, ?string $conversion = null): string
+    {
+        if (! $conversion) {
+            return $media->getPath();
+        }
+
+        if (! $media->hasGeneratedConversion($conversion)) {
+            abort('404', 'Conversion: '.$conversion.' not found');
+        }
+
+        return $media->getPath($conversion);
+    }
+
+    /**
+     * Original file name, or the conversion file name (it may have a different extension).
+     */
+    protected function defaultFilename(Media $media, string $path, ?string $conversion = null): string
+    {
+        return $conversion ? basename($path) : $media->file_name;
     }
 }
