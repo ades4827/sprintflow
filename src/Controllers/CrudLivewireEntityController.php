@@ -2,7 +2,6 @@
 
 namespace Ades4827\Sprintflow\Controllers;
 
-use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;

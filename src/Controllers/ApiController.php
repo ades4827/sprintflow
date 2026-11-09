@@ -2,7 +2,6 @@
 
 namespace Ades4827\Sprintflow\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;

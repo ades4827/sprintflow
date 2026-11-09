@@ -2,7 +2,6 @@
 
 namespace Ades4827\Sprintflow\Controllers;
 
-use App\Http\Controllers\Controller;
 use InvalidArgumentException;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 

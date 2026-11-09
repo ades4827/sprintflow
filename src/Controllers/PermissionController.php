@@ -2,7 +2,6 @@
 
 namespace Ades4827\Sprintflow\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Ades4827\Sprintflow\Events\RefreshPermissionsUpdating;
 use Ades4827\Sprintflow\Events\RefreshPermissionsUpdated;
