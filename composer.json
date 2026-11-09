@@ -23,6 +23,19 @@
         "spatie/laravel-translatable": "^6.10",
         "yajra/laravel-datatables-oracle": "^12.0|^13.0"
     },
+    "suggest": {
+        "carlos-meneses/laravel-mpdf": "Required by ToPdfTrait (PDF generation)",
+        "fakerphp/faker": "Required by the cache:test command",
+        "laravel/sanctum": "Required by Models\\User (HasApiTokens)",
+        "livewire/flux": "Enables the sprintflow_fluxui views, ValidFluxIcon rule and flux components",
+        "maatwebsite/excel": "Required by ExcelHelper (brings phpoffice/phpspreadsheet)",
+        "mattiverse/laravel-userstamps": "Required by MultiguardUserstamps",
+        "propaganistas/laravel-phone": "Required by LivewirePhonesTrait (phone parsing/validation)",
+        "rappasoft/laravel-authentication-log": "Required by Models\\User (AuthenticationLoggable)",
+        "spatie/laravel-medialibrary": "Required by media routes, FileAccessController, LivewireMediaTrait and CustomUrlGenerator",
+        "wildside/userstamps": "Required by Models\\User (Userstamps)",
+        "wireui/wireui": "Enables the sprintflow_wireui views and components"
+    },
     "autoload": {
         "psr-4": {
             "Ades4827\\Sprintflow\\": "src"
