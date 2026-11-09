@@ -2,8 +2,10 @@
 
 namespace Ades4827\Sprintflow\Controllers;
 
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class FileAccessController extends Controller
 {
@@ -62,10 +64,18 @@ class FileAccessController extends Controller
 
         $path = $this->resolvePath($media, $conversion);
 
-        return response()->file($path, [
-            'Cache-Control' => 'no-cache, must-revalidate',
-            'Content-Disposition' => 'inline; filename="' . $this->defaultFilename($media, $path, $conversion) . '"',
-        ]);
+        if ($filename === null) {
+        $filename = $this->defaultFilename($media, $path, $conversion);
+        }
+
+        // setContentDisposition() escapes the name and adds an ASCII fallback (RFC 6266)
+        return response()
+            ->file($path, ['Cache-Control' => 'no-cache, must-revalidate'])
+            ->setContentDisposition(
+                ResponseHeaderBag::DISPOSITION_INLINE,
+                $filename,
+                str_replace(['%', '/', '\\'], '', Str::ascii($filename))
+            );
     }
 
     /**
