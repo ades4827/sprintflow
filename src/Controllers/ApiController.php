@@ -6,7 +6,6 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
 use Exception;
 
 class ApiController extends Controller
@@ -234,7 +233,15 @@ class ApiController extends Controller
         if (isset($options['select'])) {
             $query->selectRaw($options['select']);
         } else {
-            $query->select([$field_id_name, DB::raw("JSON_UNQUOTE(JSON_EXTRACT(".$name_field.", '$.\"$language\"')) as ".$name_field."_translated")]);
+            // $name_field is interpolated in raw SQL: validate it and let the grammar quote it.
+            // The JSON path (which contains the locale) is passed as a binding.
+            $this->assertSafeColumnName($name_field);
+            $grammar = $query->getQuery()->getGrammar();
+            $alias = last(explode('.', $name_field)).'_translated';
+            $query->select($field_id_name)->selectRaw(
+                'JSON_UNQUOTE(JSON_EXTRACT('.$grammar->wrap($name_field).', ?)) as '.$grammar->wrap($alias),
+                ['$."'.$language.'"']
+            );
         }
 
         // exclude ids
@@ -322,6 +329,18 @@ class ApiController extends Controller
         );
 
         return $query;
+    }
+
+    /**
+     * Ensure a column name is a plain identifier (column or table.column) before it is used in raw SQL.
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected function assertSafeColumnName(string $column): void
+    {
+        if (! preg_match('/^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)?$/', $column)) {
+            throw new \InvalidArgumentException("Invalid column name: {$column}");
+        }
     }
 
     protected function checkPermissions($permissions, $guard = '')
