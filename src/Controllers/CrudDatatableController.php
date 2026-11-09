@@ -16,6 +16,7 @@ use Illuminate\View\View;
 abstract class CrudDatatableController extends Controller
 {
     public string $model;
+    public string $model_slug;
     public string $model_id_slug;
     public string $section_slug;
 
@@ -26,7 +27,8 @@ abstract class CrudDatatableController extends Controller
         }
         $model = new $this->model();
         // define names
-        $this->model_id_slug = $model->getClassSlug().'_id';
+        $this->model_slug = $model->getClassSlug();
+        $this->model_id_slug = $this->model_slug.'_id';
         $this->section_slug = $model->getClassSlug(true);
 
         $this->middleware(['role_or_permission:'.$this->section_slug.'.view']);
