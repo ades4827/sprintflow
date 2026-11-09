@@ -7,7 +7,7 @@ use Monolog\Handler\RotatingFileHandler;
 class MonthlyRotatingFileHandler extends RotatingFileHandler
 {
     /**
-     * Restituisce filename con formato: nome-YYYY-MM.ext
+     * Returns the filename in the format: name-YYYY-MM.ext
      */
     protected function getTimedFilename(): string
     {
@@ -21,7 +21,7 @@ class MonthlyRotatingFileHandler extends RotatingFileHandler
 
         $timed = $name . '-' . date('Y-m') . $ext;
 
-        // se dirname è '.', torna solo timed; altrimenti ricostruisci il path completo
+        // if dirname is '.', return only the timed name; otherwise rebuild the full path
         if ($dir === '.' || $dir === '') {
             return $timed;
         }

@@ -41,7 +41,7 @@ class PermissionRefresh extends Command
         $permission_controller = new PermissionController();
         $reports = $permission_controller->refreshDatabase();
 
-        $this->info('Permessi rigenerati sulla base del PermissionController');
+        $this->info('Permissions regenerated from PermissionController');
 
         foreach ($reports as $section_name => $report) {
             $this->table($report['headers'], $report['rows']);

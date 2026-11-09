@@ -141,7 +141,7 @@ trait LivewireUtilsTrait
             if (isset($options['table_to_refresh'])) {
                 $this->dispatch('eventRefresh-datatable', table_selector: $options['table_to_refresh']);
             } else {
-                dd('Inserisci il valore table_to_refresh');
+                dd('Missing table_to_refresh option');
             }
 
             return null;

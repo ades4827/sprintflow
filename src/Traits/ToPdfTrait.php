@@ -255,10 +255,10 @@ trait ToPdfTrait
     {
         $text = strtoupper($text);
 
-        // Crea la "spaziatura" usando &nbsp; (per HTML) oppure spazi normali
+        // Build the "spacing" using &nbsp; (for HTML) or regular spaces
         $spacing = str_repeat(' ', $letter_spacing);
 
-        // Suddivide in caratteri Unicode e li unisce con la spaziatura
+        // Split into Unicode characters and join them with the spacing
         return implode($spacing, preg_split('//u', $text, -1, PREG_SPLIT_NO_EMPTY));
     }
 
@@ -278,7 +278,7 @@ trait ToPdfTrait
     public static function validate_position(array $position): array
     {
         if (count($position) !== 2) {
-            throw new \InvalidArgumentException("Position deve contenere esattamente [x, y]");
+            throw new \InvalidArgumentException("Position must contain exactly [x, y]");
         }
         return $position;
     }

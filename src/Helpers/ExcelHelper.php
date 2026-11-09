@@ -25,7 +25,7 @@ class ExcelHelper
             return Carbon::parse(Date::excelToDateTimeObject($value));
         }
 
-        // fallback se arriva già come stringa data
+        // fallback when the value is already a date string
         return Carbon::parse($value);
     }
 }

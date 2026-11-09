@@ -28,20 +28,20 @@ class NumberHelper
     }
 
     /**
-     * Applica o scorpora l'IVA.
+     * Add VAT to a value, or remove it from a gross value.
      *
      * Usage: NumberHelper::applyVat(1100, 22)
      *
-     * @param float $value     Importo di partenza
-     * @param int   $vat       Aliquota in percentuale (es. 22 = 22%)
-     * @param bool  $reverse   true = scorpora l'IVA dal valore lordo
-     * @param int   $precision Decimali per l'arrotondamento
+     * @param float $value     Starting amount
+     * @param int   $vat       VAT rate as a percentage (e.g. 22 = 22%)
+     * @param bool  $reverse   true = extract the VAT from the gross value
+     * @param int   $precision Decimal places for rounding
      */
     public static function applyVat(float $value, int $vat, bool $reverse = false, int $precision = 2): float
     {
         if ($vat < 0 || $vat > 100) {
             throw new \InvalidArgumentException(
-                "Aliquota IVA non valida: {$vat}. Deve essere compresa tra 0 e 100."
+                "Invalid VAT rate: {$vat}. It must be between 0 and 100."
             );
         }
 
@@ -99,15 +99,15 @@ class NumberHelper
     }
 
     /**
-     * Verifica se un valore è zero o prossimo a zero.
+     * Check whether a value is zero or close to zero.
      *
      * @param mixed $value
-     * @param float $epsilon  soglia sotto cui il numero è considerato zero
-     * @return bool           true = è zero (o quasi), false = è un numero valido
+     * @param float $epsilon  threshold below which the number is considered zero
+     * @return bool           true = zero (or nearly zero), false = a valid non-zero number
      */
     public static function isEffectivelyZero(mixed $value, float $epsilon = 1e-10): bool
     {
-        // Valori non numerici (null, stringa vuota, bool, ecc.)
+        // Non-numeric values (null, empty string, bool, etc.)
         if (!is_numeric($value)) {
             return true;
         }
@@ -116,48 +116,91 @@ class NumberHelper
     }
 
     /**
-     * Verifica se un numero è multiplo di un altro.
+     * Check whether a number is a multiple of another.
      *
-     * Supporta sia interi che numeri decimali (float).
-     * Per i float viene usata una tolleranza basata su PHP_FLOAT_EPSILON
-     * per evitare errori di precisione nella rappresentazione binaria.
+     * Supports both integers and decimals (float).
+     * For floats a tolerance based on PHP_FLOAT_EPSILON is used
+     * to avoid precision errors in the binary representation.
      *
-     * @param int|float $numero Il numero da verificare.
-     * @param int|float $divisore Il divisore rispetto al quale verificare il multiplo.
-     * @param float $epsilon Tolleranza per il confronto float (default: PHP_FLOAT_EPSILON).
+     * @param int|float $number The number to check.
+     * @param int|float $divisor The divisor to check the multiple against.
+     * @param float $epsilon Tolerance for the float comparison (default: PHP_FLOAT_EPSILON).
      *
-     * @return bool  True se $numero è multiplo di $divisore, false altrimenti.
+     * @return bool  True if $number is a multiple of $divisor, false otherwise.
      *
-     * @throws \InvalidArgumentException  Se $divisore è zero.
+     * @throws \InvalidArgumentException  If $divisor is zero.
      *
      * @example
      *   NumberHelper::isMultiple(10, 5);        // true
      *   NumberHelper::isMultiple(10, 3);        // false
      *   NumberHelper::isMultiple(7.5, 2.5);     // true
      *   NumberHelper::isMultiple(25.2, 4.2);     // true
-     *   NumberHelper::isMultiple(0.3, 0.1);     // true  (gestito con epsilon)
+     *   NumberHelper::isMultiple(0.3, 0.1);     // true  (handled via epsilon)
      *   NumberHelper::isMultiple(10, 0);        // throws InvalidArgumentException
+     *
+     * The legacy Italian named arguments `numero:` and `divisore:` are still accepted
+     * through $legacyArgs, but they trigger an E_USER_DEPRECATED notice and will be
+     * removed in the next major release. Use `number:` and `divisor:` instead.
      */
-    public static function isMultiple(int|float $numero, int|float $divisore, float $epsilon = PHP_FLOAT_EPSILON): bool
-    {
-        if ($divisore == 0) {
-            throw new \InvalidArgumentException('Il divisore non può essere zero.');
+    public static function isMultiple(
+        int|float|null $number = null,
+        int|float|null $divisor = null,
+        float $epsilon = PHP_FLOAT_EPSILON,
+        mixed ...$legacyArgs,
+    ): bool {
+        // Backward compatibility for the old Italian parameter names (named arguments only).
+        foreach (['numero' => 'number', 'divisore' => 'divisor'] as $old => $new) {
+            if (! array_key_exists($old, $legacyArgs)) {
+                continue;
+            }
+            if ($$new !== null) {
+                throw new \ArgumentCountError(__METHOD__."(): named arguments \${$old} and \${$new} cannot be used together");
+            }
+            trigger_error(
+                __METHOD__."(): the named argument \"{$old}\" is deprecated, use \"{$new}\" instead.",
+                E_USER_DEPRECATED
+            );
+            // mimic PHP's coercion of numeric strings for int|float parameters
+            $value = $legacyArgs[$old];
+            $$new = is_string($value) && is_numeric($value) ? $value + 0 : $value;
+            unset($legacyArgs[$old]);
         }
 
-        if (is_int($numero) && is_int($divisore)) {
-            return $numero % $divisore === 0;
+        // Keep PHP's native behaviour for any other unknown named argument.
+        foreach (array_keys($legacyArgs) as $key) {
+            if (is_string($key)) {
+                throw new \Error(__METHOD__."(): Unknown named parameter \${$key}");
+            }
         }
 
-        $resto = fmod((float)$numero, (float)$divisore);
+        if ($number === null || $divisor === null) {
+            throw new \ArgumentCountError(__METHOD__.'(): both $number and $divisor are required');
+        }
+        if (! is_int($number) && ! is_float($number)) {
+            throw new \TypeError(__METHOD__.'(): $number must be of type int|float, '.get_debug_type($number).' given');
+        }
+        if (! is_int($divisor) && ! is_float($divisor)) {
+            throw new \TypeError(__METHOD__.'(): $divisor must be of type int|float, '.get_debug_type($divisor).' given');
+        }
 
-        // fmod può restituire un valore prossimo a $divisore invece di 0
-        // quindi normalizziamo il resto nel range [0, |divisore|)
-        $restNorm = abs($resto);
-        $divAbs   = abs((float)$divisore);
+        if ($divisor == 0) {
+            throw new \InvalidArgumentException('The divisor cannot be zero.');
+        }
 
-        // Scala epsilon rispetto alla grandezza dei numeri in gioco
-        $tolerance = $epsilon * max(abs((float)$numero), $divAbs);
+        if (is_int($number) && is_int($divisor)) {
+            return $number % $divisor === 0;
+        }
 
-        return $restNorm < $tolerance || abs($restNorm - $divAbs) < $tolerance;
+        $remainder = fmod((float)$number, (float)$divisor);
+
+        // fmod may return a value close to $divisor instead of 0,
+        // so normalize the remainder into the range [0, |divisor|)
+        $remainderAbs = abs($remainder);
+        $divAbs   = abs((float)$divisor);
+
+        // Scale epsilon to the magnitude of the numbers involved
+        $tolerance = $epsilon * max(abs((float)$number), $divAbs);
+
+        return $remainderAbs < $tolerance || abs($remainderAbs - $divAbs) < $tolerance;
     }
 }

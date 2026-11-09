@@ -11,9 +11,9 @@ class ValidFluxIcon implements ValidationRule
     {
         $exists = Cache::remember("flux_icon_exists_{$value}", now()->addHour(), function () use ($value) {
             $paths = [
-                // Icone Heroicons bundled di default con Flux
+                // Heroicons bundled with Flux by default
                 base_path("vendor/livewire/flux/stubs/resources/views/flux/icon/{$value}.blade.php"),
-                // Icone custom/Lucide importate nel progetto
+                // Custom/Lucide icons imported into the project
                 resource_path("views/flux/icon/{$value}.blade.php"),
             ];
 

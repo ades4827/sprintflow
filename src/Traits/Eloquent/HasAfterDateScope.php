@@ -19,7 +19,7 @@ trait HasAfterDateScope
             $q->whereDate('created_at', '>=', $date)
                 ->orWhereDate('updated_at', '>=', $date);
 
-            // Controlla se il model usa SoftDeletes
+            // Check whether the model uses SoftDeletes
             if (in_array(SoftDeletes::class, class_uses_recursive($this))) {
                 $q->orWhereDate('deleted_at', '>=', $date);
             }

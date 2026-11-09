@@ -11,8 +11,8 @@ class TrimCast implements CastsAttributes
 
     public function __construct(?string $option = null)
     {
-        // Il cast ritorna la stringa con il trim oppure null
-        // se utilizzato come segue mantiene il valore originale (stringa o null che sia)
+        // The cast returns the trimmed string, or null when it is empty.
+        // With the ':empty' option an empty string is kept as is instead of becoming null:
         // protected $casts = [
         //        'name' => TrimCast::class.':empty',
         //        'surname' => TrimCast::class,

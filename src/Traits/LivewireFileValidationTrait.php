@@ -51,7 +51,7 @@ trait LivewireFileValidationTrait
      * - valid_extensions: ['.doc', '.pdf', '.xls']
      * - valid_types: ['Imagine', 'PDF', 'File Excel']
      * - mime_types: ['image/png', 'image/jpg', 'image/jpeg']
-     * - error_message: 'Stai caricando un file di tipo errato'
+     * - error_message: 'You are uploading a file of the wrong type'
      * - error_prefered: 'generic' | 'extension' | 'type'
      * - mime_groups: ['image', 'image_extended', 'pdf', 'zip', 'xls', 'ppt', 'doc']
      *

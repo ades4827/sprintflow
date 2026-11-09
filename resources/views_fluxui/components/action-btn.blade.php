@@ -1,7 +1,7 @@
 @props([
-    'action' => 'submit', // azione Livewire da lanciare
-    'label' => __('sprintflow::view.save'),    // testo del bottone
-    'icon' => 'save', // icona di default
+    'action' => 'submit', // Livewire action to call
+    'label' => __('sprintflow::view.save'),    // button label
+    'icon' => 'save', // default icon
     'disabled' => false,
 ])
 <flux:button

@@ -1,9 +1,9 @@
 @props([
-    'action' => 'submit', // azione Livewire da lanciare
-    'label' => __('sprintflow::view.save'),    // testo del bottone
-    'icon' => 'fa-solid fa-floppy-disk', // icona di default
-    'icon_loading' => 'fa-solid fa-spinner fa-spin-pulse', // icona di default
-    'class' => 'btn btn-primary', // classe CSS base
+    'action' => 'submit', // Livewire action to call
+    'label' => __('sprintflow::view.save'),    // button label
+    'icon' => 'fa-solid fa-floppy-disk', // default icon
+    'icon_loading' => 'fa-solid fa-spinner fa-spin-pulse', // default loading icon
+    'class' => 'btn btn-primary', // base CSS class
     'disabled' => false,
 ])
 <button

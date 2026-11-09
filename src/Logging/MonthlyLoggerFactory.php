@@ -8,7 +8,7 @@ use Monolog\Formatter\LineFormatter;
 class MonthlyLoggerFactory
 {
     /**
-     * Laravel invoca la classe come callable passando la config del canale.
+     * Laravel invokes the class as a callable, passing the channel config.
      *
      * @param  array  $config
      * @return \Monolog\Logger
@@ -17,19 +17,19 @@ class MonthlyLoggerFactory
     {
         $path = $config['path'] ?? storage_path('logs/laravel.log');
         $level = $config['level'] ?? 'debug';
-        // days qui lo interpretiamo come "numero di mesi da mantenere"
+        // here "days" is interpreted as "number of months to keep"
         $maxFiles = $config['days'] ?? 12;
 
-        $logger = new Logger($config['tap_name'] ?? 'monthly'); // nome qualsiasi
+        $logger = new Logger($config['tap_name'] ?? 'monthly'); // any name
 
-        // costruiamo il handler personalizzato
+        // build the custom handler
         $handler = new MonthlyRotatingFileHandler(
             $path,
             (int) $maxFiles,
             Logger::toMonologLevel($level)
         );
 
-        // (opzionale) formato pulito simile al default di Laravel
+        // (optional) clean format similar to Laravel's default
         $formatter = new LineFormatter(null, null, true, true);
         $handler->setFormatter($formatter);
 
