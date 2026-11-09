@@ -42,7 +42,7 @@ trait LivewireMediaTrait
         }
     }
     */
-    public function removeMediaItem(int $id, int $model_id, string $collection_name = null)
+    public function removeMediaItem(int $id, int $model_id, ?string $collection_name = null)
     {
         try {
             Log::info('Remove media id: '. $id.' model id: '.$model_id.' model collection name: '.$collection_name.' from user id:'.auth()->user()->id);

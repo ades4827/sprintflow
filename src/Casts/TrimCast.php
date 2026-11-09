@@ -9,7 +9,7 @@ class TrimCast implements CastsAttributes
 {
     protected bool $keepEmptyString;
 
-    public function __construct(string $option = null)
+    public function __construct(?string $option = null)
     {
         // Il cast ritorna la stringa con il trim oppure null
         // se utilizzato come segue mantiene il valore originale (stringa o null che sia)

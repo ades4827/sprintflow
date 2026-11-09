@@ -30,12 +30,12 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
         });
     }
 
-    public function addFormattedName(string $relation = null)
+    public function addFormattedName(?string $relation = null)
     {
         return $this->addFormattedField('name', $relation);
     }
 
-    public function addBoolean(string $model_field, string $false_fallback = null)
+    public function addBoolean(string $model_field, ?string $false_fallback = null)
     {
         return $this->addColumn($model_field.'_formatted', function ($model) use ($model_field, $false_fallback) {
             return view('sprintflow::datatable.fields.generic-boolean', ['value' => $model->{$model_field}, 'false_fallback' => $false_fallback]);
@@ -56,7 +56,7 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
         });
     }
 
-    public function addPeriod(string $from_field, string $to_field, string $format = 'Y-m-d', string $separator = ' / ', string $col_name = null)
+    public function addPeriod(string $from_field, string $to_field, string $format = 'Y-m-d', string $separator = ' / ', ?string $col_name = null)
     {
         if($col_name == null) {
             $col_name = $from_field.'_'.$to_field.'_period_formatted';
@@ -72,7 +72,7 @@ class EloquentDataTable extends \Yajra\DataTables\EloquentDataTable
         });
     }
 
-    public function addFormattedField(string $model_field = 'name', string $relation = null)
+    public function addFormattedField(string $model_field = 'name', ?string $relation = null)
     {
         $column_name = [];
         if ($relation) {
