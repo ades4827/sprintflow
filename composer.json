@@ -2,7 +2,7 @@
     "name": "ades4827/sprintflow",
     "description": "Laravel Package for speed up your project development",
     "homepage": "https://github.com/ades4827/sprintflow",
-    "license": "GPL-2.0-or-later",
+    "license": "MIT",
     "type": "library",
     "authors": [
         {
