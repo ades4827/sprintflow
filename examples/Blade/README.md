@@ -131,7 +131,7 @@ To purge the classes used by the package, add the following lines to your purge 
 module.exports = {
   purge: {
     content: [
-      './vendor/ades4827/sprintflow/resources/views/**/*.php',
+      './vendor/ades4827/sprintflow/resources/**/*.php',
       './storage/framework/views/*.php',
       './resources/views/**/*.blade.php',
     ],
