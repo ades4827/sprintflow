@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Only significant changes are listed; patch releases with minor fixes only are omitted
 (see the git history for the full list).
 
+## [5.6.19] - 2026-11-10
+
+### Fixed
+
+- Small layout fix for action btn
+
 ## [5.6.18] - 2026-11-09
 
 ### Changed
@@ -364,59 +370,3 @@ Only significant changes are listed; patch releases with minor fixes only are om
 ### Added
 
 - Initial release.
-
-[Unreleased]: https://github.com/ades4827/sprintflow/compare/5.6.18...HEAD
-[5.6.18]: https://github.com/ades4827/sprintflow/compare/5.6.17...5.6.18
-[5.6.17]: https://github.com/ades4827/sprintflow/compare/5.6.16...5.6.17
-[5.6.16]: https://github.com/ades4827/sprintflow/compare/5.6.15...5.6.16
-[5.6.15]: https://github.com/ades4827/sprintflow/compare/5.6.14...5.6.15
-[5.6.14]: https://github.com/ades4827/sprintflow/compare/5.6.13...5.6.14
-[5.6.13]: https://github.com/ades4827/sprintflow/compare/5.6.11...5.6.13
-[5.6.11]: https://github.com/ades4827/sprintflow/compare/5.6.9...5.6.11
-[5.6.9]: https://github.com/ades4827/sprintflow/compare/5.6.7...5.6.9
-[5.6.7]: https://github.com/ades4827/sprintflow/compare/5.4.6...5.6.7
-[5.4.6]: https://github.com/ades4827/sprintflow/compare/5.4.5...5.4.6
-[5.4.5]: https://github.com/ades4827/sprintflow/compare/5.4.4...5.4.5
-[5.4.4]: https://github.com/ades4827/sprintflow/compare/5.4.3...5.4.4
-[5.4.3]: https://github.com/ades4827/sprintflow/compare/5.4.1...5.4.3
-[5.4.1]: https://github.com/ades4827/sprintflow/compare/5.4.0...5.4.1
-[5.4.0]: https://github.com/ades4827/sprintflow/compare/5.3.8...5.4.0
-[5.3.8]: https://github.com/ades4827/sprintflow/compare/5.3.7...5.3.8
-[5.3.7]: https://github.com/ades4827/sprintflow/compare/5.3.6...5.3.7
-[5.3.6]: https://github.com/ades4827/sprintflow/compare/5.3.5...5.3.6
-[5.3.5]: https://github.com/ades4827/sprintflow/compare/5.3.3...5.3.5
-[5.3.3]: https://github.com/ades4827/sprintflow/compare/5.3.2...5.3.3
-[5.3.2]: https://github.com/ades4827/sprintflow/compare/5.3.1...5.3.2
-[5.3.1]: https://github.com/ades4827/sprintflow/compare/5.3.0...5.3.1
-[5.3.0]: https://github.com/ades4827/sprintflow/compare/5.2.11...5.3.0
-[5.2.11]: https://github.com/ades4827/sprintflow/compare/5.2.8...5.2.11
-[5.2.8]: https://github.com/ades4827/sprintflow/compare/5.2.7...5.2.8
-[5.2.7]: https://github.com/ades4827/sprintflow/compare/5.2.4...5.2.7
-[5.2.4]: https://github.com/ades4827/sprintflow/compare/5.2.3...5.2.4
-[5.2.3]: https://github.com/ades4827/sprintflow/compare/5.2.2...5.2.3
-[5.2.2]: https://github.com/ades4827/sprintflow/compare/5.2.1...5.2.2
-[5.2.1]: https://github.com/ades4827/sprintflow/compare/5.2.0...5.2.1
-[5.2.0]: https://github.com/ades4827/sprintflow/compare/5.1.5...5.2.0
-[5.1.5]: https://github.com/ades4827/sprintflow/compare/5.1.4...5.1.5
-[5.1.4]: https://github.com/ades4827/sprintflow/compare/5.1.1...5.1.4
-[5.1.1]: https://github.com/ades4827/sprintflow/compare/5.1.0...5.1.1
-[5.1.0]: https://github.com/ades4827/sprintflow/compare/5.0.6...5.1.0
-[5.0.6]: https://github.com/ades4827/sprintflow/compare/5.0.0...5.0.6
-[5.0.0]: https://github.com/ades4827/sprintflow/compare/4.1.21...5.0.0
-[4.1.21]: https://github.com/ades4827/sprintflow/compare/4.1.20...4.1.21
-[4.1.20]: https://github.com/ades4827/sprintflow/compare/4.1.16...4.1.20
-[4.1.16]: https://github.com/ades4827/sprintflow/compare/4.1.14...4.1.16
-[4.1.14]: https://github.com/ades4827/sprintflow/compare/4.1.12...4.1.14
-[4.1.12]: https://github.com/ades4827/sprintflow/compare/4.1.1...4.1.12
-[4.1.1]: https://github.com/ades4827/sprintflow/compare/4.1.0...4.1.1
-[4.1.0]: https://github.com/ades4827/sprintflow/compare/4.0.11...4.1.0
-[4.0.11]: https://github.com/ades4827/sprintflow/compare/4.0.8...4.0.11
-[4.0.8]: https://github.com/ades4827/sprintflow/compare/4.0.7...4.0.8
-[4.0.7]: https://github.com/ades4827/sprintflow/compare/4.0.0...4.0.7
-[4.0.0]: https://github.com/ades4827/sprintflow/compare/3.2.0...4.0.0
-[3.2.0]: https://github.com/ades4827/sprintflow/compare/3.1.2...3.2.0
-[3.1.2]: https://github.com/ades4827/sprintflow/compare/3.1.1...3.1.2
-[3.1.1]: https://github.com/ades4827/sprintflow/compare/3.1.0...3.1.1
-[3.1.0]: https://github.com/ades4827/sprintflow/compare/3.0.28...3.1.0
-[3.0.28]: https://github.com/ades4827/sprintflow/compare/1.0.0...3.0.28
-[1.0.0]: https://github.com/ades4827/sprintflow/releases/tag/1.0.0
