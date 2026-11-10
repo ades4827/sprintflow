@@ -13,7 +13,17 @@
 		@if($disabled) disabled="disabled" @endif
 >
 	<div class="block sm:hidden">
-		<span wire:loading.delay.remove>@if($icon)<i class="{{ $icon }}"></i>@endif{{ $label }}</span>
+		<span wire:loading.delay.remove>
+            @if($icon)
+                <i class="{{ $icon }}"></i>
+            @endif
+            @if($label)
+                <div class="inline-block ml-1">
+                    <span wire:loading.delay.remove>{{ $label }}</span>
+                    <span wire:loading.delay>{{ __('sprintflow::view.wait') }}...</span>
+                </div>
+            @endif
+        </span>
 		@if($icon_loading)
 			<i wire:loading.delay class="{{ $icon_loading }}"></i>
 		@endif
