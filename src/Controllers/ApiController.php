@@ -6,7 +6,6 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
-use Exception;
 
 class ApiController extends Controller
 {
@@ -346,13 +345,9 @@ class ApiController extends Controller
     protected function checkPermissions($permissions, $guard = '')
     {
         if (! auth()->guard($guard)->user() ) {
-            throw new Exception('User not logged in', 401);
+            abort(401, 'User not logged in');
         } elseif (! auth()->guard($guard)->user()->canAny($permissions)) {
-            if(is_array($permissions)) {
-                throw new Exception('User without '.implode(', ', $permissions).' permissions');
-            } else {
-                throw new Exception('User without '.$permissions.' permission');
-            }
+            abort(403, 'User without '.implode(', ', (array) $permissions).' permission');
         }
     }
 }
