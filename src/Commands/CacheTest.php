@@ -4,16 +4,18 @@ namespace Ades4827\Sprintflow\Commands;
 
 use Faker\Factory;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use function Laravel\Prompts\select;
 
 /**
  * Class CacheTest
  *
  * @package App\Console\Commands
  */
-class CacheTest extends Command
+class CacheTest extends Command implements PromptsForMissingInput
 {
 
     /**
@@ -49,6 +51,20 @@ class CacheTest extends Command
      * @var int
      */
     protected $runs = 1000;
+
+    /**
+     * Without the driver argument, pick one of the configured cache stores.
+     */
+    protected function promptForMissingArgumentsUsing(): array
+    {
+        return [
+            'driver' => fn () => select(
+                label: 'Which cache driver do you want to test?',
+                options: array_keys(config('cache.stores')),
+                default: config('cache.default'),
+            ),
+        ];
+    }
 
     /**
      * @throws \Exception

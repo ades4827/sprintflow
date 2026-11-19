@@ -34,7 +34,9 @@ class CommandPicker extends Command
     public function handle(): int
     {
         $projectCommands = collect(Artisan::all())
-            ->filter(fn ($command, $name) => $command::class !== self::class && (
+            ->filter(fn ($command, $name) => $command::class !== self::class
+                // Artisan::all() also lists aliases (e.g. pr): keep only the full name
+                && $name === $command->getName() && (
                 $name === 'optimize:clear'
                 || str_starts_with($command::class, 'App\\Console\\Commands\\')
                 || str_starts_with($command::class, 'Ades4827\\Sprintflow\\Commands\\')

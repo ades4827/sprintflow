@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Only significant changes are listed; patch releases with minor fixes only are omitted
 (see the git history for the full list).
 
+## [5.6.21] - 2026-11-19
+
+### Added
+
+- `cache:test` lets you pick the driver from the configured cache stores when it is missing
+
+### Changed
+
+- `ApiController::checkPermissions()` responds 401/403 instead of 500
+
+### Security
+
+- Documented that the default `FileAccessController` lets any logged-in user access any media
+
 ## [5.6.20] - 2026-11-19
 
 ### Added
