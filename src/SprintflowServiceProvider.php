@@ -3,6 +3,7 @@
 namespace Ades4827\Sprintflow;
 
 use Ades4827\Sprintflow\Commands\CacheTest;
+use Ades4827\Sprintflow\Commands\CommandPicker;
 use Ades4827\Sprintflow\Commands\PermissionRefresh;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -90,6 +91,7 @@ class SprintflowServiceProvider extends ServiceProvider
             // Registering package commands.
             $this->commands([
                 PermissionRefresh::class,
+                CommandPicker::class,
                 CacheTest::class,
             ]);
         }

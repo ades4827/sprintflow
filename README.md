@@ -1,6 +1,6 @@
 # SprintFlow
 
-Laravel Package for speed up your project development
+Laravel package to speed up your project development: ready-made models, permissions, CRUD, datatables, media handling and Livewire components.
 
 ## Version Compatibility
 
@@ -13,20 +13,31 @@ Laravel Package for speed up your project development
 | 12.x    | 4.x      | 5.x        |
 | 13.x    | 4.x      | 5.x        |
 
+SprintFlow 5.x requires PHP 8.3+.
+
 ## Installation
 
-You can install the package via composer:
+Install the package via composer:
 
 ```bash
 composer require ades4827/sprintflow
 ```
 
-when used in tailwind is required to add this in config to load correct css class
-```
-// version 4
-@source '../../vendor/ades4827/sprintflow/resources/**/*.php';
+The service provider and the `Sprintflow` facade are auto-discovered.
 
-// version 3
+### Tailwind
+
+The package views use Tailwind classes, so Tailwind must scan them.
+
+Tailwind v4 (in your CSS file):
+
+```css
+@source '../../vendor/ades4827/sprintflow/resources/**/*.php';
+```
+
+Tailwind v3 (`tailwind.config.js`):
+
+```js
 module.exports = {
     content: [
         "./vendor/ades4827/sprintflow/resources/**/*.php",
@@ -34,7 +45,7 @@ module.exports = {
 }
 ```
 
-For customization, you can publish with:
+### Publishing
 
 ```bash
 php artisan vendor:publish --tag=sprintflow-config
@@ -42,43 +53,77 @@ php artisan vendor:publish --tag=sprintflow-views
 php artisan vendor:publish --tag=sprintflow-lang
 ```
 
-### Changelog
+### UI kits
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Views are loaded under the `sprintflow` namespace. Extra view namespaces are registered automatically when the matching UI kit is installed:
 
-## General Features
+| Package          | View namespace      |
+|:-----------------|:--------------------|
+| `livewire/flux`  | `sprintflow_fluxui` |
+| `wireui/wireui`  | `sprintflow_wireui` |
+
+### Optional dependencies
+
+Some features need extra packages. Install only what you use:
+
+| Package                            | Needed for                                                                 |
+|:-----------------------------------|:---------------------------------------------------------------------------|
+| `spatie/laravel-medialibrary`      | Media routes, `FileAccessController`, `LivewireMediaTrait`, `CustomUrlGenerator` |
+| `carlos-meneses/laravel-mpdf`      | `ToPdfTrait` (PDF generation)                                              |
+| `maatwebsite/excel`                | `ExcelHelper`                                                              |
+| `propaganistas/laravel-phone`      | `LivewirePhonesTrait`                                                      |
+| `laravel/sanctum`                  | `Models\User` (`HasApiTokens`)                                             |
+| `rappasoft/laravel-authentication-log` | `Models\User` (`AuthenticationLoggable`)                               |
+| `wildside/userstamps`              | `Models\User` (`Userstamps`)                                               |
+| `mattiverse/laravel-userstamps`    | `MultiguardUserstamps`                                                     |
+| `fakerphp/faker`                   | `cache:test` command                                                       |
+
+## Features
+
+### General
 
 - [Models](examples/Models/README.md)
-- Blade utils [See usage example](examples/Blade/README.md)
-- Ready to use [Casts](src/Casts)
-- API generator for WireUi select [See usage example](examples/API/README.md)
-- Permission management [See usage example](examples/Permission/README.md)
-- Crud system [See usage example](examples/Crud/README.md)
-- Datatable extension [See usage example](examples/Datatable/README.md)
-- Log Monthly rotate [See usage example](examples/LogRotate/README.md)
-- Make PDF from blade [See usage example](examples/ToPDF/README.md)
+- [Blade utils](examples/Blade/README.md)
+- Ready to use [Casts](src/Casts) (`DateCast`, `TrimCast`, `YesBooleanCast`)
+- [API generator for WireUi select](examples/API/README.md)
+- [Permission management](examples/Permission/README.md)
+- [CRUD system](examples/Crud/README.md)
+- [Datatable extension](examples/Datatable/README.md)
+- [Monthly log rotation](examples/LogRotate/README.md)
+- [PDF from Blade](examples/ToPDF/README.md)
 
-## Livewire Features
+### Livewire
 
-- Livewire validation for file upload [See usage example](examples/LivewireFileValidationTrait/README.md)
-- Settings component [See usage example](examples/Setting/README.md)
-- Livewire components [See usage example](examples/LivewireComponents/README.md)
-- Media serve routing [See usage example](examples/Media/README.md)
-- Livewire Media upload [See usage example](examples/LivewireUpload/README.md)
+- [File upload validation](examples/LivewireFileValidationTrait/README.md)
+- [Settings component](examples/Setting/README.md)
+- [Livewire components](examples/LivewireComponents/README.md)
+- [Media serve routing](examples/Media/README.md)
+- [Media upload](examples/LivewireUpload/README.md)
 
+## Artisan Commands
+
+| Command                    | Alias | Description                                              |
+|:---------------------------|:------|:---------------------------------------------------------|
+| `permission:refresh`       | `pr`  | Sync roles/permissions from `config/sprintflow.php`      |
+| `app:command-picker`       | `cp`  | List the project commands and run the selected one       |
+| `cache:test {driver}`      |       | Benchmark a cache driver (microseconds, lower is better) |
+
+## Changelog
+
+See [CHANGELOG](CHANGELOG.md) for what has changed recently.
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+See [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-### Security
+## Security
 
-If you discover any security related issues, please email michele@lucchina.com instead of using the issue tracker.
+If you discover a security issue, please email michele@lucchina.com instead of using the issue tracker.
 
 ## Credits
 
--   [Michele Lucchina](https://github.com/ades4827)
+- [Michele Lucchina](https://github.com/ades4827)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The MIT License (MIT). See [License File](LICENSE) for more information.

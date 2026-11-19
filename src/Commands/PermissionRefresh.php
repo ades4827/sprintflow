@@ -15,6 +15,11 @@ class PermissionRefresh extends Command
     protected $signature = 'permission:refresh';
 
     /**
+     * @var array<int, string>
+     */
+    protected $aliases = ['pr'];
+
+    /**
      * The console command description.
      *
      * @var string

@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Only significant changes are listed; patch releases with minor fixes only are omitted
 (see the git history for the full list).
 
+## [5.6.20] - 2026-11-19
+
+### Added
+
+- Command picker: List the project commands and run the selected one
+
 ## [5.6.19] - 2026-11-10
 
 ### Fixed
