@@ -14,7 +14,23 @@ Configurare la sezione media nelle config
 ]
 ```
 
+## ⚠️ Sicurezza: permessi di default
+
+Senza personalizzazione il `FileAccessController` controlla **solo che ci sia un utente loggato** (guard `web` o `admin`).
+Qualsiasi utente autenticato può quindi scaricare o visualizzare **qualsiasi** Media, anche se appartiene ad altri utenti
+o è riservato agli admin.
+
+- Con `'find_method' => 'id'` gli id sono sequenziali e facilmente enumerabili: **usare sempre `uuid`** se non si definisce `verifyPermission()`.
+- Anche con `uuid`, chiunque sia loggato e conosca (o riceva) un link può aprire il file.
+
+Se i file non sono pubblici per tutti gli utenti loggati, **è obbligatorio** definire `verifyPermission()`
+in un controller personalizzato (vedi sotto) e verificare che l'utente abbia diritto a quel Media specifico
+(es. proprietario del model collegato, ruolo, permesso).
+
 ## Personalizzazione dei permessi
+
+`verifyPermission()` sostituisce completamente il controllo di default: se definito, il controllo "utente loggato"
+non viene più eseguito, quindi deve includerlo se necessario.
 
 Creare un controller di accesso personalizzato come da esempio da richiamare nelle config
 
@@ -23,12 +39,20 @@ Creare un controller di accesso personalizzato come da esempio da richiamare nel
 
 namespace App\Http\Controllers;
 
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 class FileAccessController extends \Ades4827\Sprintflow\Controllers\FileAccessController
 {
     public function verifyPermission(string $method, Media $media) {
-        // custom additional permission
-        if (!auth('admin')->user()) {
-            abort('403');
+        // admin: accesso completo
+        if (auth('admin')->user()) {
+            return;
+        }
+
+        // utente: solo i Media dei propri model (adattare alla relazione reale)
+        $user = auth()->user();
+        if (! $user || $media->model?->user_id !== $user->id) {
+            abort(403);
         }
     }
 }

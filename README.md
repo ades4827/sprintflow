@@ -97,7 +97,7 @@ Some features need extra packages. Install only what you use:
 - [File upload validation](examples/LivewireFileValidationTrait/README.md)
 - [Settings component](examples/Setting/README.md)
 - [Livewire components](examples/LivewireComponents/README.md)
-- [Media serve routing](examples/Media/README.md)
+- [Media serve routing](examples/Media/README.md) — ⚠️ by default any logged-in user can access any media: define `verifyPermission()` (see the guide)
 - [Media upload](examples/LivewireUpload/README.md)
 
 ## Artisan Commands
